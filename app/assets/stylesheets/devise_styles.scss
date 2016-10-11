@@ -1,0 +1,76 @@
+// General styles
+
+.devise-header {
+  margin-top: 5%;
+  text-align: center;
+
+  img {
+    width: 140px;
+  }
+}
+
+// Login and register form
+
+.devise-form-auth-register {
+  width: 350px;
+  margin: auto;
+
+  button {
+    width: 100%;
+    box-shadow: none !important;
+  }
+
+  .notices {
+    background-color: #fcdede;
+    border: 1px solid #911;
+    border-radius: 2px;
+    padding: 5px;
+    margin: 0px 10px;
+
+    p {
+      text-align: center;
+      color: #911;
+    }
+
+  }
+
+}
+
+// Edit account info form
+
+.user-avatar {
+  padding: 20px 0px;
+
+  img {
+    max-height: 300px;
+    max-width: 300px;
+  }
+
+}
+
+.user-attrs {
+  padding-left: 40px;
+  padding-right: 20px;
+  border-left: 1px solid #c0c0c0;
+}
+
+.active-submit {
+  background-color: red;
+}
+
+#cancel-avatar {
+  margin-right: 10px;
+}
+
+@media (max-width: 900px) {
+
+  .row {
+    display: block !important;
+  }
+
+  .user-attrs {
+    padding: 20px;
+    border-left: 0px;
+  }
+
+}

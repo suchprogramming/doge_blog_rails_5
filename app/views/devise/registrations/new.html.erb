@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col s12">
+
+    <div class="section">
+      <%= render 'register_header' %>
+    </div>
+
+    <div class="section">
+      <div class="card devise-form-auth-register">
+        <div class="card-content">
+
+          <div class="row">
+            <%= render "new_registration_form" %>
+          </div>
+
+          <div class="row">
+            <div class="center-align">
+              <%= link_to "Already signed up? Sign in", new_user_session_path %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

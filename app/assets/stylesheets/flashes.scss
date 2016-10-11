@@ -1,0 +1,19 @@
+.flash-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .alert-notice {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #81c784;
+    color: white;
+  }
+
+  .alert-alert {
+
+  }
+
+}
