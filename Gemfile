@@ -14,6 +14,8 @@ gem "paperclip", "~> 5.0.0"
 gem 'lodash-rails'
 gem "capybara"
 gem 'factory_girl_rails'
+gem 'figaro'
+gem 'aws-sdk', '~> 2'
 
 group :development, :test do
   gem 'pry'
