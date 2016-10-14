@@ -2,6 +2,7 @@
 @import "devise_styles";
 @import "forms";
 @import "flashes";
+@import "posts";
 
 /* Remove chrome yellow input fill */
 input:-webkit-autofill,
@@ -11,8 +12,41 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.valign {
+.flex-valign-center {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.no-bottom-margin {
+  margin-bottom: 0px;
+}
+
+.content-top-spacer {
+  margin-top: 40px;
+}
+
+@media only screen and (min-width: 0px) {
+
+  .resp-image {
+    height: 50px;
+  }
+
+}
+
+@media only screen and (min-width: 992px) {
+
+  .resp-image {
+    height: 75px;
+  }
+
 }

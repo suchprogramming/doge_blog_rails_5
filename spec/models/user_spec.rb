@@ -1,3 +1,5 @@
+require "rails_helper"
+
 RSpec.describe User, type: :model do
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:password) }
@@ -5,4 +7,6 @@ RSpec.describe User, type: :model do
   it { should validate_attachment_content_type(:avatar).
                 allowing('image/png', 'image/gif').
                 rejecting('text/plain', 'text/xml') }
+
+  it { should have_many(:posts) }
 end
