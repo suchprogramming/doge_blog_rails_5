@@ -3,17 +3,23 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+}
 
-  .alert-notice {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    background-color: #81c784;
-    color: white;
-  }
+.alert {
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 15px;
+}
 
-  .alert-alert {
+.success {
+  background-color: #81c784;
+}
 
-  }
+.angry {
 
+}
+
+.notice {
+  background-color: #00ccff;
 }
