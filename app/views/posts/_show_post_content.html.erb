@@ -1,0 +1,14 @@
+<div class="col s12">
+
+  <div class="show-post-text">
+    <p><%= @post.post_content %></p>
+  </div>
+
+  <% if current_user %>
+    <div class="show-post-controls">
+      <%= render "show_delete_modal" %>
+      <%= link_to "Edit", edit_user_post_path(current_user, @post), class: "waves-effect waves-light btn" %>
+    </div>
+  <% end %>
+
+</div>

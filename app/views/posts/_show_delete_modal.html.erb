@@ -1,0 +1,26 @@
+<!-- Modal Trigger -->
+<a class="waves-effect waves-light btn modal-trigger red" href="#show-post-delete">Delete</a>
+
+<!-- Modal Structure -->
+<div id="show-post-delete" class="modal">
+  <div class="modal-content">
+    <h4>Are you sure you want to delete your post?</h4>
+  </div>
+  <div class="modal-footer">
+    <%= link_to "Delete",
+      user_post_path(current_user, @post),
+      class: "waves-effect waves-light btn-flat red-text",
+      method: :delete,
+      id: "delete-post-#{@post.id}"
+    %>
+    <a class=" modal-action modal-close waves-effect btn-flat green-text">Close</a>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.modal-trigger').leanModal();
+    });
+  </script>
+<% end %>

@@ -1,0 +1,33 @@
+<div class="row no-bottom-margin">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content">
+
+        <div class="row no-bottom-margin flex-center">
+
+          <div class="col s3 m2">
+            <div class="post-avatar flex-valign-center">
+              <%= image_tag post.user.avatar, class: "resp-image" %>
+            </div>
+          </div>
+
+          <div class="col s6 m8">
+            <div class="post-info">
+              <h5><%= link_to post.title, post_path(post) %></h5>
+              <h6>By <%= post.user.email %></h6>
+              <h6><%= post.created_at.strftime("%B %d, %Y") %></h6>
+            </div>
+          </div>
+
+          <div class="col s3 m2">
+            <div class="post-score center-align">
+              <h4>44</h4>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

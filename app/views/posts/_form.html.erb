@@ -1,0 +1,27 @@
+<%= form_for [current_user, @post] do |f| %>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: field_class(@post, :title) %>
+      <p class="error-text"><%= show_errors(@post, :title) %></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :post_content %>
+      <%= f.text_area :post_content, class: "materialize-textarea #{field_class(@post, :post_content)}" %>
+      <p class="error-text"><%= show_errors(@post, :post_content) %></p>
+    </div>
+  </div>
+
+  <div class="row no-bottom-margin">
+    <div class="col s12">
+      <button class="btn waves-effect waves-light" type="submit" name="action">
+        Submit
+      </button>
+    </div>
+  </div>
+
+<% end %>
