@@ -16,6 +16,7 @@ gem "capybara"
 gem 'factory_girl_rails'
 gem 'figaro'
 gem 'aws-sdk', '~> 2'
+gem "pundit"
 
 group :development, :test do
   gem 'pry'

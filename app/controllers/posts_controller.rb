@@ -6,7 +6,8 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
+    @post = Post.new(user_id: params[:user_id])
+    authorize @post
   end
 
   def show
@@ -15,9 +16,9 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
+    authorize @post
     if @post.save
-      flash[:success] = "Your new post has been created!"
-      redirect_to post_path(@post)
+      redirect_to post_path(@post), success: "Your new post has been created!"
     else
       render :new
     end
@@ -25,13 +26,14 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    authorize @post
   end
 
   def update
     @post = Post.find(params[:id])
+    authorize @post
     if @post.update(post_params)
-      flash[:success] = "Post successfully updated!"
-      redirect_to post_path(@post)
+      redirect_to post_path(@post), success: "Post successfully updated!"
     else
       render :edit
     end
@@ -39,12 +41,11 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
+    authorize @post
     if @post.destroy
-      flash[:success] = "Post successfully deleted!"
-      redirect_to root_path
+      redirect_to root_path, success: "Post successfully deleted!"
     else
-      flash[:danger] = "Not so fast!"
-      redirect_to root_path
+      redirect_to root_path, alert: "An error has occured!"
     end
   end
 
