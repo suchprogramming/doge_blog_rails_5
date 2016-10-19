@@ -4,7 +4,7 @@
     <p><%= @post.post_content %></p>
   </div>
 
-  <% if current_user %>
+  <% if current_user && policy(@post).edit? %>
     <div class="show-post-controls">
       <%= render "show_delete_modal" %>
       <%= link_to "Edit", edit_user_post_path(current_user, @post), class: "waves-effect waves-light btn" %>
