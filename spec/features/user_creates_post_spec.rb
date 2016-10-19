@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.feature "User creates a post", :type => :feature do
 
+  let(:user) { create(:user) }
+
   before(:each) do
-    login_as create(:user), scope: :user
-    visit new_user_post_path(:user)
+    login_as user
+    visit new_user_post_path(user)
   end
 
   scenario "with errors" do

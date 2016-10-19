@@ -5,7 +5,7 @@
   transform: translateX(-50%);
 }
 
-.alert {
+.flash-wrap {
   display: flex;
   align-items: center;
   color: white;
@@ -16,8 +16,8 @@
   background-color: #81c784;
 }
 
-.angry {
-
+.alert {
+  background-color: #911;
 }
 
 .notice {
