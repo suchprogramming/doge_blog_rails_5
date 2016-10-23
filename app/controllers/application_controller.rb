@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  devise_group :any_scope, contains: [:user, :admin]
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -18,5 +19,9 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     redirect_to root_path, alert: "You are not authorized to perform this action."
+  end
+
+  def pundit_user
+    current_user || current_admin
   end
 end
