@@ -4,7 +4,7 @@ describe PostPolicy do
 
   let(:current_user) { create(:user) }
   let(:second_user) { create(:user, email: 'second_user@test.com') }
-  let(:current_user_post) { create(:post, user: current_user) }
+  let(:current_user_post) { create(:post, postable: current_user) }
 
   subject { PostPolicy }
 

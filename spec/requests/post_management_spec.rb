@@ -4,6 +4,7 @@ RSpec.describe "Post management", :type => :request do
 
   let(:current_user) { create(:user) }
   let(:second_user) { create(:user, email: "second_user@test.com") }
+  let(:admin) { create(:admin) }
 
   context "on the POST #index route" do
     it "allows public access to unauthenticated users" do
@@ -16,7 +17,7 @@ RSpec.describe "Post management", :type => :request do
   context "on the POST #show route" do
     it "allows public access to unauthenticated users" do
       post = create(:post)
-      get post_path(post)
+      get user_post_path(post.postable, post)
 
       expect(response).to be_success
     end
@@ -29,8 +30,19 @@ RSpec.describe "Post management", :type => :request do
       expect(response).to redirect_to(new_user_session_path)
     end
 
-    it "redirects unauthorized access" do
-      login_as current_user
+    it "redirects unauthorized user access" do
+      login_as current_user, scope: :user
+
+      get new_user_post_path(second_user)
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include("You are not authorized to perform this action.")
+    end
+
+    it "redirects unauthorized admin access" do
+      login_as admin
 
       get new_user_post_path(second_user)
 
@@ -41,9 +53,16 @@ RSpec.describe "Post management", :type => :request do
     end
 
     it "allows the authenticated current_user access the new route" do
-      login_as current_user
+      login_as current_user, scope: :user
 
       get new_user_post_path(current_user)
+
+      expect(response).to be_success
+    end
+
+    it "allows an admin to access the new route" do
+      login_as admin
+      get new_admin_post_path(admin)
 
       expect(response).to be_success
     end
@@ -57,9 +76,18 @@ RSpec.describe "Post management", :type => :request do
     end
 
     it "allows the authenticated current user to create posts" do
-      login_as current_user
+      login_as current_user, scope: :user
 
       post user_posts_path(current_user), params: { post: { title: "test", post_content: "test" } }
+      follow_redirect!
+
+      expect(response.body).to include("Your new post has been created!")
+    end
+
+    it "allows the authenticated admin to create posts" do
+      login_as admin
+
+      post admin_posts_path(admin), params: { post: { title: "test", post_content: "test" } }
       follow_redirect!
 
       expect(response.body).to include("Your new post has been created!")
@@ -74,8 +102,8 @@ RSpec.describe "Post management", :type => :request do
     end
 
     it "redirects unauthorized requests" do
-      login_as current_user
-      post = create(:post, user: second_user)
+      login_as current_user, scope: :user
+      post = create(:post, postable: second_user)
 
       get edit_user_post_path(second_user, post)
 
@@ -86,10 +114,19 @@ RSpec.describe "Post management", :type => :request do
     end
 
     it "allows the authenticated current_user access to their post on the edit route" do
-      login_as current_user
-      post = create(:post, user: current_user)
+      login_as current_user, scope: :user
+      post = create(:post, postable: current_user)
 
       get edit_user_post_path(current_user, post)
+
+      expect(response).to be_success
+    end
+
+    it "allows an admin to access the edit route for any post" do
+      login_as admin
+      post = create(:post, postable: current_user)
+
+      get edit_user_post_path(post.postable, post)
 
       expect(response).to be_success
     end
@@ -103,8 +140,8 @@ RSpec.describe "Post management", :type => :request do
     end
 
     it "redirects unauthorized requests" do
-      login_as current_user
-      post = create(:post, user: second_user)
+      login_as current_user, scope: :user
+      post = create(:post, postable: second_user)
 
       patch user_post_path(current_user, post), params: { post: { title: "test", post_content: "test" } }
 
@@ -115,12 +152,24 @@ RSpec.describe "Post management", :type => :request do
     end
 
     it "allows the authenticated current_user to update their post" do
-      login_as current_user
-      post = create(:post, user: current_user)
+      login_as current_user, scope: :user
+      post = create(:post, postable: current_user)
 
       patch user_post_path(current_user, post), params: { post: { title: "test", post_content: "test" } }
 
-      expect(response).to redirect_to(post_path(post))
+      expect(response).to redirect_to(user_post_path(current_user, post))
+      follow_redirect!
+
+      expect(response.body).to include("Post successfully updated!")
+    end
+
+    it "allows an admin to edit any users post" do
+      login_as admin
+      post = create(:post)
+
+      patch user_post_path(post.postable, post), params: { post: { title: "test", post_content: "test" } }
+
+      expect(response).to redirect_to(user_post_path(post.postable, post))
       follow_redirect!
 
       expect(response.body).to include("Post successfully updated!")
@@ -135,8 +184,8 @@ RSpec.describe "Post management", :type => :request do
     end
 
     it "redirects unauthorized requests" do
-      login_as current_user
-      post = create(:post, user: second_user)
+      login_as current_user, scope: :user
+      post = create(:post, postable: second_user)
 
       delete user_post_path(current_user, post)
 
@@ -147,10 +196,22 @@ RSpec.describe "Post management", :type => :request do
     end
 
     it "allows the authenticated current_user to delete their post" do
-      login_as current_user
-      post = create(:post, user: current_user)
+      login_as current_user, scope: :user
+      post = create(:post, postable: current_user)
 
       delete user_post_path(current_user, post)
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include("Post successfully deleted!")
+    end
+
+    it "allows an admin to delete any users post" do
+      login_as admin
+      post = create(:post)
+
+      delete user_post_path(post.postable, post)
 
       expect(response).to redirect_to(root_path)
       follow_redirect!

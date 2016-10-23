@@ -11,7 +11,7 @@ RSpec.feature "Unauthenticated user views content", :type => :feature do
   end
 
   scenario "on the posts show page with success" do
-    visit post_path(post)
+    visit user_post_path(post.postable, post)
 
     expect(page).to have_content("Happy Trees")
   end
