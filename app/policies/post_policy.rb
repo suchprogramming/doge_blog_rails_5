@@ -15,10 +15,10 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    create?
+    user.class == Admin || create?
   end
 
   def destroy?
-    create?
+    update?
   end
 end

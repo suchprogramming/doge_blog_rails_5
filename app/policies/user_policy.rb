@@ -7,7 +7,19 @@ class UserPolicy
   end
 
   def index?
-    current_user.admin?
+    current_user.class == Admin
+  end
+
+  def edit?
+    index?
+  end
+
+  def update?
+    index?
+  end
+
+  def destroy?
+    index?
   end
 
   def show?
