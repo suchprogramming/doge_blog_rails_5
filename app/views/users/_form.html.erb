@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="input-field col s12">
+    <%= form_for @user, url: "/admin/users/#{@user.id}", html: { class: "col s12" } do |f| %>
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, class: field_class(@user, :email) %>
+      <p class="error-text"><%= show_errors(@user, :email) %></p>
+
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>

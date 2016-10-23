@@ -1,1 +1,5 @@
 <h3><%= @user.email %></h3>
+
+<% if current_admin %>
+  <%= link_to "Edit Profile", edit_user_path(@user) %>
+<% end %>
