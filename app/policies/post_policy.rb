@@ -11,7 +11,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def create?
-    user.owner?(post)
+    user.polymorphic_owner?(post)
   end
 
   def update?

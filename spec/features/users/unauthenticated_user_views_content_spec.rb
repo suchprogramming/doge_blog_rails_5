@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Unauthenticated user views content", :type => :feature do
 
-  let!(:post) { create(:post) }
+  let!(:post) { create(:post_with_user) }
 
   scenario "on the posts index with success" do
     visit root_path

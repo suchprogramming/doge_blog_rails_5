@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Admin deletes a post", :type => :feature do
 
-  let(:post) { create(:post) }
+  let(:post) { create(:post_with_user) }
 
   scenario "with success" do
     login_as create(:admin)

@@ -16,7 +16,7 @@ RSpec.describe "Post management", :type => :request do
 
   context "on the POST #show route" do
     it "allows public access to unauthenticated users" do
-      post = create(:post)
+      post = create(:post_with_user)
       get user_post_path(post.postable, post)
 
       expect(response).to be_success
@@ -103,7 +103,7 @@ RSpec.describe "Post management", :type => :request do
 
     it "redirects unauthorized requests" do
       login_as current_user, scope: :user
-      post = create(:post, postable: second_user)
+      post = create(:post_with_user, postable: second_user)
 
       get edit_user_post_path(second_user, post)
 
@@ -115,7 +115,7 @@ RSpec.describe "Post management", :type => :request do
 
     it "allows the authenticated current_user access to their post on the edit route" do
       login_as current_user, scope: :user
-      post = create(:post, postable: current_user)
+      post = create(:post_with_user, postable: current_user)
 
       get edit_user_post_path(current_user, post)
 
@@ -124,7 +124,7 @@ RSpec.describe "Post management", :type => :request do
 
     it "allows an admin to access the edit route for any post" do
       login_as admin
-      post = create(:post, postable: current_user)
+      post = create(:post_with_user, postable: current_user)
 
       get edit_user_post_path(post.postable, post)
 
@@ -141,7 +141,7 @@ RSpec.describe "Post management", :type => :request do
 
     it "redirects unauthorized requests" do
       login_as current_user, scope: :user
-      post = create(:post, postable: second_user)
+      post = create(:post_with_user, postable: second_user)
 
       patch user_post_path(current_user, post), params: { post: { title: "test", post_content: "test" } }
 
@@ -153,7 +153,7 @@ RSpec.describe "Post management", :type => :request do
 
     it "allows the authenticated current_user to update their post" do
       login_as current_user, scope: :user
-      post = create(:post, postable: current_user)
+      post = create(:post_with_user, postable: current_user)
 
       patch user_post_path(current_user, post), params: { post: { title: "test", post_content: "test" } }
 
@@ -165,7 +165,7 @@ RSpec.describe "Post management", :type => :request do
 
     it "allows an admin to edit any users post" do
       login_as admin
-      post = create(:post)
+      post = create(:post_with_user)
 
       patch user_post_path(post.postable, post), params: { post: { title: "test", post_content: "test" } }
 
@@ -185,7 +185,7 @@ RSpec.describe "Post management", :type => :request do
 
     it "redirects unauthorized requests" do
       login_as current_user, scope: :user
-      post = create(:post, postable: second_user)
+      post = create(:post_with_user, postable: second_user)
 
       delete user_post_path(current_user, post)
 
@@ -197,7 +197,7 @@ RSpec.describe "Post management", :type => :request do
 
     it "allows the authenticated current_user to delete their post" do
       login_as current_user, scope: :user
-      post = create(:post, postable: current_user)
+      post = create(:post_with_user, postable: current_user)
 
       delete user_post_path(current_user, post)
 
@@ -209,7 +209,7 @@ RSpec.describe "Post management", :type => :request do
 
     it "allows an admin to delete any users post" do
       login_as admin
-      post = create(:post)
+      post = create(:post_with_user)
 
       delete user_post_path(post.postable, post)
 

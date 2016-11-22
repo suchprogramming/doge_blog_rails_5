@@ -1,5 +1,5 @@
 class Admin < ApplicationRecord
-  include ResourceOwnerHelper
+  include PolymorphicResourceHelper
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>", mobile: "50x50>" }, default_url: "/assets/doge-small.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage/

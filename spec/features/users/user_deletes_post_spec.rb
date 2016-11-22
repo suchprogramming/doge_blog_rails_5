@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "User deletes a post", :type => :feature do
 
-  let(:post) { create(:post) }
+  let(:post) { create(:post_with_user) }
   let(:current_user) { create(:user, email: "second_user@email.com") }
 
   scenario "with errors" do

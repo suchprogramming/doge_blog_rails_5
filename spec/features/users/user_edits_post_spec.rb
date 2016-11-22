@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "User edits a post", :type => :feature do
 
   before(:each) do
-    post = create(:post)
+    post = create(:post_with_user)
     login_as post.postable, scope: :user
     visit edit_user_post_path(post.postable, post)
   end

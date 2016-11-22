@@ -1,32 +1,33 @@
 Rails.application.routes.draw do
 
   # Static routes
-  get "/:page" => "static#show"
+  get "/content/:page" => "static#show"
 
   # Site root
   root to: "posts#index"
 
-  # Devise admin routes
+  # Devise Admin routes
   devise_for :admins, controllers: {
     sessions: "admins/sessions",
     passwords: "admins/passwords"
   }
 
-  resources :admins, only: [:show] do
+  # Admin routes for Posts
+  resources :admins, only: [:index, :show] do
     resources :posts
+  end
+
+  # Admin routes for user management
+  scope "admins", as: "admin_manage" do
+    resources :users, only: [:edit, :update, :destroy]
   end
 
   # Devise user routes
   devise_for :users
 
-  # User Posts routes
+  # User routes for Posts
   resources :users, only: [:show] do
     resources :posts
-  end
-
-  # Admin routes for user management
-  scope "admin" do
-    resources :users, only: [:index, :edit, :update, :destroy]
   end
 
 end
