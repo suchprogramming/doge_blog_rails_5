@@ -1,0 +1,18 @@
+<table class="highlight centered">
+  <thead>
+    <tr>
+      <% build_header(safe_user_attrs) %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= table_conditional_render(@users) %>
+  </tbody>
+</table>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).on("click", '.user-row', function(ev) {
+      location.href="/users/" + this.id
+    });
+  </script>
+<% end %>

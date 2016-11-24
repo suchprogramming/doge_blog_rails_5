@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="input-field col s12">
+    <%= form_tag(admin_manage_users_path, method: "get", id: "search-form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search" %>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      var sendQuery = function() {
+        $.get(this.action, $(this).serialize(), null, 'script');
+        return false;
+      };
+
+      $('#search-form').on('keyup', _.debounce(sendQuery, 500))
+
+    });
+  </script>
+<% end %>

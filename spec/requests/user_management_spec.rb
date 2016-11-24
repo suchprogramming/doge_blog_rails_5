@@ -57,14 +57,14 @@ RSpec.describe "User management", :type => :request do
 
   context "on the USER #update route" do
     it "redirects unauthenticated requests" do
-      patch "/admins/users/1", params: { email: "youshould@login.com" }
+      patch admin_manage_user_path(current_user), params: { email: "youshould@login.com" }
 
       expect(response).to redirect_to(new_user_session_path)
     end
 
     it "redirects non admin users" do
       login_as current_user
-      patch "/admins/users/#{current_user.id}", params: { user: { email: "youshould@login.com" } }
+      patch admin_manage_user_path(current_user), params: { user: { email: "youshould@login.com" } }
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
@@ -74,7 +74,7 @@ RSpec.describe "User management", :type => :request do
 
     it "allows admins to edit user accounts" do
       login_as admin
-      patch "/admins/users/#{current_user.id}", params: { user: { email: "updated@email.com" } }
+      patch admin_manage_user_path(current_user), params: { user: { email: "updated@email.com" } }
 
       expect(response).to redirect_to(user_path(current_user))
       follow_redirect!

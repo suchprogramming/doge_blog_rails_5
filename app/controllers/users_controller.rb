@@ -2,8 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_any_scope!
 
   def index
-    @users = User.all
-    authorize User
+    @users = User.search(params[:search])
   end
 
   def show

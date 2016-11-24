@@ -18,8 +18,8 @@ Rails.application.routes.draw do
   end
 
   # Admin routes for user management
-  scope "admins", as: "admin_manage" do
-    resources :users, only: [:edit, :update, :destroy]
+  scope "admins/manage", as: "admin_manage" do
+    resources :users, only: [:index, :edit, :update, :destroy]
   end
 
   # Devise user routes

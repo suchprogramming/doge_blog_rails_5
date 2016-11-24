@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   include PolymorphicResourceHelper
-  
+
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>", mobile: "50x50>" }, default_url: "/assets/doge-small.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage/
   validates_attachment_file_name :avatar, matches: [/png\Z/, /jpe?g\Z/]
@@ -13,4 +13,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  def self.search(term)
+    term ? where('email LIKE ?', "%#{term}%") : all
+  end
+  
 end
