@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_any_scope!
 
-  def index
-    @users = User.search(params[:search])
-  end
-
   def show
     @user = User.find(params[:id])
   end

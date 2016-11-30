@@ -5,14 +5,14 @@
     </tr>
   </thead>
   <tbody>
-    <%= table_conditional_render(@users) %>
+    <%= table_conditional_render(@users, 'admin_user_table_row') %>
   </tbody>
 </table>
 
 <% content_for :javascript do %>
   <script type="text/javascript">
     $(document).on("click", '.user-row', function(ev) {
-      location.href="/users/" + this.id
+      location.href=`${this.id}`
     });
   </script>
 <% end %>

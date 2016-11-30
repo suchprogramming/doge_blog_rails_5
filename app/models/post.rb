@@ -6,5 +6,9 @@ class Post < ApplicationRecord
   def poly_parent
     self.postable
   end
-  
+
+  def self.search(term)
+    term ? where('title LIKE ?', "%#{term}%") : all
+  end
+
 end

@@ -1,0 +1,5 @@
+<% @users.each do |user| %>
+  <tr class="admin-table user-row" id=<%= edit_admin_manage_user_path(user) %>>
+    <% build_row(user, safe_user_attrs) %>
+  </tr>
+<% end %>

@@ -12,5 +12,17 @@ module ApplicationHelper
       "last_sign_in_ip"
     ]
   end
-  
+
+  def post_attrs
+    [
+      "id",
+      "title",
+      "content",
+      "created",
+      "last update",
+      "owner type",
+      "owner id"
+    ]
+  end
+
 end

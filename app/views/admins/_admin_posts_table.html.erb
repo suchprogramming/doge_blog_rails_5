@@ -1,0 +1,18 @@
+<table class="highlight centered">
+  <thead>
+    <tr>
+      <% build_header(post_attrs) %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= table_conditional_render(@posts, 'admin_post_table_row') %>
+  </tbody>
+</table>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).on("click", '.post-row', function(ev) {
+      location.href = this.id
+    });
+  </script>
+<% end %>

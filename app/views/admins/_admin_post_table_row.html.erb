@@ -1,0 +1,5 @@
+<% @posts.each do |post| %>
+  <tr class="admin-table post-row" id=<%= polymorphic_path([post.postable, post]) %>>
+    <% build_row(post, post.attributes.keys) %>
+  </tr>
+<% end %>

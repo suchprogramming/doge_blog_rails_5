@@ -10,11 +10,11 @@ RSpec.feature "Admin edits a user profile", :type => :feature do
 
     click_on "Edit Profile"
 
-    expect(page).to have_text("Profile for #{user.email}")
+    expect(page).to have_selector("input[value='#{user.email}']")
 
     fill_in "Email", with: "new_email@email.com"
 
-    click_on "Update User"
+    click_on "Submit"
 
     expect(page).to have_text("User updated successfully!")
   end

@@ -1,3 +1,15 @@
-<h3>Profile for <%= @user.email %></h3>
+<div class="col s12">
+  <div class="row">
 
-<%= render "form" if current_admin %>
+    <div class="section content-top-spacer">
+      <div class="user-public-profile center">
+        <%= image_tag @user.avatar.url(:medium), id: "user-full-avatar" %>
+        <h4>Edit Profile</h4>
+      </div>
+    </div>
+
+    <div class="section">
+      <%= render "form" if current_admin %>
+    </div>
+  </div>
+</div>

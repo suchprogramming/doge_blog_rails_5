@@ -1,3 +1,29 @@
-<h4>Hello Admin</h4>
+<div class="col s12">
+  <div class="row">
 
-<%= link_to 'Manage Users', admin_manage_users_path %>
+    <div class="section content-top-spacer">
+      <h4>Site Activity</h4>
+      <div class="divider"></div>
+    </div>
+
+    <div class="section">
+      <div class="card-panel">
+        <div class="row">
+          <div class="col s12 tabs-fixed-width">
+            <ul class="tabs">
+              <li class="tab col s6"><a class="active" href="#post_manage">Post Management</a></li>
+              <li class="tab col s6"><a href="#user_manage">User Management</a></li>
+            </ul>
+          </div>
+          <div id="post_manage" class="col s12">
+            <%= render 'post_management' %>
+          </div>
+          <div id="user_manage" class="col s12">
+            <%= render 'user_management' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

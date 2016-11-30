@@ -8,12 +8,12 @@ module TableBuilderHelper
     attrs.each { |attr| concat(content_tag(:td, resource[attr])) }
   end
 
-  def table_conditional_render(resource)
-    if resource.length == 0
-      render 'layouts/table_no_records'
-    else
-      render(resource)
-    end
+  def table_conditional_render(collection, partial)
+    collection.length == 0 ? no_records_found : render(partial)
+  end
+
+  def no_records_found
+    render 'shared/table_no_records'
   end
 
 end
