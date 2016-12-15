@@ -10,12 +10,20 @@ class PostPolicy < ApplicationPolicy
     create?
   end
 
+  def show?
+    user.class == Admin || post.active
+  end
+
   def create?
     user.polymorphic_owner?(post)
   end
 
+  def edit?
+    update?
+  end
+
   def update?
-    user.class == Admin || create?
+    user.class == Admin || create? && post.active
   end
 
   def destroy?

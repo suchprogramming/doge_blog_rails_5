@@ -3,7 +3,7 @@ require 'rails_helper'
 describe UserPolicy do
 
   let(:current_user) { create(:user) }
-  let(:second_user) { create(:user, email: 'second_user@test.com') }
+  let(:alternate_user) { create(:alternate_user) }
 
   subject { UserPolicy }
 
@@ -13,7 +13,7 @@ describe UserPolicy do
     end
 
     it "allows you to view any user profile" do
-      expect(subject).to permit(current_user, second_user)
+      expect(subject).to permit(current_user, alternate_user)
     end
   end
 end

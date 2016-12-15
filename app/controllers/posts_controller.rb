@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_any_scope!, except: [:index, :show]
 
   def index
-    @posts = Post.all
+    @posts = Post.where(active: true)
   end
 
   def new
@@ -12,6 +12,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    authorize @post
   end
 
   def create
@@ -52,7 +53,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :post_content)
+    params.require(:post).permit(:title, :post_content, :active)
   end
 
   def poly_params

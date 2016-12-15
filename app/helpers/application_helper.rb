@@ -21,7 +21,8 @@ module ApplicationHelper
       "created",
       "last update",
       "owner type",
-      "owner id"
+      "owner id",
+      "active"
     ]
   end
 

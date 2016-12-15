@@ -1,23 +1,41 @@
 require 'rails_helper'
 
-RSpec.feature "Admin searches for a user", :type => :feature, js: true do
+RSpec.feature "Admin searches for a user and clicks to view profile", :type => :feature, js: true do
 
-  let!(:first_user) { create(:user) }
-  let!(:second_user) { create(:user, email: 'second_user@email.com') }
+  let!(:user) { create(:user) }
 
-  scenario "with success", :driver => :selenium do
+  scenario 'with success' do
     login_as create(:admin)
 
     visit admins_path
 
-    click_on "User Management"
+    click_on 'User Management'
 
-    expect(page).to have_text(first_user.email)
-    expect(page).to have_text(second_user.email)
+    expect(page).to have_text(user.email)
 
-    fill_in "user_search", with: first_user.email
+    fill_in 'user_search', with: user.email
 
-    expect(page).to have_text(first_user.email)
-    expect(page).not_to have_text(second_user.email)
+    expect(page).to have_text(user.email)
+    expect(page).not_to have_text('No Records Found!')
+
+    find("[id='#{edit_admin_manage_user_path(user)}']").click
+
+    expect(page).to have_text(user.email)
   end
+
+  scenario 'with no records found' do
+    login_as create(:admin)
+
+    visit admins_path
+
+    click_on 'User Management'
+
+    expect(page).to have_text(user.email)
+
+    fill_in 'user_search', with: 'Bob Ross'
+
+    expect(page).not_to have_text(user.email)
+    expect(page).to have_text('No Records Found!')
+  end
+
 end
