@@ -2,9 +2,13 @@ require "rails_helper"
 
 RSpec.describe "User management", :type => :request do
 
-  let(:current_user) { create(:user) }
-  let(:second_user) { create(:user, email: "second_user@test.com") }
+  let(:current_user) { create(:current_user) }
+  let(:alternate_user) { create(:alternate_user) }
   let(:admin) { create(:admin) }
+
+  def user_params
+    { user: { email: "updated@email.com" } }
+  end
 
   context "on the USER #show route" do
     it "redirects unauthenticated requests" do
@@ -13,16 +17,10 @@ RSpec.describe "User management", :type => :request do
       expect(response).to redirect_to(new_user_session_path)
     end
 
-    it "allows the current_user to view their profile" do
+    it "allows the current_user to view a user profile" do
       login_as current_user, scope: :user
+
       get user_path(current_user)
-
-      expect(response).to be_success
-    end
-
-    it "allows the current_user to view any user profile" do
-      login_as current_user, scope: :user
-      get user_path(second_user)
 
       expect(response).to be_success
     end
@@ -48,6 +46,7 @@ RSpec.describe "User management", :type => :request do
 
     it "allows admin access" do
       login_as admin
+
       get edit_admin_manage_user_path(current_user)
 
       expect(response).to be_success
@@ -57,14 +56,15 @@ RSpec.describe "User management", :type => :request do
 
   context "on the USER #update route" do
     it "redirects unauthenticated requests" do
-      patch admin_manage_user_path(current_user), params: { email: "youshould@login.com" }
+      patch admin_manage_user_path(current_user), params: user_params
 
       expect(response).to redirect_to(new_user_session_path)
     end
 
     it "redirects non admin users" do
       login_as current_user
-      patch admin_manage_user_path(current_user), params: { user: { email: "youshould@login.com" } }
+
+      patch admin_manage_user_path(current_user), params: user_params
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
@@ -74,7 +74,8 @@ RSpec.describe "User management", :type => :request do
 
     it "allows admins to edit user accounts" do
       login_as admin
-      patch admin_manage_user_path(current_user), params: { user: { email: "updated@email.com" } }
+
+      patch admin_manage_user_path(current_user), params: user_params
 
       expect(response).to redirect_to(user_path(current_user))
       follow_redirect!

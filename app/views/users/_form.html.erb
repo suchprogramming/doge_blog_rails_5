@@ -1,13 +1,27 @@
-<div class="card-panel">
+<%= form_for @user, url: admin_manage_user_path(@user) do |f| %>
+
   <div class="row">
     <div class="input-field col s12">
-      <%= form_for @user, url: admin_manage_user_path(@user) do |f| %>
-        <%= f.label :email %>
-        <%= f.email_field :email, class: field_class(@user, :email) %>
-        <p class="error-text"><%= show_errors(@user, :email) %></p>
-
-        <%= render 'shared/submit_button' %>
-      <% end %>
+      <%= f.label :email %>
+      <%= f.email_field :email, class: field_class(@user, :email) %>
+      <p class="error-text"><%= show_errors(@user, :email) %></p>
     </div>
   </div>
-</div>
+
+  <%= render 'shared/submit_button' %>
+
+  <div class="row no-bottom-margin">
+    <div class="col s12">
+      <h5>Admin Controls</h5>
+      <div class="switch">
+        <label>
+          Inactive
+          <%= f.check_box :active %>
+          <span class="lever"></span>
+          Active
+        </label>
+      </div>
+    </div>
+  </div>
+
+<% end %>

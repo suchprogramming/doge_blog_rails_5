@@ -3,9 +3,7 @@
 
     <div class="post-header-bar flex-center">
       <h4>Current Posts</h4>
-      <% if current_any_scope %>
-        <%= link_to "New Post", new_polymorphic_path([current_any_scope, :post]), class: "waves-effect waves-teal btn" %>
-      <% end %>
+      <%= conditional_post_link %>
     </div>
 
   </div>
