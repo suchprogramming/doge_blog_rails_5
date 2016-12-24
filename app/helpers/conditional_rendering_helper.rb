@@ -1,12 +1,39 @@
 module ConditionalRenderingHelper
-  def conditional_post_link
-    return unless current_any_scope
-    current_any_scope.active ? new_post_link : render('shared/inactive_account')
+
+  # POST RENDERING
+
+  def posts_inactive_or_new_link(user_scope = nil)
+    return unless user_scope
+
+    user_scope.active ? posts_new_post_link(user_scope) :
+                        render('shared/inactive_account')
   end
 
-  def new_post_link
+  def posts_new_post_link(user_scope = nil)
+    return unless user_scope
+
     link_to 'New Post',
-            new_polymorphic_path([current_any_scope, :post]),
+            new_polymorphic_path([user_scope, :post]),
             class: "waves-effect waves-teal btn"
   end
+
+  # NEW SESSION FORM RENDERING
+
+  def sessions_new_password_link(controller_name = nil, resource_name = nil)
+    return unless controller_name == 'sessions' && resource_name
+
+    link_to 'Forgot your password?',
+            "/#{resource_name.to_s.pluralize}/password/new"
+  end
+
+  def sessions_sign_up_link(resource_name = nil)
+    return unless resource_name && resource_name == :user
+
+    content_tag(:div, class: 'sign-up') do
+      link_to 'No account?  Sign up!',
+              new_user_registration_path,
+              class: "waves-effect waves-teal btn-flat"
+    end
+  end
+
 end

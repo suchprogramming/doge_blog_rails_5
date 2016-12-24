@@ -7,7 +7,7 @@
       <div class="row">
         <div class="input-field col s12">
           <%= f.label :email %><br />
-          <%= f.email_field :email, autocomplete: "off", class: field_class(resource, :email) %>
+          <%= f.email_field :email, class: field_class(resource, :email) %>
           <p class="error-text"><%= show_errors(resource, :email) %></p>
         </div>
       </div>
@@ -19,7 +19,7 @@
       <div class="row">
         <div class="input-field col s12">
           <%= f.label :current_password, 'Current Password (required for all changes)' %><br />
-          <%= f.password_field :current_password, autocomplete: "off", class: field_class(resource, :current_password) %>
+          <%= f.password_field :current_password, class: field_class(resource, :current_password) %>
           <p class="error-text"><%= show_errors(resource, :current_password) %></p>
         </div>
       </div>
@@ -27,7 +27,7 @@
       <div class="row">
         <div class="input-field col s12">
           <%= f.label :password, "New Password"%><br />
-          <%= f.password_field :password, autocomplete: "off", class: field_class(resource, :password) %>
+          <%= f.password_field :password, class: field_class(resource, :password) %>
           <p class="error-text"><%= show_errors(resource, :password) %></p>
         </div>
       </div>
@@ -35,7 +35,7 @@
       <div class="row">
         <div class="input-field col s12">
           <%= f.label :password_confirmation, "New Password Confirmation" %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off", class: field_class(resource, :password_confirmation) %>
+          <%= f.password_field :password_confirmation, class: field_class(resource, :password_confirmation) %>
           <p class="error-text"><%= show_errors(resource, :password_confirmation) %></p>
         </div>
       </div>

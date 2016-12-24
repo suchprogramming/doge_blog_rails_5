@@ -15,6 +15,7 @@
 .devise-form-auth-register {
   width: 350px;
   margin: auto;
+  text-align: center;
 
   button {
     width: 100%;
@@ -26,10 +27,9 @@
     border: 1px solid #911;
     border-radius: 2px;
     padding: 5px;
-    margin: 0px 10px;
+    text-align: center;
 
-    p {
-      text-align: center;
+    span {
       color: #911;
     }
 

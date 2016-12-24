@@ -10,11 +10,13 @@
         <div class="card-content">
 
           <div class="row">
-            <%= render "new_registration_form" %>
+            <div class="col s12">
+              <%= render "new_registration_form" %>
+            </div>
           </div>
 
           <div class="row">
-            <div class="center-align">
+            <div class=" col s12 center-align">
               <%= link_to "Already signed up? Sign in", new_user_session_path %>
             </div>
           </div>
