@@ -7,7 +7,7 @@ class UserPolicy
   end
 
   def index?
-    current_user.class == Admin
+    current_user.try(:admin?)
   end
 
   def edit?

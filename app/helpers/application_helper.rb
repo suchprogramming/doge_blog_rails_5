@@ -37,4 +37,14 @@ module ApplicationHelper
     ]
   end
 
+  def invitation_attrs
+    [
+      'id',
+      'recipient_email',
+      'accepted_at',
+      'admin_id',
+      'created_at'
+    ]
+  end
+
 end

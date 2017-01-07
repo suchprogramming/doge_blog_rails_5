@@ -1,8 +1,8 @@
 <% if current_user %>
-  <li><%= link_to 'My Account', edit_user_registration_path %></li>
+  <li><%= link_to "My Account (#{current_user.email})", edit_user_registration_path %></li>
   <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
 <% elsif current_admin %>
-  <li><%= link_to 'Admin Panel', admins_path %></li>
+  <li><%= link_to "Admin Panel (#{current_admin.email})", admins_path %></li>
   <li><%= link_to 'Sign Out', destroy_admin_session_path, method: :delete %></li>
 <% else %>
   <li><%= link_to 'Log In', new_user_session_path %></li>

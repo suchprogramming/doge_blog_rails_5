@@ -11,7 +11,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def show?
-    user.class == Admin || post.active
+    user.try(:admin?) || post.active
   end
 
   def create?
@@ -23,7 +23,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    user.class == Admin || create? && post.active
+    user.try(:admin?) || create? && post.active
   end
 
   def destroy?

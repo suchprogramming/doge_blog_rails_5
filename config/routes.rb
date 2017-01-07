@@ -6,6 +6,19 @@ Rails.application.routes.draw do
   # Site root
   root to: "posts#index"
 
+  # SuperAdmin routes
+  scope "superadmin/manage", as: "superadmin_manage" do
+    resources :admins, only: [:edit, :update]
+  end
+
+  scope "superadmin", as: "superadmin" do
+    resources :invitations, only: [:index, :new, :create]
+  end
+
+  # Admin sign up routes
+  get '/admins/sign_up/:token', to: 'admins#new'
+  post '/admins/create', to: 'admins#create'
+
   # Devise Admin routes
   devise_for :admins, controllers: {
     sessions: "admins/sessions",
