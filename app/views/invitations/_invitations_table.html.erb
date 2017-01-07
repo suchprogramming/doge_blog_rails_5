@@ -1,0 +1,10 @@
+<table class="highlight centered">
+  <thead>
+    <tr>
+      <% build_header(invitation_attrs) %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= table_conditional_render(@invitations, 'invitations_table_row') %>
+  </tbody>
+</table>

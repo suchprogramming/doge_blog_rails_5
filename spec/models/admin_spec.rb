@@ -9,4 +9,5 @@ RSpec.describe Admin, type: :model do
                 rejecting('text/plain', 'text/xml') }
 
   it { should have_many(:posts) }
+  it { should have_many(:invitations) }
 end
