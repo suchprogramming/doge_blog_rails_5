@@ -25,8 +25,11 @@ class InvitationsController < ApplicationController
   private
 
   def deactivate_current_invites
-    @active_invites = Invitation.where(recipient_email: recipient_email)
-    @active_invites.update_all(active: false) unless @active_invites.empty?
+    active_invites.each(&:mark_inactive)
+  end
+
+  def active_invites
+    @active_invites = Invitation.active_invites(recipient_email)
   end
 
   def recipient_email

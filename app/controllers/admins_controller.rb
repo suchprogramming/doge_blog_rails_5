@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
   before_action :authenticate_admin!, except: [:new, :create]
   before_action :token_valid?, only: [:new]
-  after_action :mark_invite_inactive, only: [:create]
+  after_action :mark_invite_accepted, only: [:create]
 
   def index
     @posts = Post.search(params[:post_search])
@@ -44,8 +44,8 @@ class AdminsController < ApplicationController
     return false unless @invite
   end
 
-  def mark_invite_inactive
-    @invite.update_attributes(active: false, accepted_at: Time.now) if @invite
+  def mark_invite_accepted
+    @invite.mark_accepted if @invite
   end
 
   def valid_invite_params
