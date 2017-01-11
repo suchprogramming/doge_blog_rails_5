@@ -1,4 +1,4 @@
-class InvitationsController < ApplicationController
+class Superadmins::InvitationsController < ApplicationController
   before_action :authenticate_admin!
   before_action :deactivate_current_invites, only: [:create]
 
@@ -16,7 +16,7 @@ class InvitationsController < ApplicationController
     @invitation = current_admin.invitations.new(invitation_params)
     authorize @invitation
     if @invitation.save
-      redirect_to superadmin_invitations_path, success: 'Invite created!'
+      redirect_to superadmins_invitations_path, success: 'Invite created!'
     else
       render :new
     end

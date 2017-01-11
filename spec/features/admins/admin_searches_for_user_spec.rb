@@ -7,7 +7,7 @@ RSpec.feature "Admin searches for a user and clicks to view profile", :type => :
   scenario 'with success' do
     login_as create(:admin)
 
-    visit admins_path
+    visit administration_dashboard_path
 
     click_on 'User Management'
 
@@ -18,7 +18,7 @@ RSpec.feature "Admin searches for a user and clicks to view profile", :type => :
     expect(page).to have_text(user.email)
     expect(page).not_to have_text('No Records Found!')
 
-    find("[id='#{edit_admin_manage_user_path(user)}']").click
+    find("[id='#{edit_administration_user_path(user)}']").click
 
     expect(page).to have_text(user.email)
   end
@@ -26,7 +26,7 @@ RSpec.feature "Admin searches for a user and clicks to view profile", :type => :
   scenario 'with no records found' do
     login_as create(:admin)
 
-    visit admins_path
+    visit administration_dashboard_path
 
     click_on 'User Management'
 

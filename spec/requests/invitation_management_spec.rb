@@ -17,7 +17,7 @@ RSpec.describe "Superadmin invitation management", :type => :request do
     it 'allows an admin to view a list of invitations' do
       login_as admin
 
-      get superadmin_invitations_path(superadmin_invitation)
+      get superadmins_invitations_path
 
       expect(response).to be_success
     end
@@ -25,7 +25,7 @@ RSpec.describe "Superadmin invitation management", :type => :request do
     it 'allows a superadmin to view a list of invitations' do
       login_as super_admin
 
-      get superadmin_invitations_path(superadmin_invitation)
+      get superadmins_invitations_path
 
       expect(response).to be_success
     end
@@ -35,7 +35,7 @@ RSpec.describe "Superadmin invitation management", :type => :request do
     it 'grants a superadmin access to the new invitation route' do
       login_as super_admin
 
-      get new_superadmin_invitation_path
+      get new_superadmins_invitation_path
 
       expect(response).to be_success
     end
@@ -43,7 +43,7 @@ RSpec.describe "Superadmin invitation management", :type => :request do
     it 'denies regular admin access to the new invitation route' do
       login_as admin
 
-      get new_superadmin_invitation_path
+      get new_superadmins_invitation_path
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
@@ -56,7 +56,7 @@ RSpec.describe "Superadmin invitation management", :type => :request do
     it 'allows a superadmin to create a new invitation' do
       login_as super_admin
 
-      post superadmin_invitations_path, params: invite_params
+      post superadmins_invitations_path, params: invite_params
       follow_redirect!
 
       expect(response.body).to include('Invite created!')
@@ -65,7 +65,7 @@ RSpec.describe "Superadmin invitation management", :type => :request do
     it 'prevents a regular admin from creating invites' do
       login_as admin
 
-      post superadmin_invitations_path, params: invite_params
+      post superadmins_invitations_path, params: invite_params
       follow_redirect!
 
       expect(response.body).to include('You are not authorized to perform this action.')
@@ -75,7 +75,7 @@ RSpec.describe "Superadmin invitation management", :type => :request do
       old_invite = superadmin_invitation
       login_as super_admin
 
-      post superadmin_invitations_path, params: invite_params
+      post superadmins_invitations_path, params: invite_params
       follow_redirect!
 
       expect(response.body).to include('Invite created!')

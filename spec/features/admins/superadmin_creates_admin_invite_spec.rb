@@ -6,7 +6,7 @@ RSpec.feature 'Superadmin creats an admin invite' do
 
   before(:each) do
     login_as superadmin
-    visit new_superadmin_invitation_path
+    visit new_superadmins_invitation_path
   end
 
   scenario 'with success' do

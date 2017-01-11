@@ -7,32 +7,26 @@ Rails.application.routes.draw do
   root to: "posts#index"
 
   # SuperAdmin routes
-  scope "superadmin/manage", as: "superadmin_manage" do
-    resources :admins, only: [:edit, :update]
-  end
-
-  scope "superadmin", as: "superadmin" do
+  namespace :superadmins do
     resources :invitations, only: [:index, :new, :create]
   end
 
-  # Admin sign up routes
-  get '/admins/sign_up/:token', to: 'admins#new'
-  post '/admins/create', to: 'admins#create'
-
   # Devise Admin routes
-  devise_for :admins, controllers: {
-    sessions: "admins/sessions",
-    passwords: "admins/passwords"
-  }
+  devise_for :admins
 
   # Admin routes for Posts
-  resources :admins, only: [:index, :show] do
+  resources :admins, only: [:show] do
     resources :posts, except: [:index]
   end
 
-  # Admin routes for user management
-  scope "admins/manage", as: "admin_manage" do
+  # Administration routes
+  namespace :administration do
     resources :users, only: [:edit, :update]
+
+    get '/sign_up/:token', to: 'registrations#new'
+    post '/registrations', to: 'registrations#create'
+
+    get '/dashboard', to: 'dashboard#index'
   end
 
   # Devise user routes

@@ -12,7 +12,7 @@ class Invitation < ApplicationRecord
   end
 
   def invite_link
-    "admins/sign_up/#{token}"
+    "administration/sign_up/#{token}"
   end
 
 end

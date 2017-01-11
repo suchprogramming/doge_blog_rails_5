@@ -28,26 +28,23 @@ RSpec.describe "User management", :type => :request do
 
   context "on the USER #edit route" do
     it "redirects unauthenticated requests" do
-      get edit_admin_manage_user_path(current_user)
+      get edit_administration_user_path(current_user)
 
-      expect(response).to redirect_to(new_user_session_path)
+      expect(response).to redirect_to(new_admin_session_path)
     end
 
     it "redirects non admin users" do
       login_as current_user, scope: :user
 
-      get edit_admin_manage_user_path(current_user)
+      get edit_administration_user_path(current_user)
 
-      expect(response).to redirect_to(root_path)
-      follow_redirect!
-
-      expect(response.body).to include("You are not authorized to perform this action.")
+      expect(response).to redirect_to(new_admin_session_path)
     end
 
     it "allows admin access" do
       login_as admin
 
-      get edit_admin_manage_user_path(current_user)
+      get edit_administration_user_path(current_user)
 
       expect(response).to be_success
     end
@@ -56,15 +53,15 @@ RSpec.describe "User management", :type => :request do
 
   context "on the USER #update route" do
     it "redirects unauthenticated requests" do
-      patch admin_manage_user_path(current_user), params: user_params
+      patch administration_user_path(current_user), params: user_params
 
-      expect(response).to redirect_to(new_user_session_path)
+      expect(response).to redirect_to(new_admin_session_path)
     end
 
     it "redirects non admin users" do
       login_as current_user
 
-      patch admin_manage_user_path(current_user), params: user_params
+      patch administration_user_path(current_user), params: user_params
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
@@ -75,7 +72,7 @@ RSpec.describe "User management", :type => :request do
     it "allows admins to edit user accounts" do
       login_as admin
 
-      patch admin_manage_user_path(current_user), params: user_params
+      patch administration_user_path(current_user), params: user_params
 
       expect(response).to redirect_to(user_path(current_user))
       follow_redirect!

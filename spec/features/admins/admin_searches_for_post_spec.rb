@@ -7,7 +7,7 @@ RSpec.feature "Admin searches for a post", :type => :feature, js: true do
   scenario 'with success' do
     login_as create(:admin)
 
-    visit admins_path
+    visit administration_dashboard_path
 
     click_on 'Post Management'
 
@@ -27,7 +27,7 @@ RSpec.feature "Admin searches for a post", :type => :feature, js: true do
   scenario 'with no records found' do
     login_as create(:admin)
 
-    visit admins_path
+    visit administration_dashboard_path
 
     click_on 'Post Management'
 
