@@ -36,4 +36,12 @@ module ConditionalRenderingHelper
     end
   end
 
+  # NAVIGATION RENDERING
+
+  def superadmin_invite(admin_scope = nil)
+    return unless admin_scope.try(:super_admin?)
+
+    content_tag(:li) { link_to 'Invites', superadmins_invitations_path }
+  end
+
 end

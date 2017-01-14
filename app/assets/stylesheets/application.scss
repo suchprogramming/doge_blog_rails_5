@@ -33,7 +33,18 @@ input:-webkit-autofill:active {
 }
 
 .content-top-spacer {
-  margin-top: 40px;
+  margin-top: 8%;
+}
+
+.section-header-bar {
+  justify-content: space-between;
+  border-bottom: 1px solid #c0c0c0;
+  padding: 10px 0px;
+
+  h4 {
+    margin: 0;
+  }
+
 }
 
 @media only screen and (min-width: 0px) {

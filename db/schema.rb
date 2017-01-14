@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161226231600) do
+ActiveRecord::Schema.define(version: 20170114043011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,9 +43,9 @@ ActiveRecord::Schema.define(version: 20161226231600) do
     t.string   "recipient_email"
     t.datetime "accepted_at"
     t.integer  "admin_id"
-    t.boolean  "active",          default: true
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.datetime "expires_at"
     t.index ["admin_id"], name: "index_invitations_on_admin_id", using: :btree
   end
 

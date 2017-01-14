@@ -1,4 +1,4 @@
-<%= form_for @admin, url: '/admins/create' do |f| %>
+<%= form_for @admin, url: administration_registrations_path do |f| %>
 
   <div class="row">
     <div class="input-field col s12">
@@ -27,4 +27,6 @@
   <%= hidden_field_tag :token, params[:token] %>
 
   <%= render 'shared/submit_button' %>
+
+  <p class="error-text"><%= show_errors(@admin, :invite) %></p>
 <% end %>

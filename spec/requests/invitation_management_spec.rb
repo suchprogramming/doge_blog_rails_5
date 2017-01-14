@@ -71,7 +71,7 @@ RSpec.describe "Superadmin invitation management", :type => :request do
       expect(response.body).to include('You are not authorized to perform this action.')
     end
 
-    it 'deactivates all invites prior to creating a new one' do
+    it 'deactivates all invites for a recipient email before creation' do
       old_invite = superadmin_invitation
       login_as super_admin
 
@@ -79,7 +79,7 @@ RSpec.describe "Superadmin invitation management", :type => :request do
       follow_redirect!
 
       expect(response.body).to include('Invite created!')
-      expect(Invitation.active_invites('new_admin@admin.com').count).to eq(1)
+      expect(Invitation.active_user_invites('thedoge@doge.com').count).to eq(1)
     end
   end
 end

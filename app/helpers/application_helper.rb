@@ -3,6 +3,10 @@ module ApplicationHelper
   include TableBuilderHelper
   include ConditionalRenderingHelper
 
+  def default_button
+    { class: 'waves-effect waves-light btn'}
+  end
+
   def safe_user_attrs
     [
       "id",
@@ -41,6 +45,7 @@ module ApplicationHelper
     [
       'id',
       'recipient_email',
+      'expires_at',
       'accepted_at',
       'admin_id',
       'created_at'
