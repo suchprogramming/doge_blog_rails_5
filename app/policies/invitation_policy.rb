@@ -7,7 +7,7 @@ class InvitationPolicy
   end
 
   def index?
-    user.try(:admin?)
+    user.try(:admin?) && user.active
   end
 
   def new?
@@ -15,7 +15,7 @@ class InvitationPolicy
   end
 
   def create?
-    user.try(:super_admin?)
+    user.try(:super_admin?) && user.active
   end
 
 end

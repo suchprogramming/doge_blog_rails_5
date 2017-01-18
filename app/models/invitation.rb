@@ -26,7 +26,7 @@ class Invitation < ApplicationRecord
 
   def mark_inactive
     Invitation.where(recipient_email: recipient_email).each do |inv|
-      inv.update_attributes(accepted_at: DateTime.now, expires_at: nil)
+      inv.update_attributes(expires_at: nil)
     end
   end
 

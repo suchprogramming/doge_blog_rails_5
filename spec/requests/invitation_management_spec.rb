@@ -3,14 +3,14 @@ require "rails_helper"
 RSpec.describe "Superadmin invitation management", :type => :request do
 
   let(:admin) { create(:admin) }
-  let(:superadmin_invitation) { create(:superadmin_invitation) }
+  let(:invitation) { create(:invitation) }
 
   def super_admin
-    superadmin_invitation.admin
+    invitation.admin
   end
 
   def invite_params
-    { invitation: { recipient_email: 'thedoge@doge.com'} }
+    { invitation: { recipient_email: 'new_admin@admin.com'} }
   end
 
   context 'on the INVITATION #index route' do
@@ -72,14 +72,14 @@ RSpec.describe "Superadmin invitation management", :type => :request do
     end
 
     it 'deactivates all invites for a recipient email before creation' do
-      old_invite = superadmin_invitation
+      old_invite = invitation
       login_as super_admin
 
       post superadmins_invitations_path, params: invite_params
       follow_redirect!
 
       expect(response.body).to include('Invite created!')
-      expect(Invitation.active_user_invites('thedoge@doge.com').count).to eq(1)
+      expect(Invitation.active_user_invites('new_admin@admin.com').count).to eq(1)
     end
   end
 end

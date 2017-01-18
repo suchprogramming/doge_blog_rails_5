@@ -14,7 +14,7 @@
           <div class="col s6 m8">
             <div class="post-info">
               <h5><%= link_to post.title, polymorphic_path([post.postable, post]) %></h5>
-              <h6>By <%= post.postable.email %></h6>
+              <h6>By <%= link_to post.postable.email, polymorphic_path(post.postable) %></h6>
               <h6><%= post.created_at.strftime("%B %d, %Y") %></h6>
             </div>
           </div>

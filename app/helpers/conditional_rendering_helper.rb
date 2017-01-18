@@ -44,4 +44,16 @@ module ConditionalRenderingHelper
     content_tag(:li) { link_to 'Invites', superadmins_invitations_path }
   end
 
+  # ADMINISTRATION RENDERING
+
+  def edit_admin_form(admin = nil, current_admin = nil)
+    return unless admin.try(:admin?) && current_admin
+
+    if admin.id == current_admin.id
+      render('form')
+    else
+      render('superadmin_form')
+    end
+  end
+
 end

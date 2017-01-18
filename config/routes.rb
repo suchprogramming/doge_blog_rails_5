@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   # Administration routes
   namespace :administration do
     resources :users, only: [:edit, :update]
-
+    resources :admins, only: [:index, :edit, :update]
+    
     get '/sign_up/:token', to: 'registrations#new'
     post '/registrations', to: 'registrations#create'
 

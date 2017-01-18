@@ -1,13 +1,13 @@
 class UserPolicy
   attr_reader :current_user, :user
 
-  def initialize(current_user, model)
+  def initialize(current_user, user)
     @current_user = current_user
-    @user = model
+    @user = user
   end
 
   def index?
-    current_user.try(:admin?)
+    current_user.try(:admin?) && current_user.active
   end
 
   def edit?

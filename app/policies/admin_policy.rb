@@ -7,23 +7,15 @@ class AdminPolicy
   end
 
   def index?
-    user.try(:super_admin?)
-  end
-
-  def new?
-    index?
+    user.try(:super_admin?) && user.active
   end
 
   def edit?
-    index?
+    index? || user.try(:admin?) && user.id == admin.id && user.active
   end
 
   def update?
-    index?
-  end
-
-  def destroy?
-    index?
+    edit?
   end
 
   def show?

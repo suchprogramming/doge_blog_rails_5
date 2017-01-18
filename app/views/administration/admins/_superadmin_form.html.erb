@@ -1,0 +1,27 @@
+<%= form_for @admin, url: administration_admin_path(@admin) do |f| %>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: field_class(@admin, :email) %>
+      <p class="error-text"><%= show_errors(@admin, :email) %></p>
+    </div>
+  </div>
+
+  <%= render 'shared/submit_button' %>
+
+  <div class="row no-bottom-margin">
+    <div class="col s12">
+      <h5>Admin Controls</h5>
+      <div class="switch">
+        <label>
+          Inactive
+          <%= f.check_box :active %>
+          <span class="lever"></span>
+          Active
+        </label>
+      </div>
+    </div>
+  </div>
+
+<% end %>
