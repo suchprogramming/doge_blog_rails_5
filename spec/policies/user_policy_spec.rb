@@ -2,18 +2,32 @@ require 'rails_helper'
 
 describe UserPolicy do
 
-  let(:current_user) { create(:user) }
-  let(:alternate_user) { create(:alternate_user) }
+  let(:user) { User.new(id: 1) }
+  let(:admin) { Admin.new(active: true ) }
 
   subject { UserPolicy }
 
-  permissions :show? do
-    it "allows you to view your own profile" do
-      expect(subject).to permit(current_user, current_user)
+  permissions :index?, :edit?, :update? do
+    it 'grants admin access' do
+      expect(subject).to permit(admin, user)
     end
 
-    it "allows you to view any user profile" do
-      expect(subject).to permit(current_user, alternate_user)
+    it 'denies inactive admin access' do
+      expect(subject).not_to permit(Admin.new(active: false), user)
+    end
+
+    it 'denies user access' do
+      expect(subject).not_to permit(user, user)
+    end
+  end
+
+  permissions :show? do
+    it 'allows you to view your own profile' do
+      expect(subject).to permit(user, user)
+    end
+
+    it 'allows you to view any user profile' do
+      expect(subject).to permit(user, User.new(id: 2))
     end
   end
 end
