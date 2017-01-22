@@ -10,4 +10,18 @@
 
   <%= render 'shared/submit_button' %>
 
+  <div class="row no-bottom-margin">
+    <div class="col s12">
+      <h5>Admin Controls</h5>
+      <div class="switch">
+        <label>
+          Inactive
+          <%= f.check_box :active %>
+          <span class="lever"></span>
+          Active
+        </label>
+      </div>
+    </div>
+  </div>
+
 <% end %>

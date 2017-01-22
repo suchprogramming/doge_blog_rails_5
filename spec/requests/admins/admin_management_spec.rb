@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "Admin management", :type => :request do
+RSpec.describe 'Admin management', :type => :request do
 
   let(:admin) { create(:admin) }
   let(:superadmin) { create(:superadmin) }
@@ -68,12 +68,15 @@ RSpec.describe "Admin management", :type => :request do
       expect(response).to be_success
     end
 
-    it 'grants admin access to their own resource' do
+    it 'denies admin access to their own resource' do
       login_as admin, scope: :admin
 
       get edit_administration_admin_path(admin)
 
-      expect(response).to be_success
+      expect(response).to redirect_to root_path
+      follow_redirect!
+
+      expect(response.body).to include('You are not authorized to perform this action.')
     end
 
     it 'denies admin access to another admin resource' do
@@ -125,15 +128,15 @@ RSpec.describe "Admin management", :type => :request do
       expect(response.body).to include(updated_params[:admin][:email])
     end
 
-    it 'allows an admin to update their account' do
+    it 'prevents an admin from updating their account' do
       login_as admin, scope: :admin
 
       patch administration_admin_path(admin), params: updated_params
 
-      expect(response).to redirect_to(admin_path(admin))
+      expect(response).to redirect_to root_path
       follow_redirect!
 
-      expect(response.body).to include(updated_params[:admin][:email])
+      expect(response.body).to include('You are not authorized to perform this action.')
     end
 
     it 'prevents an admin from updating another admin account' do

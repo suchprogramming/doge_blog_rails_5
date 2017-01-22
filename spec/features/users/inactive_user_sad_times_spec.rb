@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.feature "A user discovers their inactive account status", :type => :feature do
+RSpec.feature 'A user discovers their inactive account status' do
 
-  let(:user) { create(:user, active: false) }
-  let(:user_post) { create(:post_with_user, postable: user) }
+  let(:user_post) { create(:post_with_user) }
 
   before(:each) do
-    login_as user, scope: :user
+    user_post.postable.update_attributes(active: false)
+    login_as user_post.postable
   end
 
   scenario 'while visiting the posts index with success' do
@@ -16,7 +16,7 @@ RSpec.feature "A user discovers their inactive account status", :type => :featur
   end
 
   scenario 'while viewing one of their posts with success' do
-    visit user_post_path(user, user_post)
+    visit user_post_path(user_post.postable, user_post)
 
     expect(page).not_to have_text('Edit')
     expect(page).not_to have_text('Delete')

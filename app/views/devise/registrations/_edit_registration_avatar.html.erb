@@ -1,12 +1,13 @@
 <div class="row no-bottom-margin">
   <div class="user-avatar center-align">
-    <%= image_tag current_user.avatar.url(:medium), id: "user-full-avatar" %>
-    <h4><%= current_user.email %></h4>
+    <%= image_tag current_any_scope.avatar.url(:medium), id: "user-full-avatar" %>
+    <h4><%= current_any_scope.email %></h4>
   </div>
 </div>
 
 <% content_for :javascript do %>
   <script type="text/javascript">
+
     $(document).ready(function() {
       var orignalAvatar = $("#user-full-avatar").attr("src");
       var cancelButton = "<a class='waves-effect waves-light btn' id='cancel-avatar'>Cancel</a>"

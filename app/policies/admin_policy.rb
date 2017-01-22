@@ -11,11 +11,11 @@ class AdminPolicy
   end
 
   def edit?
-    index? || user.try(:admin?) && user.id == admin.id && user.active
+    index?
   end
 
   def update?
-    edit?
+    index?
   end
 
   def show?

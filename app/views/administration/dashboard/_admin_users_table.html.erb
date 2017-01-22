@@ -12,7 +12,7 @@
 <% content_for :javascript do %>
   <script type="text/javascript">
     $(document).on("click", '.user-row', function(ev) {
-      location.href=`${this.id}`
+      location.href = this.id
     });
   </script>
 <% end %>

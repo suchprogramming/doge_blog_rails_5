@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "Superadmin invitation management", :type => :request do
+RSpec.describe 'Superadmin invitation management', :type => :request do
 
   let(:admin) { create(:admin) }
   let(:invitation) { create(:invitation) }

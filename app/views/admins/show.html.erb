@@ -1,5 +1,5 @@
 <h3><%= @admin.email %></h3>
 
-<% if current_admin %>
+<% if current_superadmin %>
   <%= link_to "Edit Profile", edit_administration_admin_path(@admin) %>
 <% end %>

@@ -1,7 +1,20 @@
-<!-- Dropdown Structure -->
-<ul id="admin-dropdown" class="dropdown-content">
-  <li><%= link_to 'Dashboard', administration_dashboard_path %></li>
-  <%= superadmin_invite(current_admin) %>
-</ul>
+<% if current_superadmin %>
+  <ul id="admin-dropdown" class="dropdown-content">
+    <li><%= link_to 'Dashboard', administration_dashboard_path %></li>
+    <li><%= link_to 'Manage Admins', administration_admins_path %></li>
+  </ul>
 
-<li><a class="dropdown-button" href="#!" data-activates="admin-dropdown">Admin</a></li>
+  <li>
+    <a
+      class="dropdown-button"
+      data-constrainWidth='false'
+      data-belowOrigin='true'
+      href="#!"
+      data-activates="admin-dropdown"
+    >
+      Admin
+    </a>
+  </li>
+<% else %>
+  <li><%= link_to 'Admin', administration_dashboard_path %></li>
+<% end %>

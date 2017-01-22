@@ -2,7 +2,7 @@ class Administration::AdminsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @admins = Admin.all
+    @admins = Admin.search(params[:admin_search])
     authorize @admins
   end
 
@@ -16,17 +16,6 @@ class Administration::AdminsController < ApplicationController
     authorize @admin
     if @admin.update(admin_params)
       redirect_to admin_path(@admin), success: 'Admin updated successfully!'
-    else
-      render :edit
-    end
-  end
-
-  def update_password
-    @admin = Admin.find(params[:id])
-    authorize @admin
-    if @admin.update_with_password(admin_pass_params)
-      bypass_sign_in(@admin)
-      redirect_to admin_path(@admin), success: 'Password updated successfully!'
     else
       render :edit
     end

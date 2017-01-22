@@ -5,7 +5,7 @@ RSpec.describe ConditionalRenderingHelper, :type => :helper do
   describe 'POST RENDERING HELPERS' do
 
     def inactive_msg
-      "Your account is currently inactive"
+      'Your account is currently inactive'
     end
 
     describe '#posts_inactive_or_new_link' do

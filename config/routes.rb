@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   end
 
   # Devise Admin routes
-  devise_for :admins
+  devise_for :admins, skip: [:registrations]
+  as :admin do
+    get 'admins/edit' => 'devise/registrations#edit', :as => 'edit_admin_registration'
+    put 'admins' => 'devise/registrations#update', :as => 'admin_registration'
+  end
 
   # Admin routes for Posts
   resources :admins, only: [:show] do
@@ -23,7 +27,7 @@ Rails.application.routes.draw do
   namespace :administration do
     resources :users, only: [:edit, :update]
     resources :admins, only: [:index, :edit, :update]
-    
+
     get '/sign_up/:token', to: 'registrations#new'
     post '/registrations', to: 'registrations#create'
 

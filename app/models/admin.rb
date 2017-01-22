@@ -15,14 +15,18 @@ class Admin < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :recoverable, :rememberable,
-         :trackable, :validatable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 
   has_many :posts, as: :postable
   has_many :invitations
 
   def admin?
     true
+  end
+
+  def self.search(term)
+    term ? where('email LIKE ?', "%#{term}%") : all
   end
 
   private

@@ -31,8 +31,8 @@ describe AdminPolicy do
       expect(subject).to permit(SuperAdmin.new, Admin.new)
     end
 
-    it 'grants admin access to their own resource' do
-      expect(subject).to permit(Admin.new(id: 1), Admin.new(id: 1))
+    it 'denies admin access to their own resource' do
+      expect(subject).not_to permit(Admin.new(id: 1), Admin.new(id: 1))
     end
 
     it 'denies inactive superadmin access' do
