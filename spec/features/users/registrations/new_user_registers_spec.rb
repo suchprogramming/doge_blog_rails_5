@@ -5,7 +5,7 @@ RSpec.feature 'a new user registers on the site' do
   scenario 'with success' do
     visit root_path
 
-    click_on 'Sign Up'
+    find('ul.right').find('a', text: 'Sign Up').click
     fill_in 'Email', with: 'newuser@awesome.com'
     fill_in 'Password', with: 'BeckySadie'
     fill_in 'Password confirmation', with: 'BeckySadie'
@@ -17,7 +17,7 @@ RSpec.feature 'a new user registers on the site' do
   scenario 'with validation errors' do
     visit root_path
 
-    click_on 'Sign Up'
+    find('ul.right').find('a', text: 'Sign Up').click
     fill_in 'Email', with: 'bad'
     fill_in 'Password', with: 'bb8'
     fill_in 'Password confirmation', with: 'luke'

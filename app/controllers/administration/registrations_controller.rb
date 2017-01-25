@@ -22,9 +22,7 @@ class Administration::RegistrationsController < ApplicationController
   end
 
   def admin_params
-    params.require(:admin)
-      .permit(:email,:password, :password_confirmation)
-      .merge(token: params[:token])
+    params.require(:admin).permit(:email, :password, :password_confirmation, :token)
   end
 
 end

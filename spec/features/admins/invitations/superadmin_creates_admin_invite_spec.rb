@@ -1,11 +1,12 @@
 require 'rails_helper'
 
-RSpec.feature 'Superadmin creats an admin invite' do
+RSpec.feature 'Superadmin creates an admin invite' do
 
   let(:superadmin) { create(:superadmin) }
 
   before(:each) do
-    login_as superadmin
+    login_as superadmin, scope: :admin
+    
     visit new_superadmins_invitation_path
   end
 
@@ -15,5 +16,5 @@ RSpec.feature 'Superadmin creats an admin invite' do
 
     expect(page).to have_text('Invite created!')
   end
-  
+
 end

@@ -5,14 +5,15 @@ RSpec.feature 'Admin visits dashboard' do
   let(:admin) { create(:admin) }
 
   scenario 'with success' do
-    login_as admin
+    login_as admin, scope: :admin
 
     visit root_path
-    click_on 'Admin'
+    
+    find('ul.right').find('a', text: 'Admin').click
 
     expect(page).to have_text('Administration')
     expect(page).to have_text('Post Management')
     expect(page).to have_text('User Management')
   end
-  
+
 end

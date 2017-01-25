@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.feature 'User authentication' do
 
-  scenario 'with success' do
-    user = create(:user)
+  let(:user) { create(:user) }
 
+  scenario 'with success' do
     visit new_user_session_path
 
     fill_in 'Email', with: user.email
@@ -13,7 +13,7 @@ RSpec.feature 'User authentication' do
 
     expect(page).to have_text('Signed in successfully.')
 
-    click_on 'Sign Out'
+    find('ul.right').find('a', text: 'Sign Out').click
 
     expect(page).to have_text('Signed out successfully.')
   end

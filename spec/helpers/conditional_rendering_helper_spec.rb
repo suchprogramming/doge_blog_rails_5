@@ -67,4 +67,26 @@ RSpec.describe ConditionalRenderingHelper, :type => :helper do
     end
   end
 
+  describe 'USER AVATAR RENDERING' do
+
+    def avatar_attrs
+      {
+        avatar_approved: true,
+        avatar_file_name: '/assets/spacedoge.png',
+        avatar_content_type: 'image/pdf'
+      }
+    end
+
+    describe '#render_user_avatar' do
+      it 'returns the user designated avatar after admin approval' do
+        expect(render_user_avatar(User.new(avatar_attrs), :thumb))
+          .to include('/thumb/spacedoge.png')
+      end
+
+      it 'renders the default avatar when a user avatar is not approved' do
+        expect(render_user_avatar(User.new)).to include('default-user-avatar')
+      end
+    end
+  end
+
 end

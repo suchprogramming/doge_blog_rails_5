@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <%= hidden_field_tag :token, params[:token] %>
+  <%= f.hidden_field :token, value: params[:token] %>
 
   <%= render 'shared/submit_button' %>
 

@@ -6,7 +6,7 @@
 
       <div class="row">
         <div class="input-field col s12">
-          <%= f.label :email %><br />
+          <%= f.label :email %>
           <%= f.email_field :email, class: field_class(resource, :email) %>
           <p class="error-text"><%= show_errors(resource, :email) %></p>
         </div>
@@ -18,7 +18,7 @@
 
       <div class="row">
         <div class="input-field col s12">
-          <%= f.label :current_password, 'Current Password (required for all changes)' %><br />
+          <%= f.label :current_password, 'Current Password (required for all changes)' %>
           <%= f.password_field :current_password, class: field_class(resource, :current_password) %>
           <p class="error-text"><%= show_errors(resource, :current_password) %></p>
         </div>
@@ -26,7 +26,7 @@
 
       <div class="row">
         <div class="input-field col s12">
-          <%= f.label :password, "New Password"%><br />
+          <%= f.label :password, "New Password"%>
           <%= f.password_field :password, class: field_class(resource, :password) %>
           <p class="error-text"><%= show_errors(resource, :password) %></p>
         </div>
@@ -34,7 +34,7 @@
 
       <div class="row">
         <div class="input-field col s12">
-          <%= f.label :password_confirmation, "New Password Confirmation" %><br />
+          <%= f.label :password_confirmation, "New Password Confirmation" %>
           <%= f.password_field :password_confirmation, class: field_class(resource, :password_confirmation) %>
           <p class="error-text"><%= show_errors(resource, :password_confirmation) %></p>
         </div>
@@ -55,6 +55,7 @@
 
       <div class="row">
         <div class="col s12 right-align">
+          <a class='waves-effect waves-light btn' id='reset-form'>Reset</a>
           <button class="btn waves-effect waves-light" id="edit-register-submit" type="submit" name="action">
             Update
           </button>

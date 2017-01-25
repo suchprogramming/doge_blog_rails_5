@@ -6,6 +6,7 @@ RSpec.feature 'User creates a post' do
 
   before(:each) do
     login_as user, scope: :user
+    
     visit new_user_post_path(user)
   end
 

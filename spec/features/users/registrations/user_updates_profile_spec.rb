@@ -2,8 +2,11 @@ require 'rails_helper'
 
 RSpec.feature 'User updates their profile' do
 
+  let(:user) { create(:user) }
+
   before(:each) do
-    login_as create(:user), scope: :user
+    login_as user, scope: :user
+    
     visit edit_user_registration_path
   end
 
@@ -12,7 +15,7 @@ RSpec.feature 'User updates their profile' do
     fill_in 'Current Password', with: '123456'
     fill_in 'New Password', with: 'terriblepassword'
     fill_in 'New Password Confirmation', with: 'terriblepassword'
-    attach_file('user_avatar', Rails.root + 'app/assets/images/doge-small.png')
+    attach_file('user_avatar', Rails.root + 'app/assets/images/default-avatar_medium.png')
     click_button 'Update'
 
     expect(page).to have_text('Your account has been updated successfully.')

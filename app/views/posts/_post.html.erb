@@ -5,21 +5,21 @@
 
         <div class="row no-bottom-margin flex-center">
 
-          <div class="col s3 m2">
-            <div class="post-avatar flex-valign-center">
-              <%= image_tag post.postable.avatar, class: "resp-image" %>
+          <div class="col l2 s4">
+            <div class="post-avatar center-align">
+              <%= render_user_avatar(post.postable, :thumb) %>
             </div>
           </div>
 
-          <div class="col s6 m8">
+          <div class="col l8 s4">
             <div class="post-info">
               <h5><%= link_to post.title, polymorphic_path([post.postable, post]) %></h5>
-              <h6>By <%= link_to post.postable.email, polymorphic_path(post.postable) %></h6>
-              <h6><%= post.created_at.strftime("%B %d, %Y") %></h6>
+              <p>By <%= link_to post.postable.email, polymorphic_path(post.postable) %></p>
+              <p><%= post.created_at %></p>
             </div>
           </div>
 
-          <div class="col s3 m2">
+          <div class="col l2 s4">
             <div class="post-score center-align">
               <h4>44</h4>
             </div>

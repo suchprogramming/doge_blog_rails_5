@@ -11,37 +11,23 @@ RSpec.describe 'User management', :type => :request do
   end
 
   context 'on the USER #show route' do
-    it 'redirects unauthenticated requests' do
-      get user_path(current_user)
-
-      expect(response).to redirect_to(new_user_session_path)
-    end
-
-    it 'allows the current_user to view a user profile' do
+    it 'allows the current user to view a user profile' do
       login_as current_user, scope: :user
 
       get user_path(current_user)
 
       expect(response).to be_success
     end
+
+    it 'redirects unauthenticated requests' do
+      get user_path(current_user)
+
+      expect(response).to redirect_to(new_user_session_path)
+    end
   end
 
   context 'on the USER #edit route' do
-    it 'redirects unauthenticated requests' do
-      get edit_administration_user_path(current_user)
-
-      expect(response).to redirect_to(new_admin_session_path)
-    end
-
-    it 'redirects non admin users' do
-      login_as current_user, scope: :user
-
-      get edit_administration_user_path(current_user)
-
-      expect(response).to redirect_to(new_admin_session_path)
-    end
-
-    it 'allows admin access' do
+    it 'allows active admin access' do
       login_as admin
 
       get edit_administration_user_path(current_user)
@@ -49,26 +35,35 @@ RSpec.describe 'User management', :type => :request do
       expect(response).to be_success
     end
 
-  end
+    it 'redirects inactive admins' do
+      login_as admin, scope: :admin
 
-  context 'on the USER #update route' do
-    it 'redirects unauthenticated requests' do
-      patch administration_user_path(current_user), params: user_params
+      admin.update_attributes(active: false)
 
-      expect(response).to redirect_to(new_admin_session_path)
-    end
-
-    it 'redirects non admin users' do
-      login_as current_user
-
-      patch administration_user_path(current_user), params: user_params
+      get edit_administration_user_path(current_user)
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
 
+    it 'redirects non admin users' do
+      login_as current_user, scope: :user
+
+      get edit_administration_user_path(current_user)
+
+      expect(response).to redirect_to(new_admin_session_path)
+    end
+
+    it 'redirects unauthenticated requests' do
+      get edit_administration_user_path(current_user)
+
+      expect(response).to redirect_to(new_admin_session_path)
+    end
+  end
+
+  context 'on the USER #update route' do
     it 'allows admins to edit user accounts' do
       login_as admin
 
@@ -79,5 +74,36 @@ RSpec.describe 'User management', :type => :request do
 
       expect(response.body).to include('User updated successfully!')
     end
+
+    it 'redirects inactive admins' do
+      login_as admin, scope: :admin
+
+      admin.update_attributes(active: false)
+
+      patch administration_user_path(current_user), params: user_params
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
+    end
+
+    it 'redirects non admin users' do
+      login_as current_user
+
+      patch administration_user_path(current_user), params: user_params
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
+    end
+
+    it 'redirects unauthenticated requests' do
+      patch administration_user_path(current_user), params: user_params
+
+      expect(response).to redirect_to(new_admin_session_path)
+    end
   end
+
 end

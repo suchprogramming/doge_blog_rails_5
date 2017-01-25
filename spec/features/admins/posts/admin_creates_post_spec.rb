@@ -5,7 +5,8 @@ RSpec.feature 'User creates a post' do
   let(:admin) { create(:admin) }
 
   before(:each) do
-    login_as admin
+    login_as admin, scope: :admin
+    
     visit new_admin_post_path(admin)
   end
 

@@ -11,12 +11,6 @@ RSpec.describe 'Admin management', :type => :request do
   end
 
   context 'on the ADMIN #index route' do
-    it 'redirects unauthenticated requests' do
-      get administration_admins_path
-
-      expect(response).to redirect_to(new_admin_session_path)
-    end
-
     it 'allows superadmin access' do
       login_as superadmin, scope: :admin
 
@@ -33,7 +27,7 @@ RSpec.describe 'Admin management', :type => :request do
       expect(response).to redirect_to(root_path)
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'denies user access' do
@@ -43,15 +37,15 @@ RSpec.describe 'Admin management', :type => :request do
 
       expect(response).to redirect_to(new_admin_session_path)
     end
-  end
 
-  context 'on the ADMIN #edit route' do
     it 'redirects unauthenticated requests' do
-      get edit_administration_admin_path(admin)
+      get administration_admins_path
 
       expect(response).to redirect_to(new_admin_session_path)
     end
+  end
 
+  context 'on the ADMIN #edit route' do
     it 'grants superadmin access to their own resource' do
       login_as superadmin, scope: :admin
 
@@ -76,7 +70,7 @@ RSpec.describe 'Admin management', :type => :request do
       expect(response).to redirect_to root_path
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'denies admin access to another admin resource' do
@@ -87,7 +81,7 @@ RSpec.describe 'Admin management', :type => :request do
       expect(response).to redirect_to root_path
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'denies user access' do
@@ -97,15 +91,15 @@ RSpec.describe 'Admin management', :type => :request do
 
       expect(response).to redirect_to new_admin_session_path
     end
-  end
 
-  context 'on the ADMIN #update route' do
     it 'redirects unauthenticated requests' do
-      patch administration_admin_path(admin)
+      get edit_administration_admin_path(admin)
 
       expect(response).to redirect_to(new_admin_session_path)
     end
+  end
 
+  context 'on the ADMIN #update route' do
     it 'allows a superadmin to edit their account' do
       login_as superadmin, scope: :admin
 
@@ -136,7 +130,7 @@ RSpec.describe 'Admin management', :type => :request do
       expect(response).to redirect_to root_path
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'prevents an admin from updating another admin account' do
@@ -147,7 +141,7 @@ RSpec.describe 'Admin management', :type => :request do
       expect(response).to redirect_to root_path
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'denies user access' do
@@ -156,6 +150,12 @@ RSpec.describe 'Admin management', :type => :request do
       patch administration_admin_path(superadmin), params: updated_params
 
       expect(response).to redirect_to new_admin_session_path
+    end
+
+    it 'redirects unauthenticated requests' do
+      patch administration_admin_path(admin)
+
+      expect(response).to redirect_to(new_admin_session_path)
     end
   end
 end

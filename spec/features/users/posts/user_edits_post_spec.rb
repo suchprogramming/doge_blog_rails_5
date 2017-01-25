@@ -2,10 +2,16 @@ require 'rails_helper'
 
 RSpec.feature 'User edits a post' do
 
+  let(:post) { create(:post_with_user) }
+
+  def user
+    post.postable
+  end
+
   before(:each) do
-    post = create(:post_with_user)
-    login_as post.postable, scope: :user
-    visit edit_user_post_path(post.postable, post)
+    login_as user, scope: :user
+    
+    visit edit_user_post_path(user, post)
   end
 
   scenario 'with success' do

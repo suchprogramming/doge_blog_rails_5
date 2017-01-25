@@ -3,10 +3,13 @@ require 'rails_helper'
 RSpec.feature 'Admin searches for a post and clicks to view', js: true do
 
   let!(:post) { create(:post_with_user) }
+  let(:admin) { create(:admin) }
 
   before(:each) do
-    login_as create(:admin)
+    login_as admin, scope: :admin
+
     visit administration_dashboard_path
+    
     click_on 'Post Management'
 
     expect(page).to have_text(post.title)

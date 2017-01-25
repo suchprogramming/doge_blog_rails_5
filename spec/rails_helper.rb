@@ -28,6 +28,8 @@ require 'devise'
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  # General test helper
+  config.include TestHelper
   # Devise test helpers
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Warden::Test::Helpers
@@ -66,6 +68,10 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
+end
+
+Capybara::Webkit.configure do |config|
+  config.allow_url("fonts.googleapis.com")
 end
 
 Capybara.javascript_driver = :webkit

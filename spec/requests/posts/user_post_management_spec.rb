@@ -38,17 +38,6 @@ RSpec.describe 'Post management', :type => :request do
   end
 
   context 'on the POST #new route' do
-    it 'prevents the current user from accessing the new route of other users' do
-      login_as current_user, scope: :user
-
-      get new_user_post_path(alternate_user)
-
-      expect(response).to redirect_to(root_path)
-      follow_redirect!
-
-      expect(response.body).to include('You are not authorized to perform this action.')
-    end
-
     it 'allows the authenticated current_user access the new route' do
       login_as current_user, scope: :user
 
@@ -57,8 +46,20 @@ RSpec.describe 'Post management', :type => :request do
       expect(response).to be_success
     end
 
+    it 'prevents the current user from accessing the new route of other users' do
+      login_as current_user, scope: :user
+
+      get new_user_post_path(alternate_user)
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
+    end
+
     it 'prevents an inactive user from accessing the new post route' do
       login_as current_user, scope: :user
+
       current_user.update_attributes(active: false)
 
       get new_user_post_path(current_user)
@@ -66,7 +67,7 @@ RSpec.describe 'Post management', :type => :request do
       expect(response).to redirect_to(root_path)
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
   end
 
@@ -80,8 +81,11 @@ RSpec.describe 'Post management', :type => :request do
       expect(response.body).to include('Your new post has been created!')
     end
 
+    # post to other user route?
+
     it 'prevents an inactive user from creating a new post' do
       login_as current_user, scope: :user
+
       current_user.update_attributes(active: false)
 
       post user_posts_path(current_user), params: post_params
@@ -89,11 +93,19 @@ RSpec.describe 'Post management', :type => :request do
       expect(response).to redirect_to(root_path)
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
   end
 
   context 'on the POST #edit route' do
+    it 'allows the current user to edit their posts' do
+      login_as current_user, scope: :user
+
+      get edit_user_post_path(current_user, current_user_post)
+
+      expect(response).to be_success
+    end
+
     it 'prevents the current user from editing other user posts' do
       login_as current_user, scope: :user
 
@@ -102,15 +114,7 @@ RSpec.describe 'Post management', :type => :request do
       expect(response).to redirect_to(root_path)
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
-    end
-
-    it 'allows the current user access to their post edit route' do
-      login_as current_user, scope: :user
-
-      get edit_user_post_path(current_user, current_user_post)
-
-      expect(response).to be_success
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'renders the deactivated resource partial for inactive current user posts' do
@@ -125,6 +129,7 @@ RSpec.describe 'Post management', :type => :request do
 
     it 'prevents an inactive user from editing their posts' do
       login_as current_user, scope: :user
+
       current_user.update_attributes(active: false)
 
       get edit_user_post_path(current_user, current_user_post)
@@ -132,23 +137,12 @@ RSpec.describe 'Post management', :type => :request do
       expect(response).to redirect_to(root_path)
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
   end
 
   context 'on the POST #update route' do
-    it 'prevents the current user from updating other user posts' do
-      login_as current_user, scope: :user
-
-      patch user_post_path(alternate_user, alternate_user_post), params: post_params
-
-      expect(response).to redirect_to(root_path)
-      follow_redirect!
-
-      expect(response.body).to include('You are not authorized to perform this action.')
-    end
-
-    it 'allows the authenticated current_user to update their post' do
+    it 'allows the authenticated current user to update their post' do
       login_as current_user, scope: :user
 
       patch user_post_path(current_user, current_user_post), params: post_params
@@ -159,8 +153,20 @@ RSpec.describe 'Post management', :type => :request do
       expect(response.body).to include('Post successfully updated!')
     end
 
+    it 'prevents the current user from updating other user posts' do
+      login_as current_user, scope: :user
+
+      patch user_post_path(alternate_user, alternate_user_post), params: post_params
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
+    end
+
     it 'prevents an inactive user from updating their posts' do
       login_as current_user, scope: :user
+      
       current_user.update_attributes(active: false)
 
       patch user_post_path(alternate_user, alternate_user_post), params: post_params
@@ -168,22 +174,11 @@ RSpec.describe 'Post management', :type => :request do
       expect(response).to redirect_to(root_path)
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
   end
 
   context 'on the POST #delete route' do
-    it 'prevents the current user from deleting other user posts' do
-      login_as current_user, scope: :user
-
-      delete user_post_path(alternate_user, alternate_user_post)
-
-      expect(response).to redirect_to(root_path)
-      follow_redirect!
-
-      expect(response.body).to include('You are not authorized to perform this action.')
-    end
-
     it 'allows the authenticated current user to delete their post' do
       login_as current_user, scope: :user
 
@@ -195,8 +190,20 @@ RSpec.describe 'Post management', :type => :request do
       expect(response.body).to include('Post successfully deleted!')
     end
 
-    it 'prevents an inactive user from updating their posts' do
+    it 'prevents the current user from deleting other user posts' do
       login_as current_user, scope: :user
+
+      delete user_post_path(alternate_user, alternate_user_post)
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
+    end
+
+    it 'prevents an inactive user from deleting a post' do
+      login_as current_user, scope: :user
+
       current_user.update_attributes(active: false)
 
       delete user_post_path(current_user, current_user_post), params: post_params
@@ -204,7 +211,7 @@ RSpec.describe 'Post management', :type => :request do
       expect(response).to redirect_to(root_path)
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
   end
 

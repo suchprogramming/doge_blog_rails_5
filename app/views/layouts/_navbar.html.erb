@@ -1,8 +1,26 @@
 <nav>
-  <div class="nav-wrapper">
-    <a href="/" class="brand-logo">The Doge Blog</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <%= render 'layouts/navlinks' %>
-    </ul>
+  <div class="container">
+    <div class="nav-wrapper">
+
+      <a href="/" class="brand-logo">The Doge Blog</a>
+      <a href="#" data-activates="mobile-links" class="button-collapse"><i class="material-icons">menu</i></a>
+
+      <ul class="right hide-on-med-and-down">
+        <%= render 'layouts/navlinks' %>
+      </ul>
+
+      <ul class="side-nav" id="mobile-links">
+        <%= render 'layouts/mobile_links' %>
+      </ul>
+
+    </div>
   </div>
 </nav>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".button-collapse").sideNav();
+    });
+  </script>
+<% end %>

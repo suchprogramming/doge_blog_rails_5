@@ -21,7 +21,7 @@ RSpec.describe Invitation, type: :model do
   end
 
   describe '.active_user_invites' do
-    it 'returns and active invite for a given recipient email' do
+    it 'returns an active invite for a given recipient email' do
       expect(Invitation.active_user_invites(invitation.recipient_email).first)
         .to eq(invitation)
     end

@@ -15,6 +15,7 @@ class Superadmins::InvitationsController < ApplicationController
     @invitation = current_admin.invitations.new(invitation_params)
     authorize @invitation
     if @invitation.save
+      InvitationMailer.admin_invitation(@invitation).deliver_now
       redirect_to superadmins_invitations_path, success: 'Invite created!'
     else
       render :new

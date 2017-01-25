@@ -8,7 +8,7 @@ describe UserPolicy do
   subject { UserPolicy }
 
   permissions :index?, :edit?, :update? do
-    it 'grants admin access' do
+    it 'grants active admin access' do
       expect(subject).to permit(admin, user)
     end
 

@@ -1,5 +1,17 @@
-<h3><%= @admin.email %></h3>
+<div class="row">
+  <div class="col s12">
 
-<% if current_superadmin %>
-  <%= link_to "Edit Profile", edit_administration_admin_path(@admin) %>
-<% end %>
+    <div class="section content-top-spacer">
+      <div class="center">
+        <%= render_user_avatar(@admin, :medium) %>
+        <h4><%= @admin.email %></h4>
+
+        <% if current_admin %>
+          <%= link_to "Edit Profile", edit_administration_admin_path(@admin) %>
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+</div>

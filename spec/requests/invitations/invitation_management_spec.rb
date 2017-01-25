@@ -4,6 +4,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
 
   let(:admin) { create(:admin) }
   let(:invitation) { create(:invitation) }
+  let(:current_user) { create(:current_user) }
 
   def super_admin
     invitation.admin
@@ -15,7 +16,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
 
   context 'on the INVITATION #index route' do
     it 'allows an admin to view a list of invitations' do
-      login_as admin
+      login_as admin, scope: :admin
 
       get superadmins_invitations_path
 
@@ -23,17 +24,31 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     end
 
     it 'allows a superadmin to view a list of invitations' do
-      login_as super_admin
+      login_as super_admin, scope: :admin
 
       get superadmins_invitations_path
 
       expect(response).to be_success
     end
+
+    it 'denies user access' do
+      login_as current_user, scope: :user
+
+      get superadmins_invitations_path
+
+      expect(response).to redirect_to(new_admin_session_path)
+    end
+
+    it 'redirects unauthenticated requests' do
+      get superadmins_invitations_path
+
+      expect(response).to redirect_to(new_admin_session_path)
+    end
   end
 
   context 'on the INVITATION #new route' do
     it 'grants a superadmin access to the new invitation route' do
-      login_as super_admin
+      login_as super_admin, scope: :admin
 
       get new_superadmins_invitation_path
 
@@ -41,20 +56,34 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     end
 
     it 'denies regular admin access to the new invitation route' do
-      login_as admin
+      login_as admin, scope: :admin
 
       get new_superadmins_invitation_path
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
+    end
+
+    it 'denies user access' do
+      login_as current_user, scope: :user
+
+      get new_superadmins_invitation_path
+
+      expect(response).to redirect_to(new_admin_session_path)
+    end
+
+    it 'redirects unauthenticated requests' do
+      get superadmins_invitations_path
+
+      expect(response).to redirect_to(new_admin_session_path)
     end
   end
 
   context 'on the INVITATION #create route' do
     it 'allows a superadmin to create a new invitation' do
-      login_as super_admin
+      login_as super_admin, scope: :admin
 
       post superadmins_invitations_path, params: invite_params
       follow_redirect!
@@ -63,17 +92,17 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     end
 
     it 'prevents a regular admin from creating invites' do
-      login_as admin
+      login_as admin, scope: :admin
 
       post superadmins_invitations_path, params: invite_params
       follow_redirect!
 
-      expect(response.body).to include('You are not authorized to perform this action.')
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'deactivates all invites for a recipient email before creation' do
       old_invite = invitation
-      login_as super_admin
+      login_as super_admin, scope: :admin
 
       post superadmins_invitations_path, params: invite_params
       follow_redirect!
@@ -81,5 +110,20 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
       expect(response.body).to include('Invite created!')
       expect(Invitation.active_user_invites('new_admin@admin.com').count).to eq(1)
     end
+
+    it 'denies user access' do
+      login_as current_user, scope: :user
+
+      post superadmins_invitations_path, params: invite_params
+
+      expect(response).to redirect_to(new_admin_session_path)
+    end
+
+    it 'redirects unauthenticated requests' do
+      get superadmins_invitations_path
+
+      expect(response).to redirect_to(new_admin_session_path)
+    end
   end
+
 end

@@ -3,6 +3,7 @@ require 'database_cleaner'
 require 'support/database_cleaner'
 require 'support/factory_girl'
 require 'support/controller_helpers'
+require 'support/test_helper'
 require "paperclip/matchers"
 require "pundit/rspec"
 
