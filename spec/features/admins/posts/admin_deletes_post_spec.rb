@@ -14,8 +14,8 @@ RSpec.feature 'Admin deletes a post' do
 
     visit user_post_path(user, post)
 
-    find('a.modal-trigger').click
-    find("#delete-post-#{post.id}").click
+    find('a', text: 'Delete', class: 'modal-trigger').click
+    find('a', text: 'Delete Post').click
 
     expect(page).to have_text('Post successfully deleted!')
   end

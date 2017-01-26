@@ -8,7 +8,7 @@ RSpec.feature 'User updates avatar and checks public profile and post index' do
     post.postable
   end
 
-  scenario 'with success' do
+  scenario 'with success while the avatar is still not approved' do
     login_as user, scope: :user
 
     visit edit_user_registration_path
@@ -29,5 +29,5 @@ RSpec.feature 'User updates avatar and checks public profile and post index' do
 
     expect(find('img')[:class]).to eq('default-user-avatar')
   end
-  
+
 end

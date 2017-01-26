@@ -6,7 +6,7 @@ RSpec.feature 'User creates a post' do
 
   before(:each) do
     login_as user, scope: :user
-    
+
     visit new_user_post_path(user)
   end
 
@@ -19,7 +19,7 @@ RSpec.feature 'User creates a post' do
     expect(page).to have_text('Beyerdynamics')
   end
 
-  scenario 'with errors' do
+  scenario 'with validation errors' do
     fill_in 'Title', with: 'Drew Li'
     click_button 'Submit'
 

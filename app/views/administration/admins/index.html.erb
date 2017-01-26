@@ -10,17 +10,17 @@
 
     <div class="section">
       <div class="card-panel">
+
         <div class="row no-bottom-margin">
           <div class="col s12">
-            <%= render 'shared/admin_search',
-                        search_type: 'admin_search',
-                        path: administration_admins_path %>
+            <%= render 'shared/admin_search', search_type: 'admin_search', path: administration_admins_path %>
+
+            <div id="admins">
+              <%= render 'admin_table' %>
+            </div>
           </div>
         </div>
 
-        <div id="admins">
-          <%= render 'admin_table' %>
-        </div>
       </div>
     </div>
 

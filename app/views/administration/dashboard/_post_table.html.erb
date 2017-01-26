@@ -1,0 +1,18 @@
+<table class="highlight centered">
+  <thead>
+    <tr>
+      <% build_header(post_attrs_header) %>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @posts.length != 0 %>
+      <% @posts.each do |post| %>
+        <tr class="admin-table-row" id=<%= polymorphic_path([post.postable, post]) %>>
+          <% build_row(post, selected_post_attrs) %>
+        </tr>
+      <% end %>
+    <% else %>
+      <%= render 'shared/table_no_records' %>
+    <% end %>
+  </tbody>
+</table>

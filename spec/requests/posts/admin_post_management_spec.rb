@@ -54,7 +54,15 @@ RSpec.describe 'Admin post managment', :type => :request do
   end
 
   context 'on the POST #new route' do
-    it 'redirects when an admin attempts to access a users new post route' do
+    it 'allows an admin to access the new admin post route' do
+      login_as current_admin, scope: :admin
+
+      get new_admin_post_path(current_admin)
+
+      expect(response).to be_success
+    end
+
+    it 'prevents an admin from accessing a users new post route' do
       login_as current_admin, scope: :admin
 
       get new_user_post_path(user_post_owner)
@@ -63,14 +71,6 @@ RSpec.describe 'Admin post managment', :type => :request do
       follow_redirect!
 
       expect(response.body).to include(default_pundit_error)
-    end
-
-    it 'allows an admin to access the new admin post route' do
-      login_as current_admin, scope: :admin
-
-      get new_admin_post_path(current_admin)
-
-      expect(response).to be_success
     end
 
     it 'prevents an inactive admin from accessing the new post route' do

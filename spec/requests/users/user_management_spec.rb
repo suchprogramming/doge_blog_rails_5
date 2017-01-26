@@ -35,7 +35,7 @@ RSpec.describe 'User management', :type => :request do
       expect(response).to be_success
     end
 
-    it 'redirects inactive admins' do
+    it 'denies inactive admin access' do
       login_as admin, scope: :admin
 
       admin.update_attributes(active: false)
@@ -48,7 +48,7 @@ RSpec.describe 'User management', :type => :request do
       expect(response.body).to include(default_pundit_error)
     end
 
-    it 'redirects non admin users' do
+    it 'denies user access' do
       login_as current_user, scope: :user
 
       get edit_administration_user_path(current_user)
@@ -75,7 +75,7 @@ RSpec.describe 'User management', :type => :request do
       expect(response.body).to include('User updated successfully!')
     end
 
-    it 'redirects inactive admins' do
+    it 'denies inactive admin access' do
       login_as admin, scope: :admin
 
       admin.update_attributes(active: false)
@@ -88,7 +88,7 @@ RSpec.describe 'User management', :type => :request do
       expect(response.body).to include(default_pundit_error)
     end
 
-    it 'redirects non admin users' do
+    it 'denies user access' do
       login_as current_user
 
       patch administration_user_path(current_user), params: user_params

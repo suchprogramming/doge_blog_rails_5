@@ -34,4 +34,5 @@ RSpec.feature 'Pending admin accepts an invite' do
 
     expect(page).to have_text(default_pundit_error)
   end
+  
 end

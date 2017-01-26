@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'User authentication' do
+RSpec.feature 'A user logs in' do
 
   let(:user) { create(:user) }
 

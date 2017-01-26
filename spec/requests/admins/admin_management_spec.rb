@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Admin management', :type => :request do
 
   let(:admin) { create(:admin) }
-  let(:superadmin) { create(:superadmin) }
+  let(:super_admin) { create(:super_admin) }
   let(:current_user) { create(:current_user) }
 
   def updated_params
@@ -11,12 +11,25 @@ RSpec.describe 'Admin management', :type => :request do
   end
 
   context 'on the ADMIN #index route' do
-    it 'allows superadmin access' do
-      login_as superadmin, scope: :admin
+    it 'grants super admin access to the admin index' do
+      login_as super_admin, scope: :admin
 
       get administration_admins_path
 
       expect(response).to be_success
+    end
+
+    it 'denies inactive super admin access' do
+      login_as super_admin, scope: :admin
+
+      super_admin.update_attributes(active: false)
+
+      get administration_admins_path
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'denies admin access' do
@@ -46,37 +59,31 @@ RSpec.describe 'Admin management', :type => :request do
   end
 
   context 'on the ADMIN #edit route' do
-    it 'grants superadmin access to their own resource' do
-      login_as superadmin, scope: :admin
-
-      get edit_administration_admin_path(superadmin)
-
-      expect(response).to be_success
-    end
-
-    it 'grants superadmin access to an admin resource' do
-      login_as superadmin, scope: :admin
+    it 'grants super admin access to the admin edit route' do
+      login_as super_admin, scope: :admin
 
       get edit_administration_admin_path(admin)
 
       expect(response).to be_success
     end
 
-    it 'denies admin access to their own resource' do
-      login_as admin, scope: :admin
+    it 'denies inactive super admin access' do
+      login_as super_admin, scope: :admin
+
+      super_admin.update_attributes(active: false)
 
       get edit_administration_admin_path(admin)
 
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to(root_path)
       follow_redirect!
 
       expect(response.body).to include(default_pundit_error)
     end
 
-    it 'denies admin access to another admin resource' do
+    it 'denies admin access' do
       login_as admin, scope: :admin
 
-      get edit_administration_admin_path(superadmin)
+      get edit_administration_admin_path(admin)
 
       expect(response).to redirect_to root_path
       follow_redirect!
@@ -100,19 +107,8 @@ RSpec.describe 'Admin management', :type => :request do
   end
 
   context 'on the ADMIN #update route' do
-    it 'allows a superadmin to edit their account' do
-      login_as superadmin, scope: :admin
-
-      patch administration_admin_path(superadmin), params: updated_params
-
-      expect(response).to redirect_to(admin_path(superadmin))
-      follow_redirect!
-
-      expect(response.body).to include(updated_params[:admin][:email])
-    end
-
-    it 'allows a superadmin to edit an admin account' do
-      login_as superadmin, scope: :admin
+    it 'allows a super admin to edit an admin account' do
+      login_as super_admin, scope: :admin
 
       patch administration_admin_path(admin), params: updated_params
 
@@ -122,21 +118,23 @@ RSpec.describe 'Admin management', :type => :request do
       expect(response.body).to include(updated_params[:admin][:email])
     end
 
-    it 'prevents an admin from updating their account' do
-      login_as admin, scope: :admin
+    it 'denies inactive super admin access' do
+      login_as super_admin, scope: :admin
+
+      super_admin.update_attributes(active: false)
 
       patch administration_admin_path(admin), params: updated_params
 
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to(root_path)
       follow_redirect!
 
       expect(response.body).to include(default_pundit_error)
     end
 
-    it 'prevents an admin from updating another admin account' do
+    it 'denies admin access' do
       login_as admin, scope: :admin
 
-      patch administration_admin_path(superadmin), params: updated_params
+      patch administration_admin_path(admin), params: updated_params
 
       expect(response).to redirect_to root_path
       follow_redirect!
@@ -147,7 +145,7 @@ RSpec.describe 'Admin management', :type => :request do
     it 'denies user access' do
       login_as current_user, scope: :user
 
-      patch administration_admin_path(superadmin), params: updated_params
+      patch administration_admin_path(admin), params: updated_params
 
       expect(response).to redirect_to new_admin_session_path
     end

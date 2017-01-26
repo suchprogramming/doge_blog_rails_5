@@ -16,8 +16,8 @@ RSpec.feature 'Admin edits a post' do
   end
 
   scenario 'with success' do
-    expect(page).to have_field('Title', with: 'Happy Trees')
-    expect(page).to have_field('Post content', with: 'Lizard Crimson')
+    expect(page).to have_field('Title', with: post.title)
+    expect(page).to have_field('Post content', with: post.post_content)
 
     fill_in 'Title', with: 'New Title'
     fill_in 'Post content', with: 'Looking for me?'
@@ -27,9 +27,9 @@ RSpec.feature 'Admin edits a post' do
     expect(page).to have_text('Looking for me?')
   end
 
-  scenario 'with errors' do
-    expect(page).to have_field('Title', with: 'Happy Trees')
-    expect(page).to have_field('Post content', with: 'Lizard Crimson')
+  scenario 'with validation errors' do
+    expect(page).to have_field('Title', with: post.title)
+    expect(page).to have_field('Post content', with: post.post_content)
 
     fill_in 'Title', with: ''
     click_button 'Submit'

@@ -15,3 +15,7 @@
 //= require materialize
 //= require lodash
 //= require_tree .
+
+$(document).on("click", '.admin-table-row', function(ev) {
+  location.href = this.id
+});

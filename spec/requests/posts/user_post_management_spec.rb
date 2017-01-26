@@ -38,7 +38,7 @@ RSpec.describe 'Post management', :type => :request do
   end
 
   context 'on the POST #new route' do
-    it 'allows the authenticated current_user access the new route' do
+    it 'grants access to a users new post route' do
       login_as current_user, scope: :user
 
       get new_user_post_path(current_user)
@@ -166,7 +166,7 @@ RSpec.describe 'Post management', :type => :request do
 
     it 'prevents an inactive user from updating their posts' do
       login_as current_user, scope: :user
-      
+
       current_user.update_attributes(active: false)
 
       patch user_post_path(alternate_user, alternate_user_post), params: post_params

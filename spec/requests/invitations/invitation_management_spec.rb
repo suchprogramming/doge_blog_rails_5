@@ -15,20 +15,36 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
   end
 
   context 'on the INVITATION #index route' do
-    it 'allows an admin to view a list of invitations' do
-      login_as admin, scope: :admin
+    it 'grants super admin access to the invitations index' do
+      login_as super_admin, scope: :admin
 
       get superadmins_invitations_path
 
       expect(response).to be_success
     end
 
-    it 'allows a superadmin to view a list of invitations' do
+    it 'denies inactive superadmin access' do
       login_as super_admin, scope: :admin
+
+      super_admin.update_attributes(active: false)
 
       get superadmins_invitations_path
 
-      expect(response).to be_success
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
+    end
+
+    it 'denies admin access' do
+      login_as admin, scope: :admin
+
+      get superadmins_invitations_path
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'denies user access' do
@@ -55,7 +71,20 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
       expect(response).to be_success
     end
 
-    it 'denies regular admin access to the new invitation route' do
+    it 'denies inactive superadmin access' do
+      login_as super_admin, scope: :admin
+
+      super_admin.update_attributes(active: false)
+
+      get new_superadmins_invitation_path
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
+    end
+
+    it 'denies admin access' do
       login_as admin, scope: :admin
 
       get new_superadmins_invitation_path
@@ -91,24 +120,26 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
       expect(response.body).to include('Invite created!')
     end
 
-    it 'prevents a regular admin from creating invites' do
+    it 'denies inactive superadmin access' do
+      login_as super_admin, scope: :admin
+
+      super_admin.update_attributes(active: false)
+
+      post superadmins_invitations_path, params: invite_params
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
+    end
+
+    it 'denies admin access' do
       login_as admin, scope: :admin
 
       post superadmins_invitations_path, params: invite_params
       follow_redirect!
 
       expect(response.body).to include(default_pundit_error)
-    end
-
-    it 'deactivates all invites for a recipient email before creation' do
-      old_invite = invitation
-      login_as super_admin, scope: :admin
-
-      post superadmins_invitations_path, params: invite_params
-      follow_redirect!
-
-      expect(response.body).to include('Invite created!')
-      expect(Invitation.active_user_invites('new_admin@admin.com').count).to eq(1)
     end
 
     it 'denies user access' do

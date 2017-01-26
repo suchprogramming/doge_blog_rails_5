@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin authentication' do
+RSpec.feature 'An admin logs in' do
 
   let(:admin) { create(:admin) }
 
@@ -18,9 +18,9 @@ RSpec.feature 'Admin authentication' do
     expect(page).to have_text('Signed out successfully.')
   end
 
-  scenario 'with errors' do
+  scenario 'with validation errors' do
     visit new_admin_session_path
-    
+
     fill_in 'Email', with: 'not_an_admin@hacker.com'
     fill_in 'Password', with: 'thedoge'
     click_button 'Sign In'

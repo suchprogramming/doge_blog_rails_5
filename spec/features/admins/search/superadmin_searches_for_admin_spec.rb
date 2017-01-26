@@ -3,10 +3,11 @@ require 'rails_helper'
 RSpec.feature 'Superadmin searches for an admin and views profile', js: true do
 
   let!(:admin) { create(:admin) }
-  let(:superadmin) { create(:superadmin) }
+  let(:super_admin) { create(:super_admin) }
 
   before(:each) do
-    login_as superadmin, scope: :admin
+    login_as super_admin, scope: :admin
+    
     visit administration_admins_path
 
     expect(page).to have_text(admin.email)

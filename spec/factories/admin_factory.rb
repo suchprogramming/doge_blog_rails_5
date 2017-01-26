@@ -4,7 +4,7 @@ FactoryGirl.define do
     password 123456
   end
 
-  factory :superadmin, class: 'SuperAdmin' do
+  factory :super_admin, class: 'SuperAdmin' do
     email 'superadmin@admin.com'
     password 123456
   end

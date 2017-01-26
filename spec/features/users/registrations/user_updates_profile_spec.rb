@@ -6,7 +6,7 @@ RSpec.feature 'User updates their profile' do
 
   before(:each) do
     login_as user, scope: :user
-    
+
     visit edit_user_registration_path
   end
 
@@ -22,8 +22,9 @@ RSpec.feature 'User updates their profile' do
   end
 
   scenario 'without including a current password' do
-    fill_in 'Email', with: 'bobross@happytrees.com'
-    click_button 'Update'
+    fill_in 'New Password', with: 'terriblepassword'
+    fill_in 'New Password Confirmation', with: 'terriblepassword'
+    click_on 'Update'
 
     expect(page).to have_text("can't be blank")
   end

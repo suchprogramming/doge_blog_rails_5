@@ -14,37 +14,7 @@
 
   <div class="row">
     <div class="col s12">
-
-      <ul class="collection">
-        <li class="collection-item">
-          <div>
-            <span>Account Status</span>
-            <div class="switch secondary-content">
-              <label>
-                Inactive
-                <%= f.check_box :active %>
-                <span class="lever"></span>
-                Active
-              </label>
-            </div>
-          </div>
-        </li>
-
-        <li class="collection-item">
-          <div>
-            <span>Avatar Approved</span>
-            <div class="switch secondary-content">
-              <label>
-                No
-                <%= f.check_box :avatar_approved %>
-                <span class="lever"></span>
-                Yes
-              </label>
-            </div>
-          </div>
-        </li>
-      </ul>
-
+      <%= render '/administration/edit_user_selectors', f: f %>
     </div>
   </div>
 

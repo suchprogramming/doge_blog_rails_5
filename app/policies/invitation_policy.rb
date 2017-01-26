@@ -7,7 +7,7 @@ class InvitationPolicy
   end
 
   def index?
-    user.try(:admin?) && user.active
+    create?
   end
 
   def new?

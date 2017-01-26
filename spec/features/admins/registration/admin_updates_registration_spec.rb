@@ -8,7 +8,7 @@ RSpec.feature 'Admin updates their registration' do
     login_as admin, scope: :admin
 
     visit root_path
-    
+
     find('ul.right').find('a', text: 'My Account').click
 
     expect(page).to have_text('My Account')
@@ -27,6 +27,8 @@ RSpec.feature 'Admin updates their registration' do
   end
 
   scenario 'without a current password' do
+    fill_in 'New Password', with: 'terriblepassword'
+    fill_in 'New Password Confirmation', with: 'terriblepassword'
     click_on 'Update'
 
     expect(page).to have_text("can't be blank")

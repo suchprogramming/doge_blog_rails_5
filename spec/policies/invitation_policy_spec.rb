@@ -5,10 +5,6 @@ describe InvitationPolicy do
   subject { InvitationPolicy }
 
   permissions :index? do
-    it 'grants an admin access to the invitation list' do
-      expect(subject).to permit(Admin.new, Invitation.new)
-    end
-
     it 'grants a superadmin access to the invitation list' do
       expect(subject).to permit(SuperAdmin.new, Invitation.new)
     end
@@ -17,11 +13,11 @@ describe InvitationPolicy do
       expect(subject).not_to permit(SuperAdmin.new(active: false), Invitation.new)
     end
 
-    it 'denies access to inactive admins' do
-      expect(subject).not_to permit(Admin.new(active: false), Invitation.new)
+    it 'denies access to admins' do
+      expect(subject).not_to permit(Admin.new, Invitation.new)
     end
 
-    it 'denies access to user objects' do
+    it 'denies access to users' do
       expect(subject).not_to permit(User.new, Invitation.new)
     end
   end
@@ -35,11 +31,11 @@ describe InvitationPolicy do
       expect(subject).not_to permit(SuperAdmin.new(active: false), Invitation.new)
     end
 
-    it 'denies regular admin access' do
+    it 'denies admin access' do
       expect(subject).not_to permit(Admin.new, Invitation.new)
     end
 
-    it 'denies access to user objects' do
+    it 'denies access to users' do
       expect(subject).not_to permit(User.new, Invitation.new)
     end
   end

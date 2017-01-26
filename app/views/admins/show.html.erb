@@ -6,7 +6,7 @@
         <%= render_user_avatar(@admin, :medium) %>
         <h4><%= @admin.email %></h4>
 
-        <% if current_admin %>
+        <% if current_admin && policy(@admin).edit? %>
           <%= link_to "Edit Profile", edit_administration_admin_path(@admin) %>
         <% end %>
 

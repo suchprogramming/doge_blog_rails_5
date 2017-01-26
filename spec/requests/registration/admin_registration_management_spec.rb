@@ -34,7 +34,7 @@ RSpec.describe 'Admin registration management', :type => :request do
       expect(response.body).to include('New Admin Creation')
     end
 
-    it 'redirects requests with invalid tokens' do
+    it 'denies requests with invalid tokens' do
       get administration_path('russia-stole-your-token')
 
       expect(response).to redirect_to(root_path)
@@ -43,7 +43,7 @@ RSpec.describe 'Admin registration management', :type => :request do
       expect(response.body).to include(default_pundit_error)
     end
 
-    it 'redirects requests with expired tokens' do
+    it 'denies requests with expired tokens' do
       invitation.update_attributes(expires_at: 1.week.ago)
 
       get administration_path(invitation.token)

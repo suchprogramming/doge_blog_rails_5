@@ -48,8 +48,8 @@ RSpec.describe Invitation, type: :model do
 
   describe '#mark_inactive' do
     it 'should mark all pending invites inactive before creation' do
-      admin = create(:superadmin)
-      invitation_pair = create_pair(:invitation, admin: admin)
+      super_admin = create(:super_admin)
+      invitation_pair = create_pair(:invitation, admin: super_admin)
 
       expect(Invitation.active_user_invites('new_admin@admin.com').count).to eq(1)
     end

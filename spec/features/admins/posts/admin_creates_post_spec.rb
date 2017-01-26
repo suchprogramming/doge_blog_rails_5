@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.feature 'User creates a post' do
+RSpec.feature 'Admin creates a post' do
 
   let(:admin) { create(:admin) }
 
   before(:each) do
     login_as admin, scope: :admin
-    
+
     visit new_admin_post_path(admin)
   end
 
@@ -19,7 +19,7 @@ RSpec.feature 'User creates a post' do
     expect(page).to have_text('Beyerdynamics')
   end
 
-  scenario 'with errors' do
+  scenario 'with validation errors' do
     fill_in 'Title', with: 'Drew Li'
     click_button 'Submit'
 
