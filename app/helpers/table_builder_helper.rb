@@ -12,43 +12,49 @@ module TableBuilderHelper
     render 'shared/table_no_records'
   end
 
-  def safe_user_attrs
+  def user_table_attrs
     [
-      "id",
-      "email",
-      "created_at",
-      "sign_in_count",
-      "last_sign_in_at",
-      "last_sign_in_ip",
-      "active"
+      'email',
+      'created_at',
+      'sign_in_count',
+      'last_sign_in_at',
+      'last_sign_in_ip',
+      'active',
+      'avatar_approved'
     ]
   end
 
-  def selected_post_attrs
+  def user_table_header
     [
-      "id",
-      "title",
-      "created_at",
-      "postable_type",
-      "postable_id",
-      "active"
+      'E-Mail',
+      'Join Date',
+      'Sign In Count',
+      'Last Sign In',
+      'Last IP',
+      'Active',
+      'Avatar Approved'
     ]
   end
 
-  def post_attrs_header
+  def post_table_attrs
     [
-      "ID",
-      "Title",
-      "Date Created",
-      "Poster Type",
-      "Poster ID",
-      "Active"
+      'title',
+      'created_at',
+      'active'
     ]
   end
 
-  def invitation_attrs
+  def post_table_header
     [
-      'id',
+      'Title',
+      'Date Created',
+      'Active',
+      'Poster'
+    ]
+  end
+
+  def invitation_table_attrs
+    [
       'recipient_email',
       'expires_at',
       'accepted_at',

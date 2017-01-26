@@ -20,4 +20,5 @@
 /config/application.yml
 
 # Keep some local avatar storage for when my internet dies :(
-/public/system/
+/public/system
+/public/assets

@@ -1,14 +1,14 @@
 <table class="highlight centered">
   <thead>
     <tr>
-      <% build_header(invitation_attrs) %>
+      <% build_header(invitation_table_attrs) %>
     </tr>
   </thead>
   <tbody>
     <% if @invitations.length != 0 %>
       <% @invitations.each do |item| %>
         <tr>
-          <% build_row(item, invitation_attrs) %>
+          <% build_row(item, invitation_table_attrs) %>
         </tr>
       <% end %>
     <% else %>

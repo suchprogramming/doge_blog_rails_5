@@ -1,14 +1,15 @@
 <table class="highlight centered">
   <thead>
     <tr>
-      <% build_header(post_attrs_header) %>
+      <% build_header(post_table_header) %>
     </tr>
   </thead>
   <tbody>
     <% if @posts.length != 0 %>
       <% @posts.each do |post| %>
         <tr class="admin-table-row" id=<%= polymorphic_path([post.postable, post]) %>>
-          <% build_row(post, selected_post_attrs) %>
+          <% build_row(post, post_table_attrs) %>
+          <td><%= post.postable.email %></td>
         </tr>
       <% end %>
     <% else %>

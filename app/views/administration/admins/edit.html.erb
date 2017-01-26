@@ -3,7 +3,7 @@
 
     <div class="section content-top-spacer">
       <div class="center">
-        <%= render_user_avatar(@admin, :medium) %>
+        <%= image_tag @admin.avatar.url(:medium) %>
         <h4>Edit Profile</h4>
       </div>
     </div>
