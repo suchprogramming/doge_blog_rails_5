@@ -30,7 +30,7 @@ RSpec.describe 'Unauthenticated post management', :type => :request do
     end
 
     it 'renders the deactivated resource partial for inactive posts' do
-      user_post.update_attributes(active: false)
+      user_post.update(active: false)
 
       get user_post_path(user, user_post)
 

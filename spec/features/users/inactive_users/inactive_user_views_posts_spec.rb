@@ -11,7 +11,7 @@ RSpec.feature 'Inactive user views restricted posts' do
   before do
     login_as user, scope: :user
 
-    user.update_attributes(active: false)
+    user.update(active: false)
 
     visit root_path
   end

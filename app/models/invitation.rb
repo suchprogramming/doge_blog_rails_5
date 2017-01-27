@@ -21,12 +21,12 @@ class Invitation < ApplicationRecord
   private
 
   def set_expiration_date
-    self.update_attributes(expires_at: DateTime.now + 1.day)
+    self.update(expires_at: DateTime.now + 1.day)
   end
 
   def mark_inactive
     Invitation.where(recipient_email: recipient_email).each do |inv|
-      inv.update_attributes(expires_at: nil)
+      inv.update(expires_at: nil)
     end
   end
 

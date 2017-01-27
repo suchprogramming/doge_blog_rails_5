@@ -14,7 +14,7 @@ RSpec.describe Invitation, type: :model do
     end
 
     it 'should ignore invites outside of the expiry range' do
-      invitation.update_attributes(expires_at: 1.week.ago)
+      invitation.update(expires_at: 1.week.ago)
 
       expect(Invitation.valid_invite_token(invitation.token)).to eq([])
     end
@@ -27,7 +27,7 @@ RSpec.describe Invitation, type: :model do
     end
 
     it 'ignores invites that have been marked inactive' do
-      invitation.update_attributes(expires_at: nil)
+      invitation.update(expires_at: nil)
 
       expect(Invitation.active_user_invites(invitation.recipient_email)).to eq([])
     end

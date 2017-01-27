@@ -44,7 +44,7 @@ RSpec.describe 'Admin registration management', :type => :request do
     end
 
     it 'denies requests with expired tokens' do
-      invitation.update_attributes(expires_at: 1.week.ago)
+      invitation.update(expires_at: 1.week.ago)
 
       get administration_path(invitation.token)
 

@@ -29,7 +29,7 @@ RSpec.describe 'Post management', :type => :request do
     it 'renders the deactivated resource partial for inactive posts' do
       login_as current_user, scope: :user
 
-      current_user_post.update_attributes(active: false)
+      current_user_post.update(active: false)
 
       get user_post_path(current_user, current_user_post)
 
@@ -60,7 +60,7 @@ RSpec.describe 'Post management', :type => :request do
     it 'prevents an inactive user from accessing the new post route' do
       login_as current_user, scope: :user
 
-      current_user.update_attributes(active: false)
+      current_user.update(active: false)
 
       get new_user_post_path(current_user)
 
@@ -86,7 +86,7 @@ RSpec.describe 'Post management', :type => :request do
     it 'prevents an inactive user from creating a new post' do
       login_as current_user, scope: :user
 
-      current_user.update_attributes(active: false)
+      current_user.update(active: false)
 
       post user_posts_path(current_user), params: post_params
 
@@ -120,7 +120,7 @@ RSpec.describe 'Post management', :type => :request do
     it 'renders the deactivated resource partial for inactive current user posts' do
       login_as current_user, scope: :user
 
-      current_user_post.update_attributes(active: false)
+      current_user_post.update(active: false)
 
       get edit_user_post_path(current_user, current_user_post)
 
@@ -130,7 +130,7 @@ RSpec.describe 'Post management', :type => :request do
     it 'prevents an inactive user from editing their posts' do
       login_as current_user, scope: :user
 
-      current_user.update_attributes(active: false)
+      current_user.update(active: false)
 
       get edit_user_post_path(current_user, current_user_post)
 
@@ -167,7 +167,7 @@ RSpec.describe 'Post management', :type => :request do
     it 'prevents an inactive user from updating their posts' do
       login_as current_user, scope: :user
 
-      current_user.update_attributes(active: false)
+      current_user.update(active: false)
 
       patch user_post_path(alternate_user, alternate_user_post), params: post_params
 
@@ -204,7 +204,7 @@ RSpec.describe 'Post management', :type => :request do
     it 'prevents an inactive user from deleting a post' do
       login_as current_user, scope: :user
 
-      current_user.update_attributes(active: false)
+      current_user.update(active: false)
 
       delete user_post_path(current_user, current_user_post), params: post_params
 

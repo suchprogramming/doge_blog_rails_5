@@ -34,7 +34,7 @@ RSpec.describe 'Admin post managment', :type => :request do
     it 'allows an active admin to view an inactive post' do
       login_as current_admin, scope: :admin
 
-      user_post.update_attributes(active: false)
+      user_post.update(active: false)
 
       get user_post_path(user_post_owner, user_post)
 
@@ -44,8 +44,8 @@ RSpec.describe 'Admin post managment', :type => :request do
     it 'prevents an inactive admin from viewing an inactive post' do
       login_as current_admin, scope: :admin
 
-      current_admin.update_attributes(active: false)
-      user_post.update_attributes(active: false)
+      current_admin.update(active: false)
+      user_post.update(active: false)
 
       get user_post_path(user_post_owner, user_post)
 
@@ -76,7 +76,7 @@ RSpec.describe 'Admin post managment', :type => :request do
     it 'prevents an inactive admin from accessing the new post route' do
       login_as current_admin, scope: :admin
 
-      current_admin.update_attributes(active: false)
+      current_admin.update(active: false)
 
       get new_admin_post_path(current_admin)
 
@@ -102,7 +102,7 @@ RSpec.describe 'Admin post managment', :type => :request do
     it 'prevents an inactive admin from creating posts' do
       login_as current_admin, scope: :admin
 
-      current_admin.update_attributes(active: false)
+      current_admin.update(active: false)
 
       post admin_posts_path(current_admin), params: post_params
 
@@ -125,7 +125,7 @@ RSpec.describe 'Admin post managment', :type => :request do
     it 'allows an admin to edit an inactive post' do
       login_as current_admin, scope: :admin
 
-      user_post.update_attributes(active: false)
+      user_post.update(active: false)
 
       get edit_user_post_path(user_post_owner, user_post)
 
@@ -135,7 +135,7 @@ RSpec.describe 'Admin post managment', :type => :request do
     it 'prevents an inactive admin from editing posts' do
       login_as current_admin, scope: :admin
 
-      current_admin.update_attributes(active: false)
+      current_admin.update(active: false)
 
       get edit_user_post_path(user_post_owner, user_post)
 
@@ -161,7 +161,7 @@ RSpec.describe 'Admin post managment', :type => :request do
     it 'prevents an inactive admin from updating posts' do
       login_as current_admin, scope: :admin
 
-      current_admin.update_attributes(active: false)
+      current_admin.update(active: false)
 
       patch admin_post_path(current_admin, current_admin_post), params: post_params
 
@@ -187,7 +187,7 @@ RSpec.describe 'Admin post managment', :type => :request do
     it 'prevents an inactive admin from deleting posts' do
       login_as current_admin, scope: :admin
 
-      current_admin.update_attributes(active: false)
+      current_admin.update(active: false)
 
       delete admin_post_path(current_admin, current_admin_post)
 

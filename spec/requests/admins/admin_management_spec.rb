@@ -22,7 +22,7 @@ RSpec.describe 'Admin management', :type => :request do
     it 'denies inactive super admin access' do
       login_as super_admin, scope: :admin
 
-      super_admin.update_attributes(active: false)
+      super_admin.update(active: false)
 
       get administration_admins_path
 
@@ -70,7 +70,7 @@ RSpec.describe 'Admin management', :type => :request do
     it 'denies inactive super admin access' do
       login_as super_admin, scope: :admin
 
-      super_admin.update_attributes(active: false)
+      super_admin.update(active: false)
 
       get edit_administration_admin_path(admin)
 
@@ -121,7 +121,7 @@ RSpec.describe 'Admin management', :type => :request do
     it 'denies inactive super admin access' do
       login_as super_admin, scope: :admin
 
-      super_admin.update_attributes(active: false)
+      super_admin.update(active: false)
 
       patch administration_admin_path(admin), params: updated_params
 

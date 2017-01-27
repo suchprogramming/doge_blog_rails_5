@@ -26,7 +26,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'denies inactive superadmin access' do
       login_as super_admin, scope: :admin
 
-      super_admin.update_attributes(active: false)
+      super_admin.update(active: false)
 
       get superadmins_invitations_path
 
@@ -74,7 +74,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'denies inactive superadmin access' do
       login_as super_admin, scope: :admin
 
-      super_admin.update_attributes(active: false)
+      super_admin.update(active: false)
 
       get new_superadmins_invitation_path
 
@@ -123,7 +123,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'denies inactive superadmin access' do
       login_as super_admin, scope: :admin
 
-      super_admin.update_attributes(active: false)
+      super_admin.update(active: false)
 
       post superadmins_invitations_path, params: invite_params
 

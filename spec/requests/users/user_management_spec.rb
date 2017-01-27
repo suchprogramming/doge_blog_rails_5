@@ -38,7 +38,7 @@ RSpec.describe 'User management', :type => :request do
     it 'denies inactive admin access' do
       login_as admin, scope: :admin
 
-      admin.update_attributes(active: false)
+      admin.update(active: false)
 
       get edit_administration_user_path(current_user)
 
@@ -78,7 +78,7 @@ RSpec.describe 'User management', :type => :request do
     it 'denies inactive admin access' do
       login_as admin, scope: :admin
 
-      admin.update_attributes(active: false)
+      admin.update(active: false)
 
       patch administration_user_path(current_user), params: user_params
 
