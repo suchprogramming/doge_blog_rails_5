@@ -10,7 +10,7 @@
       <div class="card">
         <div class="card-content">
 
-          <div class="row no-bottom-margin flex-valign-center flex-wrap">
+          <div class="row no-bottom-margin flex-center flex-wrap">
 
             <div class="col s12 l6">
               <%= render "edit_registration_avatar" %>
@@ -33,9 +33,11 @@
 <% content_for :javascript do %>
   <script type="text/javascript">
     $(document).ready(function() {
-      var submitButton = $("#edit-register-submit");
+
       var userInputs = $('input').filter(function() {
-        return $(this).attr('id') != 'user_current_password'
+        if (!_.includes($(this).attr('id'), 'current')) {
+          return $(this).attr('id')
+        }
       });
 
       var initialValues = $(userInputs).map(function() { return $(this).val(); }).toArray();
@@ -43,7 +45,7 @@
       $("input").on("change", function(e) {
         var changedValues = userInputs.map(function() { return $(this).val() }).toArray();
         var equalValues = !_.isEqual(initialValues, changedValues)
-        $(submitButton).toggleClass('active-submit', equalValues)
+        $("#edit-register-submit").toggleClass('active-submit', equalValues)
       });
 
     });

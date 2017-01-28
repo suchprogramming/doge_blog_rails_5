@@ -1,24 +1,25 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_any_scope!, except: [:index, :show]
 
   def index
-    @posts = Post.all
+    @posts = Post.where(active: true)
   end
 
   def new
-    @post = Post.new(user_id: params[:user_id])
+    @post = Post.new(poly_params)
     authorize @post
   end
 
   def show
     @post = Post.find(params[:id])
+    authorize @post
   end
 
   def create
-    @post = current_user.posts.new(post_params)
+    @post = current_any_scope.posts.new(post_params)
     authorize @post
     if @post.save
-      redirect_to post_path(@post), success: "Your new post has been created!"
+      redirect_to polymorphic_path([@post.postable, @post]), success: "Your new post has been created!"
     else
       render :new
     end
@@ -33,7 +34,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     authorize @post
     if @post.update(post_params)
-      redirect_to post_path(@post), success: "Post successfully updated!"
+      redirect_to polymorphic_path([@post.postable, @post]), success: "Post successfully updated!"
     else
       render :edit
     end
@@ -52,7 +53,17 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :post_content)
+    params.require(:post).permit(:title, :post_content, :active)
+  end
+
+  def poly_params
+    if params[:user_id]
+      { postable_id: params[:user_id], postable_type: "User" }
+    elsif params[:admin_id]
+      { postable_id: params[:admin_id], postable_type: "Admin" }
+    else
+      {}
+    end
   end
 
 end

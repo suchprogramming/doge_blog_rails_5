@@ -10,15 +10,23 @@ class PostPolicy < ApplicationPolicy
     create?
   end
 
+  def show?
+    user.try(:admin?) && user.active || post.active
+  end
+
   def create?
-    user.owner?(post)
+    user.polymorphic_owner?(post) && user.active
+  end
+
+  def edit?
+    update?
   end
 
   def update?
-    create?
+    user.try(:admin?) && user.active || create? && post.active
   end
 
   def destroy?
-    create?
+    update?
   end
 end

@@ -1,0 +1,32 @@
+<%= form_for @admin, url: administration_registrations_path do |f| %>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :email, 'Email Address' %>
+      <%= f.text_field :email, class: field_class(@admin, :email) %>
+      <p class="error-text"><%= show_errors(@admin, :email) %></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.password_field :password, class: field_class(@admin, :password) %>
+      <%= f.label :password %>
+      <p class="error-text"><%= show_errors(@admin, :password) %></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.password_field :password_confirmation, class: field_class(@admin, :password_confirmation) %>
+      <%= f.label :password_confirmation %><br />
+      <p class="error-text"><%= show_errors(@admin, :password_confirmation) %></p>
+    </div>
+  </div>
+
+  <%= f.hidden_field :token, value: params[:token] %>
+
+  <%= render 'shared/submit_button' %>
+
+  <p class="error-text"><%= show_errors(@admin, :invite) %></p>
+<% end %>

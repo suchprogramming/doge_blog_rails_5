@@ -1,4 +1,4 @@
-<%= form_for [current_user, @post] do |f| %>
+<%= form_for([@post.postable, @post]) do |f| %>
 
   <div class="row">
     <div class="input-field col s12">
@@ -16,12 +16,22 @@
     </div>
   </div>
 
-  <div class="row no-bottom-margin">
-    <div class="col s12">
-      <button class="btn waves-effect waves-light" type="submit" name="action">
-        Submit
-      </button>
+  <%= render 'shared/submit_button' %>
+
+  <% if current_admin %>
+    <div class="row no-bottom-margin">
+      <div class="col s12">
+        <h5>Admin Controls</h5>
+        <div class="switch">
+          <label>
+            Inactive
+            <%= f.check_box :active %>
+            <span class="lever"></span>
+            Active
+          </label>
+        </div>
+      </div>
     </div>
-  </div>
+  <% end %>
 
 <% end %>

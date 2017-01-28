@@ -1,26 +1,25 @@
 <div class="row no-bottom-margin">
   <div class="user-avatar center-align">
-    <%= image_tag current_user.avatar.url(:medium), id: "user-full-avatar" %>
-    <h4><%= current_user.email %></h4>
+    <%= image_tag current_any_scope.avatar.url(:medium), id: "user-full-avatar" %>
+    <h4><%= current_any_scope.email %></h4>
   </div>
 </div>
 
 <% content_for :javascript do %>
   <script type="text/javascript">
-    $(document).ready(function() {
-      var orignalAvatar = $("#user-full-avatar").attr("src");
-      var cancelButton = "<a class='waves-effect waves-light btn' id='cancel-avatar'>Cancel</a>"
 
-      $(document).on("click", "#cancel-avatar", function(e) {
-        $(this).remove();
-        $('form#edit_user').trigger('reset');
+    $(document).ready(function() {
+
+      var orignalAvatar = $("#user-full-avatar").attr("src");
+
+      $(document).on("click", "#reset-form", function(e) {
+        $("form").trigger('reset');
         $('#edit-register-submit').removeClass('active-submit');
         $("#user-full-avatar").attr("src", orignalAvatar);
       })
 
-      $('input#user_avatar').on("change", function(e) {
+      $('input:file').on("change", function(e) {
         $('#user-full-avatar').attr("src", URL.createObjectURL(event.target.files[0]));
-        $('#edit-register-submit').before(cancelButton);
       });
 
     });

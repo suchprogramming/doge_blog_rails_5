@@ -1,0 +1,18 @@
+<table class="highlight centered">
+  <thead>
+    <tr>
+      <% build_header(user_table_header) %>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @admins.length != 0 %>
+      <% @admins.each do |admin| %>
+        <tr class="admin-table-row" id=<%= edit_administration_admin_path(admin) %>>
+          <% build_row(admin, user_table_attrs) %>
+        </tr>
+      <% end %>
+    <% else %>
+      <%= render 'shared/table_no_records' %>
+    <% end %>
+  </tbody>
+</table>

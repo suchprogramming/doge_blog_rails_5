@@ -1,0 +1,37 @@
+<div class="row no-bottom-margin">
+  <div class="input-field col s12">
+    <div class="admin-search-form">
+      <%= form_tag(path, method: "get", id: "#{search_type}-form") do %>
+        <%= text_field_tag search_type, params[search_type], placeholder: "Search" %>
+      <% end %>
+      <%= render 'shared/such_loading_wow', search_type: search_type %>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      var sendQuery = function() {
+        $.ajax({
+          url: this.action,
+          data: $(this).serialize(),
+          success: null,
+          dataType: 'script',
+          beforeSend: function() {
+            $('#loading-spinner-<%= search_type %>').show();
+            $('#loading-spinner-<%= search_type %>').prev('form').hide();
+          },
+          complete: function() {
+            $('#loading-spinner-<%= search_type %>').hide();
+            $('#loading-spinner-<%= search_type %>').prev('form').show();
+          }
+        });
+      };
+
+      $('#<%= search_type %>-form').on('keyup', _.debounce(sendQuery, 300))
+
+    });
+  </script>
+<% end %>

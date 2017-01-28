@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col s12">
 
-    <div class="section">
-      <%= render 'register_header' %>
+    <div class="section content-top-spacer center">
+      <h4>Sign Up</h4>
     </div>
 
     <div class="section">
@@ -10,12 +10,18 @@
         <div class="card-content">
 
           <div class="row">
-            <%= render "new_registration_form" %>
+            <div class="col s12">
+              <%= render "new_registration_form" %>
+            </div>
           </div>
 
           <div class="row">
-            <div class="center-align">
-              <%= link_to "Already signed up? Sign in", new_user_session_path %>
+            <div class=" col s12 center-align">
+              <%= link_to 'Already registered? Sign in', new_user_session_path, base_flat_button %>
+
+              <div class="divider" style="margin:10px"></div>
+
+              <%= link_to 'Resend confirmation email', new_user_confirmation_path, base_flat_button %>
             </div>
           </div>
 

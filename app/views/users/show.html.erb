@@ -1,1 +1,17 @@
-<h3><%= @user.email %></h3>
+<div class="row">
+  <div class="col s12">
+
+    <div class="section content-top-spacer">
+      <div class="center">
+        <%= render_user_avatar(@user, :medium) %>
+        <h4><%= @user.email %></h4>
+
+        <% if current_admin && policy(@user).edit? %>
+          <%= link_to "Edit Profile", edit_administration_user_path(@user) %>
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+</div>

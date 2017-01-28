@@ -1,9 +1,11 @@
 <% if flash.any? %>
   <div class="row">
-    <div class="notices">
-      <% flash.each do |key, value| %>
-        <p><%= value %></p>
-      <% end %>
+    <div class="col s12">
+      <div class="notices">
+        <% flash.each do |key, value| %>
+          <span><%= value %></span>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>
