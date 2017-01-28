@@ -14,9 +14,6 @@ gem 'materialize-sass'
 gem 'devise'
 gem "paperclip", "~> 5.0.0"
 gem 'lodash-rails'
-gem "capybara"
-gem "capybara-webkit"
-gem 'factory_girl_rails'
 gem 'figaro'
 gem 'aws-sdk', '~> 2'
 gem "pundit"
@@ -37,6 +34,9 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner'
+  gem "capybara"
+  gem "capybara-webkit"
+  gem 'factory_girl_rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
