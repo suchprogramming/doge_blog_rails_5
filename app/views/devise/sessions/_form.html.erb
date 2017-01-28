@@ -10,9 +10,8 @@
     <div class="input-field col s12">
       <%= f.password_field :password, autocomplete: "off" %>
       <%= f.label :password %>
-
-      <%= sessions_new_password_link(controller_name, resource_name) %>
     </div>
+    <%= sessions_new_password_link(controller_name, resource_name) %>
   </div>
 
   <div class="row">

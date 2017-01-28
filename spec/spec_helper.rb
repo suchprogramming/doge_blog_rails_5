@@ -26,6 +26,8 @@ require "pundit/rspec"
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  # Clear out mailer before specs
+  config.before(:each) { ActionMailer::Base.deliveries.clear }
   # Paperclip shoulda-matchers
   config.include Paperclip::Shoulda::Matchers
   # rspec-expectations config goes here. You can use an alternate

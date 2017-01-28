@@ -11,7 +11,11 @@ RSpec.feature 'a new user registers on the site' do
     fill_in 'Password confirmation', with: 'BeckySadie'
     click_button 'Sign Up'
 
-    expect(page).to have_text('Welcome! You have signed up successfully.')
+    expect(page).to have_text('Please follow the link sent to your email address to activate your account.')
+
+    visit "/users/confirmation?confirmation_token=#{User.first.confirmation_token}"
+    
+    expect(page).to have_text('Your email address has been successfully confirmed.')
   end
 
   scenario 'with validation errors' do
