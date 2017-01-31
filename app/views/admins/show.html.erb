@@ -1,17 +1,8 @@
-<div class="row">
-  <div class="col s12">
+<div class="section content-top-spacer center">
+  <%= render_user_avatar(@admin, :medium) %>
+  <h4><%= @admin.email %></h4>
 
-    <div class="section content-top-spacer">
-      <div class="center">
-        <%= render_user_avatar(@admin, :medium) %>
-        <h4><%= @admin.email %></h4>
-
-        <% if current_admin && policy(@admin).edit? %>
-          <%= link_to "Edit Profile", edit_administration_admin_path(@admin) %>
-        <% end %>
-
-      </div>
-    </div>
-
-  </div>
+  <% if current_admin && policy(@admin).edit? %>
+    <%= link_to "Edit Profile", edit_administration_admin_path(@admin) %>
+  <% end %>
 </div>

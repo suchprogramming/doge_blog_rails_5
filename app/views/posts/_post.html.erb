@@ -1,33 +1,25 @@
-<div class="row no-bottom-margin">
-  <div class="col s12">
-    <div class="card">
-      <div class="card-content">
+<div class="card-panel">
+  <div class="row no-bottom-margin flex-valign">
 
-        <div class="row no-bottom-margin flex-center">
-
-          <div class="col l2 s4">
-            <div class="post-avatar center-align">
-              <%= render_user_avatar(post.postable, :thumb) %>
-            </div>
-          </div>
-
-          <div class="col l8 s4">
-            <div class="post-info">
-              <h5><%= link_to post.title, polymorphic_path([post.postable, post]) %></h5>
-              <p>By <%= link_to post.postable.email, polymorphic_path(post.postable) %></p>
-              <p><%= post.created_at %></p>
-            </div>
-          </div>
-
-          <div class="col l2 s4">
-            <div class="post-score center-align">
-              <h4>44</h4>
-            </div>
-          </div>
-
-        </div>
-
+    <div class="col s4 l2">
+      <div class="post-avatar center">
+        <%= render_user_avatar(post.postable, :thumb) %>
       </div>
     </div>
+
+    <div class="col s4 l8">
+      <div class="post-info">
+        <h5><%= link_to post.title, polymorphic_path([post.postable, post]) %></h5>
+        <p>By <%= post_creator_link(current_any_scope, post) %></p>
+        <p><%= post.created_at %></p>
+      </div>
+    </div>
+
+    <div class="col s4 l2">
+      <div class="post-score center">
+        <h4>44</h4>
+      </div>
+    </div>
+
   </div>
 </div>

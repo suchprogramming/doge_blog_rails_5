@@ -26,6 +26,20 @@ RSpec.describe ConditionalRenderingHelper, :type => :helper do
       end
     end
 
+    describe '#post_creator_link' do
+      it 'returns the post creator email if no current user is present' do
+        post = Post.new(postable: User.new(email: 'test@test.com'))
+
+        expect(post_creator_link(nil, post)).to eq('test@test.com')
+      end
+
+      it 'returns a link to the post creator profile if a current user is present' do
+        post = create(:post_with_user)
+
+        expect(post_creator_link(post.postable, post)).to include("/users/#{post.postable.id}")
+      end
+    end
+
     describe '#posts_new_post_link' do
       it 'returns nil if no user scope is available' do
         expect(posts_new_post_link).to eq(nil)

@@ -2,10 +2,16 @@
 
 .error-text {
   color: red !important;
+  margin-top: 0px;
 }
 
 .field-errors {
   margin-bottom: 0px !important;
   border-bottom: 2px solid red !important;
   box-shadow: none !important;
+}
+
+.button-spinner {
+  height: 24px;
+  width: 24px;
 }

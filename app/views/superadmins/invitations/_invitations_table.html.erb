@@ -1,9 +1,11 @@
 <table class="highlight centered">
+
   <thead>
     <tr>
       <% build_header(invitation_table_attrs) %>
     </tr>
   </thead>
+
   <tbody>
     <% if @invitations.length != 0 %>
       <% @invitations.each do |item| %>
@@ -15,4 +17,5 @@
       <%= render 'shared/table_no_records' %>
     <% end %>
   </tbody>
+  
 </table>

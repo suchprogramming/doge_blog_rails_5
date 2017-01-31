@@ -1,5 +1,7 @@
 <%= form_for @admin, url: administration_registrations_path do |f| %>
 
+  <%= f.hidden_field :token, value: params[:token] %>
+
   <div class="row">
     <div class="input-field col s12">
       <%= f.label :email, 'Email Address' %>
@@ -24,9 +26,12 @@
     </div>
   </div>
 
-  <%= f.hidden_field :token, value: params[:token] %>
-
-  <%= render 'shared/submit_button' %>
+  <div class="row">
+    <div class="col s12">
+      <%= render 'shared/submit_button', f: f %>
+    </div>
+  </div>
 
   <p class="error-text"><%= show_errors(@admin, :invite) %></p>
+
 <% end %>

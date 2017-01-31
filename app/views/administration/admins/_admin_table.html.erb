@@ -1,9 +1,11 @@
 <table class="highlight centered">
+
   <thead>
     <tr>
       <% build_header(user_table_header) %>
     </tr>
   </thead>
+
   <tbody>
     <% if @admins.length != 0 %>
       <% @admins.each do |admin| %>
@@ -15,4 +17,5 @@
       <%= render 'shared/table_no_records' %>
     <% end %>
   </tbody>
+  
 </table>

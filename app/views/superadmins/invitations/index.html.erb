@@ -1,24 +1,16 @@
-<div class="row">
-  <div class="col s12">
+<div class="section content-top-spacer">
+  <div class="section-header-bar">
+    <h4>Invitations</h4>
+    <%= link_to 'New Invite', new_superadmins_invitation_path, base_button %>
+  </div>
+</div>
 
-    <div class="section content-top-spacer">
-      <div class="section-header-bar flex-center">
-        <h4>Invitations</h4>
-        <%= link_to 'New Invite', new_superadmins_invitation_path, base_button %>
+<div class="section">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel">
+        <%= render 'invitations_table' %>
       </div>
     </div>
-
-    <div class="section">
-      <div class="row">
-        <div class="col s12">
-
-          <div class="card-panel">
-            <%= render 'invitations_table' %>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>

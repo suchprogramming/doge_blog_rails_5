@@ -1,4 +1,5 @@
 <% if current_superadmin(current_any_scope) %>
+
   <ul id="admin-dropdown" class="dropdown-content">
     <li><%= link_to 'Invitations', superadmins_invitations_path %></li>
     <li><%= link_to 'Manage Admins', administration_admins_path %></li>
@@ -12,4 +13,5 @@
   >
     Options
   </a>
+
 <% end %>

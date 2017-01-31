@@ -1,29 +1,29 @@
-<div class="section">
-  <div class="row">
-    <div class="col s12">
-
-      <%= render 'login_header' %>
-
-    </div>
-  </div>
+<div class="section content-top-spacer center">
+  <h4>Sign In</h4>
 </div>
 
-<div class="section">
-  <div class="row">
-    <div class="col s12">
+<div class="section flex-center">
+  <div class="card-panel devise-form">
 
-      <div class="card devise-form-auth-register">
-        <div class="card-content">
-
-          <%= render "form" %>
-
-          <%= render "login_notices" %>
-
-          <%= sessions_sign_up_link(resource_name) %>
-
-        </div>
+    <div class="row">
+      <div class="col s12">
+        <%= render "form" %>
       </div>
-
     </div>
+
+    <%= render "login_notices" %>
+
+    <div class="row">
+      <div class="col s12">
+        <%= sessions_new_password_link(controller_name, resource_name) %>
+        <% if resource_name == :user %>
+          <div class="divider" style="margin:10px"></div>
+          <%= link_to 'No account?  Sign up!',
+                      new_user_registration_path,
+                      class: "waves-effect waves-teal btn-flat"%>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 </div>

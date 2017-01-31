@@ -1,32 +1,21 @@
-<div class="row">
-  <div class="col s12">
+<div class="section content-top-spacer">
+  <div class="card-panel">
+    <div class="row no-bottom-margin flex-wrap flex-valign">
 
-    <div class="section">
-      <h3>My Account</h3>
-    </div>
+      <div class="col s12 l6">
+        <%= render "edit_registration_avatar" %>
+      </div>
 
-    <div class="section">
-
-      <div class="card">
-        <div class="card-content">
-
-          <div class="row no-bottom-margin flex-center flex-wrap">
-
-            <div class="col s12 l6">
-              <%= render "edit_registration_avatar" %>
-            </div>
-
-            <div class="col s12 l6">
-              <%= render "edit_registration_form" %>
-            </div>
-
+      <div class="col s12 l6">
+        <div class="user-attrs">
+          <h4>Account Details</h4>
+          <div class="row no-bottom-margin">
+            <%= render "edit_registration_form" %>
           </div>
-
         </div>
       </div>
 
     </div>
-
   </div>
 </div>
 
@@ -34,19 +23,25 @@
   <script type="text/javascript">
     $(document).ready(function() {
 
-      var userInputs = $('input').filter(function() {
-        if (!_.includes($(this).attr('id'), 'current')) {
-          return $(this).attr('id')
-        }
-      });
+      var userInputs = $('input').not(function() { return _.includes($(this).attr('id'), 'current') });
+      var orignalAvatar = $("#user-full-avatar").attr("src");
+      var initialValues = $(userInputs).map(function() { return $(this).val() }).toArray();
 
-      var initialValues = $(userInputs).map(function() { return $(this).val(); }).toArray();
+      $('input:file').on("change", function(e) {
+        $('#user-full-avatar').attr("src", URL.createObjectURL(event.target.files[0]));
+      });
 
       $("input").on("change", function(e) {
         var changedValues = userInputs.map(function() { return $(this).val() }).toArray();
-        var equalValues = !_.isEqual(initialValues, changedValues)
-        $("#edit-register-submit").toggleClass('active-submit', equalValues)
+        var equalValues = !_.isEqual(initialValues, changedValues);
+        $("#edit-register-submit").toggleClass('active-submit', equalValues);
       });
+
+      $('#reset-form').on("click", function(e) {
+        $("form").trigger('reset');
+        $('#edit-register-submit').removeClass('active-submit');
+        $("#user-full-avatar").attr("src", orignalAvatar);
+      })
 
     });
   </script>

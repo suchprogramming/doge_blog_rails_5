@@ -1,9 +1,11 @@
 <table class="highlight centered">
+
   <thead>
     <tr>
       <% build_header(post_table_header) %>
     </tr>
   </thead>
+
   <tbody>
     <% if @posts.length != 0 %>
       <% @posts.each do |post| %>
@@ -16,4 +18,5 @@
       <%= render 'shared/table_no_records' %>
     <% end %>
   </tbody>
+
 </table>

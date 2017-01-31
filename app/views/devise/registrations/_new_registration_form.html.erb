@@ -1,4 +1,5 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "col s12" }) do |f| %>
+
   <div class="row">
     <div class="input-field col s12">
       <%= f.email_field :email, class: field_class(resource, :email) %>
@@ -23,9 +24,10 @@
     </div>
   </div>
 
-  <div class="row no-bottom-margin">
+  <div class="row">
     <div class="col s12">
-      <%= render 'shared/submit_button', text: 'Sign Up' %>
+      <%= render 'shared/submit_button', text: 'Sign Up', f: f %>
     </div>
   </div>
+
 <% end %>

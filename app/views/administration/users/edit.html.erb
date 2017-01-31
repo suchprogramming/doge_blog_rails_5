@@ -1,18 +1,16 @@
-<div class="col s12">
-  <div class="row">
+<div class="section content-top-spacer">
+  <div class="center">
+    <%= image_tag @user.avatar.url(:medium) %>
+    <h4>Edit Profile</h4>
+  </div>
+</div>
 
-    <div class="section content-top-spacer">
-      <div class="center">
-        <%= image_tag @user.avatar.url(:medium) %>
-        <h4>Edit Profile</h4>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="card-panel">
+<div class="section">
+  <div class="card-panel">
+    <div class="row no-bottom-margin">
+      <div class="col s12">
         <%= render "form" if current_admin %>
       </div>
     </div>
-
   </div>
 </div>

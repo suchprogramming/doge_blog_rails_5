@@ -1,27 +1,7 @@
-<div class="row">
-  <div class="col s12">
+<div class="section content-top-spacer">
+  <h4>Resend confirmation instructions</h4>
+</div>
 
-    <div class="section content-top-spacer">
-      <h4>Resend confirmation instructions</h4>
-    </div>
-
-    <div class="section">
-      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-        <div class="row">
-          <div class="input-field col s12">
-            <%= f.label :email %>
-            <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: field_class(resource, :email) %>
-            <p class="error-text"><%= show_errors(resource, :email) %></p>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col s12">
-            <%= render 'shared/submit_button', text: 'Resend confirmation instructions' %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-
-  </div>
+<div class="section">
+  <%= render 'form' %>
 </div>

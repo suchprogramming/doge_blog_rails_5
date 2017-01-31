@@ -9,6 +9,12 @@ module ConditionalRenderingHelper
                         render('shared/inactive_account')
   end
 
+  def post_creator_link(current_user = nil, post = nil)
+    return post.postable.email unless current_user
+
+    link_to post.postable.email, polymorphic_path(post.postable)
+  end
+
   def posts_new_post_link(user_scope = nil)
     return unless user_scope
 
@@ -22,14 +28,17 @@ module ConditionalRenderingHelper
   def sessions_new_password_link(controller_name = nil, resource_name = nil)
     return unless controller_name == 'sessions' && resource_name
 
-    link_to 'Forgot your password?',
-            "/#{resource_name.to_s.pluralize}/password/new"
+    content_tag(:div) do
+      link_to 'Forgot your password?',
+              "/#{resource_name.to_s.pluralize}/password/new",
+              class: "waves-effect waves-teal btn-flat"
+    end
   end
 
   def sessions_sign_up_link(resource_name = nil)
     return unless resource_name && resource_name == :user
 
-    content_tag(:div, class: 'sign-up') do
+    content_tag(:div) do
       link_to 'No account?  Sign up!',
               new_user_registration_path,
               class: "waves-effect waves-teal btn-flat"

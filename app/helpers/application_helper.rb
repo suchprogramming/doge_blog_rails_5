@@ -9,11 +9,11 @@ module ApplicationHelper
   end
 
   def base_button
-    { class: 'waves-effect waves-light btn'}
+    { class: 'waves-effect waves-light btn' }
   end
 
   def base_flat_button
-    { class: 'waves-effect waves-teal btn-flat'}
+    { class: 'waves-effect waves-teal btn-flat' }
   end
 
 end

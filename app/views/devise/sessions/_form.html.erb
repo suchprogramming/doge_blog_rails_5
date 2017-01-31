@@ -1,4 +1,5 @@
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "col s12" }) do |f| %>
+
   <div class="row">
     <div class="input-field col s12">
       <%= f.email_field :email, autofocus: true %>
@@ -11,14 +12,12 @@
       <%= f.password_field :password, autocomplete: "off" %>
       <%= f.label :password %>
     </div>
-    <%= sessions_new_password_link(controller_name, resource_name) %>
   </div>
 
   <div class="row">
     <div class="col s12">
-      <button class="btn waves-effect waves-light" type="submit" name="action">
-        Sign In
-      </button>
+      <%= render 'shared/submit_button', text: 'Sign In', f: f %>
     </div>
   </div>
+
 <% end %>
