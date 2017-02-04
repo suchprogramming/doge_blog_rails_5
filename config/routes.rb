@@ -42,4 +42,7 @@ Rails.application.routes.draw do
     resources :posts, except: [:index]
   end
 
+  # Markdown processing
+  post '/markdown', to: 'markdown#process_markdown'
+
 end

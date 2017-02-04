@@ -1,13 +1,28 @@
 <div class="section content-top-spacer">
-  <h4>New Post</h4>
+  <h4>Create a Post</h4>
 </div>
 
 <div class="section">
   <div class="card-panel">
     <div class="row">
-      <div class="col s12">
+
+      <div class="col s12 new-post-tabs">
+        <ul class="tabs">
+          <li class="tab col s3"><a class="active" href="#new-post-form-tab">New Post</a></li>
+          <li class="tab col s3"><a href="#new-post-preview-tab" id="post-preview-link">Preview</a></li>
+        </ul>
+      </div>
+
+      <div id="new-post-form-tab" class="col s12">
         <%= render "form" %>
       </div>
+
+      <div id="new-post-preview-tab" class="col s12">
+        <div class="show-post-text">
+          <p id="preview-post-content"></p>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

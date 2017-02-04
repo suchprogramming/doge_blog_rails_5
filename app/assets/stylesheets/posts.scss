@@ -27,12 +27,24 @@
 }
 
 .show-post-text {
+
   background: #f5f5f5;
   border-radius: 4px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  padding: 20px 40px;
 
-  p {
-    padding: 10px;
+  h1, h2, h3, h4 {
+    margin: 0px;
+  }
+
+  ul {
+
+    padding-left: 40px;
+
+    li {
+      list-style: square !important
+    }
+
   }
 
 }
@@ -53,14 +65,8 @@
 
 }
 
-@media only screen and (max-width: 992px) {
+// New post page
 
-  .show-post-avatar, .show-post-info, .show-post-score {
-    margin-bottom: 10px;
-  }
-
-  .show-post-info {
-    text-align: center;
-  }
-
+.new-post-tabs {
+  margin-bottom: 40px;
 }

@@ -17,6 +17,7 @@ gem 'lodash-rails'
 gem 'figaro'
 gem 'aws-sdk', '~> 2'
 gem "pundit"
+gem 'redcarpet'
 
 group :development, :test do
   gem 'pry'

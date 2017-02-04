@@ -1,5 +1,7 @@
 <%= form_for([@post.postable, @post], html: { class: "col s12" }) do |f| %>
 
+  <h5>Post Attributes</h5>
+
   <div class="row">
     <div class="input-field col s12">
       <%= f.label :title %>
@@ -38,4 +40,18 @@
     </div>
   <% end %>
 
+<% end %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $('#post-preview-link').on('click', function() {
+        $.post("/markdown", $('#new_post').serialize()).done(function(data) {
+          $('#preview-post-content').html(data.parsed_content)
+        })
+      })
+
+    })
+  </script>
 <% end %>

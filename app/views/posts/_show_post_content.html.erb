@@ -1,14 +1,10 @@
-<div class="col s12">
-
-  <div class="show-post-text">
-    <p><%= @post.post_content %></p>
-  </div>
-
-  <% if current_any_scope && policy(@post).edit? %>
-    <div class="show-post-controls">
-      <%= render "show_delete_modal" %>
-      <%= link_to "Edit", edit_polymorphic_path([@post.postable, @post]), base_button %>
-    </div>
-  <% end %>
-
+<div class="show-post-text">
+  <%= render_markdown(@post.post_content) %>
 </div>
+
+<% if current_any_scope && policy(@post).edit? %>
+  <div class="show-post-controls">
+    <%= render "show_delete_modal" %>
+    <%= link_to "Edit", edit_polymorphic_path([@post.postable, @post]), base_button %>
+  </div>
+<% end %>
