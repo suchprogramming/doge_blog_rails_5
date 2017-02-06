@@ -43,6 +43,6 @@ Rails.application.routes.draw do
   end
 
   # Markdown processing
-  post '/markdown', to: 'markdown#process_markdown'
+  resource :markdown_preview, only: [:create]
 
 end

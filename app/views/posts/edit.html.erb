@@ -4,10 +4,46 @@
 
 <div class="section">
   <div class="card-panel">
-    <div class="row">
-      <div class="col s12">
+    <div class="row no-bottom-margin">
+
+      <div class="col s12 post-tabs">
+        <ul class="tabs">
+          <li class="tab col s3"><a class="active" href="#edit-post-form-tab">New Post</a></li>
+          <li class="tab col s3"><a href="#edit-post-preview-tab" id="post-preview-link">Preview</a></li>
+        </ul>
+      </div>
+
+      <div id="edit-post-form-tab" class="col s12">
         <%= render "form" %>
       </div>
+
+      <div id="edit-post-preview-tab" class="col s12">
+        <div class="show-post-text">
+          <div id="preview-post-content">
+            <%= render_markdown(@post.post_content) %>
+          </div>
+          <%= render 'shared/loading_spinner' %>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $("form#edit_post_<%= @post.id %>").on('change', function(e) {
+        $('#preview-post-content').hide()
+
+        var formData = { post_content: $('#post_post_content').val() }
+
+        $.post("/markdown_preview", formData).done(function(data) {
+          $('#preview-post-content').html(data.parsed_content).show()
+        })
+      })
+
+    })
+  </script>
+<% end %>

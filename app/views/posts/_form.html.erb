@@ -25,7 +25,7 @@
   </div>
 
   <% if current_admin %>
-    <div class="row no-bottom-margin">
+    <div class="row">
       <div class="col s12">
         <h5>Admin Controls</h5>
         <div class="switch">
@@ -40,18 +40,4 @@
     </div>
   <% end %>
 
-<% end %>
-
-<% content_for :javascript do %>
-  <script type="text/javascript">
-    $(document).ready(function() {
-
-      $('#post-preview-link').on('click', function() {
-        $.post("/markdown", $('#new_post').serialize()).done(function(data) {
-          $('#preview-post-content').html(data.parsed_content)
-        })
-      })
-
-    })
-  </script>
 <% end %>

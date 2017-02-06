@@ -27,10 +27,8 @@
 }
 
 .show-post-text {
-
   background: #f5f5f5;
   border-radius: 4px;
-  margin-bottom: 20px;
   padding: 20px 40px;
 
   h1, h2, h3, h4 {
@@ -38,7 +36,6 @@
   }
 
   ul {
-
     padding-left: 40px;
 
     li {
@@ -47,9 +44,25 @@
 
   }
 
+  blockquote {
+    background-color: #ccc;
+
+    p {
+      padding: 10px;
+    }
+
+  }
+
+  pre {
+    background-color: #ccc;
+    border-left: 5px solid #00ccff;
+    padding: 10px 0px 10px 34px;
+  }
+
 }
 
 .show-post-controls {
+  margin-top: 1rem;
   text-align: right;
 }
 
@@ -67,6 +80,6 @@
 
 // New post page
 
-.new-post-tabs {
+.post-tabs {
   margin-bottom: 40px;
 }
