@@ -19,7 +19,7 @@ RSpec.feature 'A user views a post preview while editing a post', js: true do
 
     expect(page).to have_text(post.post_content)
 
-    click_on 'New Post'
+    click_on 'Edit Post'
     fill_in 'Post content', with: '## New Post'
     click_on 'Preview'
 
@@ -28,11 +28,12 @@ RSpec.feature 'A user views a post preview while editing a post', js: true do
 
   scenario 'with a blank content field' do
     fill_in 'Title', with: 'Testing'
+    fill_in 'Post content', with: 'TEST'
     fill_in 'Post content', with: ''
 
     click_on 'Preview'
 
-    expect(page).to have_text('No Content Available')
+    expect(page).to have_content('No Content Available')
   end
 
 end

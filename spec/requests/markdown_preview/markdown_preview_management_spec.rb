@@ -10,7 +10,6 @@ RSpec.describe 'MarkdownPreview management', :type => :request do
       login_as user, scope: :user
 
       post markdown_preview_path, params: preview_params
-      binding.pry
       expect(response).to be_success
     end
 
