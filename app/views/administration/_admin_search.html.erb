@@ -4,7 +4,7 @@
       <%= form_tag(path, method: "get", id: "#{search_type}-form", remote: true) do %>
         <%= text_field_tag search_type, params[search_type], placeholder: "Search" %>
       <% end %>
-      <%= render 'administration/admin_search_spinner', search_type: search_type %>
+      <%= render 'shared/loading_spinner' %>
     </div>
   </div>
 </div>
@@ -15,10 +15,8 @@
 
       $('#<%= search_type %>-form').on('ajax:beforeSend', function(ev) {
         $(this).hide()
-        $("#loading-spinner-<%= search_type %>").show()
       }).on('ajax:complete', function(ev) {
         $(this).show()
-        $("#loading-spinner-<%= search_type %>").hide()
       })
 
       var sendQuery = function() { $(this).submit() }

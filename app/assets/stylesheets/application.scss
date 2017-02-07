@@ -53,18 +53,6 @@ input:-webkit-autofill:active {
 
 }
 
-@media only screen and (min-width: 0px) {
-
-  .resp-image {
-    height: 50px;
-  }
-
-}
-
-@media only screen and (min-width: 992px) {
-
-  .resp-image {
-    height: 75px;
-  }
-
+.spinner-wrapper {
+  display: none;
 }

@@ -1,0 +1,135 @@
+<div class="markdown-toolbar">
+
+  <div class="toolbar-lists">
+
+    <i
+      class="material-icons tooltipped"
+      data-position="top"
+      data-delay="50"
+      data-tooltip="Insert bulleted list"
+      id="insert-bullet-list"
+    >
+      format_list_bulleted
+    </i>
+
+    <i
+      class="material-icons tooltipped"
+      data-position="top"
+      data-delay="50"
+      data-tooltip="Insert numbered list"
+      id="insert-number-list"
+    >
+      format_list_numbered
+    </i>
+
+  </div>
+
+  <div class="toolbar-text">
+    <i
+      class="material-icons tooltipped"
+      data-position="top"
+      data-delay="50"
+      data-tooltip="Insert bold text"
+      id="insert-bold-text"
+    >
+      format_bold
+    </i>
+
+    <i
+      class="material-icons tooltipped"
+      data-position="top"
+      data-delay="50"
+      data-tooltip="Insert italic text"
+      id="insert-italic-text"
+    >
+      format_italic
+    </i>
+
+    <a class='dropdown-button' href='#' data-activates='header-dropdown' data-constrainWidth='false'>
+      <i
+        class="material-icons tooltipped"
+        data-position="top"
+        data-delay="50"
+        data-tooltip="Insert header"
+      >
+        format_size
+      </i>
+    </a>
+
+    <ul id='header-dropdown' class='dropdown-content'>
+      <li><a href="#!" id="insert-main-header">Main Header</a></li>
+      <li><a href="#!" id="insert-sub-header">Sub Heading</a></li>
+      <li><a href="#!" id="insert-para-header">Paragraph Header</a></li>
+    </ul>
+
+  </div>
+
+  <div class="toolbar-web">
+
+    <i
+      class="material-icons tooltipped"
+      data-position="top"
+      data-delay="50"
+      data-tooltip="Insert quote"
+      id="insert-quote"
+    >
+      format_quote
+    </i>
+
+    <i
+      class="material-icons tooltipped"
+      data-position="top"
+      data-delay="50"
+      data-tooltip="Insert link"
+      id="insert-link"
+    >
+      insert_link
+    </i>
+
+  </div>
+
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $('#insert-bullet-list').on('click', function(ev) {
+        $('textarea').insertAtCaret('- ')
+      })
+
+      $('#insert-number-list').on('click', function(ev) {
+        $('textarea').insertAtCaret('1. ')
+      })
+
+      $('#insert-bold-text').on('click', function(ev) {
+        $('textarea').insertAtCaret('****', 2)
+      })
+
+      $('#insert-italic-text').on('click', function(ev) {
+        $('textarea').insertAtCaret('__', 1)
+      })
+
+      $('#insert-main-header').on('click', function(ev) {
+        $('textarea').insertAtCaret('## ')
+      })
+
+      $('#insert-sub-header').on('click', function(ev) {
+        $('textarea').insertAtCaret('### ')
+      })
+
+      $('#insert-para-header').on('click', function(ev) {
+        $('textarea').insertAtCaret('#### ')
+      })
+
+      $('#insert-quote').on('click', function(ev) {
+        $('textarea').insertAtCaret('> ')
+      })
+
+      $('#insert-link').on('click', function(ev) {
+        $('textarea').insertAtCaret('[](url)', 1)
+      })
+
+    })
+  </script>
+<% end %>

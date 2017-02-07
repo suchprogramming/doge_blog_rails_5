@@ -29,15 +29,40 @@
 .show-post-text {
   background: #f5f5f5;
   border-radius: 4px;
-  margin-bottom: 30px;
+  padding: 20px 40px;
 
-  p {
-    padding: 10px;
+  h1, h2, h3, h4 {
+    margin: 0px;
+  }
+
+  ul {
+    padding-left: 40px;
+
+    li {
+      list-style: square !important
+    }
+
+  }
+
+  blockquote {
+    background-color: #ccc;
+
+    p {
+      padding: 10px;
+    }
+
+  }
+
+  pre {
+    background-color: #ccc;
+    border-left: 5px solid #00ccff;
+    padding: 10px 0px 10px 34px;
   }
 
 }
 
 .show-post-controls {
+  margin-top: 1rem;
   text-align: right;
 }
 
@@ -53,14 +78,45 @@
 
 }
 
-@media only screen and (max-width: 992px) {
+// New post page
 
-  .show-post-avatar, .show-post-info, .show-post-score {
-    margin-bottom: 10px;
+.post-tabs {
+  margin-bottom: 40px;
+}
+
+.post-textarea {
+  background: #f2f2f2 !important;
+  border: 1px solid #ccc !important;
+  box-sizing: border-box !important;
+  padding: 10px !important;
+  overflow-y: scroll !important;
+  min-height: 6rem !important;
+}
+
+.textarea-label {
+  font-size: 1rem;
+}
+
+.markdown-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  top: 20px;
+
+  i {
+    padding: 2px;
+    background-color: gainsboro;
+    border: 1px solid #c0c0c0;
+    color: grey;
+    cursor: pointer;
   }
+  
+}
 
-  .show-post-info {
-    text-align: center;
-  }
+.toolbar-text {
+  margin-left: 30px;
+}
 
+.toolbar-web {
+  margin-left: 30px;
 }
