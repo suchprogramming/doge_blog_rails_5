@@ -3,7 +3,7 @@ module ApplicationHelper
 
   def current_superadmin(user_scope = nil)
     return unless user_scope
-    
+
     user_scope.try(:super_admin?) && user_scope.active
   end
 

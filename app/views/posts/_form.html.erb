@@ -9,11 +9,13 @@
       <p class="error-text"><%= show_errors(@post, :title) %></p>
     </div>
   </div>
+  
+  <%= render 'markdown_toolbar' %>
 
   <div class="row">
-    <div class="input-field col s12">
-      <%= f.label :post_content %>
-      <%= f.text_area :post_content, class: "materialize-textarea #{field_class(@post, :post_content)}" %>
+    <div class="col s12">
+      <%= f.label :post_content, class: 'textarea-label' %>
+      <%= f.text_area :post_content, class: "materialize-textarea post-textarea #{field_class(@post, :post_content)}" %>
       <p class="error-text"><%= show_errors(@post, :post_content) %></p>
     </div>
   </div>

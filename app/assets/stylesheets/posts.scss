@@ -83,3 +83,40 @@
 .post-tabs {
   margin-bottom: 40px;
 }
+
+.post-textarea {
+  background: #f2f2f2 !important;
+  border: 1px solid #ccc !important;
+  box-sizing: border-box !important;
+  padding: 10px !important;
+  overflow-y: scroll !important;
+  min-height: 6rem !important;
+}
+
+.textarea-label {
+  font-size: 1rem;
+}
+
+.markdown-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  top: 20px;
+
+  i {
+    padding: 2px;
+    background-color: gainsboro;
+    border: 1px solid #c0c0c0;
+    color: grey;
+    cursor: pointer;
+  }
+  
+}
+
+.toolbar-text {
+  margin-left: 30px;
+}
+
+.toolbar-web {
+  margin-left: 30px;
+}
