@@ -90,7 +90,7 @@
   box-sizing: border-box !important;
   padding: 10px !important;
   overflow-y: scroll !important;
-  min-height: 6rem !important;
+  min-height: 8rem !important;
 }
 
 .textarea-label {
@@ -100,17 +100,15 @@
 .markdown-toolbar {
   display: flex;
   justify-content: flex-end;
-  position: relative;
-  top: 20px;
 
-  i {
+  img {
     padding: 2px;
     background-color: gainsboro;
     border: 1px solid #c0c0c0;
     color: grey;
     cursor: pointer;
   }
-  
+
 }
 
 .toolbar-text {

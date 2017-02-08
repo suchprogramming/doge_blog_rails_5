@@ -2,58 +2,39 @@
 
   <div class="toolbar-lists">
 
-    <i
-      class="material-icons tooltipped"
-      data-position="top"
-      data-delay="50"
-      data-tooltip="Insert bulleted list"
-      id="insert-bullet-list"
-    >
-      format_list_bulleted
-    </i>
+    <%= render_icon 'bulleted-list',
+                    id: 'bullet-list',
+                    text: 'Bullet List',
+                    pos: 'top',
+                    class: 'tooltipped' %>
 
-    <i
-      class="material-icons tooltipped"
-      data-position="top"
-      data-delay="50"
-      data-tooltip="Insert numbered list"
-      id="insert-number-list"
-    >
-      format_list_numbered
-    </i>
-
+    <%= render_icon 'numbered-list',
+                    id: 'number-list',
+                    text: 'Number List',
+                    pos: 'top',
+                    class: 'tooltipped' %>
   </div>
 
   <div class="toolbar-text">
-    <i
-      class="material-icons tooltipped"
-      data-position="top"
-      data-delay="50"
-      data-tooltip="Insert bold text"
-      id="insert-bold-text"
-    >
-      format_bold
-    </i>
 
-    <i
-      class="material-icons tooltipped"
-      data-position="top"
-      data-delay="50"
-      data-tooltip="Insert italic text"
-      id="insert-italic-text"
-    >
-      format_italic
-    </i>
+    <%= render_icon 'format-bold',
+                    id: 'bold-text',
+                    text: 'Bold Text',
+                    pos: 'top',
+                    class: 'tooltipped' %>
+
+    <%= render_icon 'format-italic',
+                    id: 'italic-text',
+                    text: 'Italic Text',
+                    pos: 'top',
+                    class: 'tooltipped' %>
 
     <a class='dropdown-button' href='#' data-activates='header-dropdown' data-constrainWidth='false'>
-      <i
-        class="material-icons tooltipped"
-        data-position="top"
-        data-delay="50"
-        data-tooltip="Insert header"
-      >
-        format_size
-      </i>
+      <%= render_icon 'insert-header',
+                      id: 'insert-header',
+                      text: 'Insert Header',
+                      pos: 'top',
+                      class: 'tooltipped' %>
     </a>
 
     <ul id='header-dropdown' class='dropdown-content'>
@@ -66,25 +47,17 @@
 
   <div class="toolbar-web">
 
-    <i
-      class="material-icons tooltipped"
-      data-position="top"
-      data-delay="50"
-      data-tooltip="Insert quote"
-      id="insert-quote"
-    >
-      format_quote
-    </i>
+    <%= render_icon 'insert-quote',
+                    id: 'insert-quote',
+                    text: 'Insert Quote',
+                    pos: 'top',
+                    class: 'tooltipped' %>
 
-    <i
-      class="material-icons tooltipped"
-      data-position="top"
-      data-delay="50"
-      data-tooltip="Insert link"
-      id="insert-link"
-    >
-      insert_link
-    </i>
+    <%= render_icon 'insert-link',
+                    id: 'insert-link',
+                    text: 'Insert Link',
+                    pos: 'top',
+                    class: 'tooltipped' %>
 
   </div>
 
@@ -94,19 +67,19 @@
   <script type="text/javascript">
     $(document).ready(function() {
 
-      $('#insert-bullet-list').on('click', function(ev) {
+      $('#bullet-list').on('click', function(ev) {
         $('textarea').insertAtCaret('- ')
       })
 
-      $('#insert-number-list').on('click', function(ev) {
+      $('#number-list').on('click', function(ev) {
         $('textarea').insertAtCaret('1. ')
       })
 
-      $('#insert-bold-text').on('click', function(ev) {
+      $('#bold-text').on('click', function(ev) {
         $('textarea').insertAtCaret('****', 2)
       })
 
-      $('#insert-italic-text').on('click', function(ev) {
+      $('#italic-text').on('click', function(ev) {
         $('textarea').insertAtCaret('__', 1)
       })
 
