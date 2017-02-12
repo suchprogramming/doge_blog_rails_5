@@ -5,6 +5,7 @@ require 'support/database_cleaner'
 require 'support/factory_girl'
 require 'support/controller_helpers'
 require 'support/test_helper'
+require 'support/wait_for_ajax'
 require "paperclip/matchers"
 require "pundit/rspec"
 
@@ -27,6 +28,8 @@ require "pundit/rspec"
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  # Add ajax helper
+  config.include WaitForAjax, type: :feature
   # Clear out mailer before specs
   config.before(:each) { ActionMailer::Base.deliveries.clear }
   # Paperclip shoulda-matchers

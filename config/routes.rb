@@ -45,4 +45,7 @@ Rails.application.routes.draw do
   # Markdown processing
   resource :markdown_preview, only: [:create]
 
+  # Voting
+  resource :votes, only: [:create]
+
 end

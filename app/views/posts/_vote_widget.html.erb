@@ -1,0 +1,5 @@
+<%= vote_btn(current_user, vote_direction, { post_id: post.id, "vote[direction]": 'up' }) %>
+
+<p id="post-score-<%= post.id %>"><%= post.score %></p>
+
+<%= vote_btn(current_user, vote_direction, { post_id: post.id, "vote[direction]": 'down' }) %>

@@ -8,5 +8,5 @@ RSpec.describe User, type: :model do
                 allowing('image/png', 'image/gif').
                 rejecting('text/plain', 'text/xml') }
 
-  it { should have_many(:posts) }
+  it { should have_many(:votes) }
 end
