@@ -32,7 +32,7 @@ RSpec.describe VoteHelper, :type => :helper do
       expect(vote_btn(current_user, 'up', vote_params)).to include('active-up')
       expect(vote_btn(current_user, 'up', vote_params)).to include('user_id')
       expect(vote_btn(current_user, 'up', vote_params)).to include('post_id')
-      expect(vote_btn(current_user, 'up', vote_params).attr('id')).to eq('vote-post-up-1')
+      expect(vote_btn(current_user, 'up', vote_params)).to include('vote-post-up-1')
     end
 
     it 'returns if no current user is present' do

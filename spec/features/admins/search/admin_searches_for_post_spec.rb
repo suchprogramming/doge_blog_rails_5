@@ -9,7 +9,7 @@ RSpec.feature 'Admin searches for a post and clicks to view', js: true do
     login_as admin, scope: :admin
 
     visit administration_dashboard_path
-    
+
     click_on 'Post Management'
 
     expect(page).to have_text(post.title)
@@ -23,7 +23,6 @@ RSpec.feature 'Admin searches for a post and clicks to view', js: true do
     find("[id='#{polymorphic_path([post.postable, post])}']").click
 
     expect(page).to have_text post.title
-    expect(page).to have_text 'Score'
   end
 
   scenario 'with no records found' do
