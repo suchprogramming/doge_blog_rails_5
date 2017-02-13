@@ -1,0 +1,12 @@
+$("#score-area-<%= @post.id %>").html("<%= j render('posts/vote_widget', post: @post, vote_direction: current_user.voted?(@post.id)) %>");
+
+$('.flash-container').remove()
+
+$('body').append("<%= j render('layouts/messages') %>")
+
+$('.flash-container').animate(
+  { bottom: '+=100px' },
+  500
+).on('click', function() {
+  $(this).fadeOut()
+});

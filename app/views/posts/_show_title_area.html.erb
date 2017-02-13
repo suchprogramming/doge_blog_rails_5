@@ -13,7 +13,11 @@
 </div>
 
 <div class="col s4 l2">
-  <div class="show-post-score center-align">
-    <h5>Score: 33</h5>
+  <div class="post-score center" id="score-area-<%= @post.id %>">
+    <% if current_user && current_user.active? %>
+      <%= render 'vote_widget', post: @post, vote_direction: current_user.voted?(@post.id) %>
+    <% else %>
+      <p><%= @post.score %></p>
+    <% end %>
   </div>
 </div>
