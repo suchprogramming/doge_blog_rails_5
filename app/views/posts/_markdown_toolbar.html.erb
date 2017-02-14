@@ -2,39 +2,19 @@
 
   <div class="toolbar-lists">
 
-    <%= render_icon 'bulleted-list.svg',
-                    id: 'bullet-list',
-                    text: 'Bullet List',
-                    pos: 'top',
-                    class: 'tooltipped' %>
+    <%= embedded_svg('bulleted-list.svg', id: 'bullet-list', config: toolbar_config('Bulleted List')) %>
 
-    <%= render_icon 'numbered-list.svg',
-                    id: 'number-list',
-                    text: 'Number List',
-                    pos: 'top',
-                    class: 'tooltipped' %>
+    <%= embedded_svg 'numbered-list.svg', id: 'number-list', config: toolbar_config('Numbered List') %>
   </div>
 
   <div class="toolbar-text">
 
-    <%= render_icon 'format-bold.svg',
-                    id: 'bold-text',
-                    text: 'Bold Text',
-                    pos: 'top',
-                    class: 'tooltipped' %>
+    <%= embedded_svg 'format-bold.svg', id: 'bold-text', config: toolbar_config('Bold Text') %>
 
-    <%= render_icon 'format-italic.svg',
-                    id: 'italic-text',
-                    text: 'Italic Text',
-                    pos: 'top',
-                    class: 'tooltipped' %>
+    <%= embedded_svg 'format-italic.svg', id: 'italic-text', config: toolbar_config('Italic Text') %>
 
     <a class='dropdown-button' href='#' data-activates='header-dropdown' data-constrainWidth='false'>
-      <%= render_icon 'insert-header.svg',
-                      id: 'insert-header',
-                      text: 'Insert Header',
-                      pos: 'top',
-                      class: 'tooltipped' %>
+      <%= embedded_svg 'insert-header.svg', id: 'insert-header', config: toolbar_config('Header') %>
     </a>
 
     <ul id='header-dropdown' class='dropdown-content'>
@@ -47,17 +27,9 @@
 
   <div class="toolbar-web">
 
-    <%= render_icon 'insert-quote.svg',
-                    id: 'insert-quote',
-                    text: 'Insert Quote',
-                    pos: 'top',
-                    class: 'tooltipped' %>
+    <%= embedded_svg 'insert-quote.svg', id: 'insert-quote', config: toolbar_config('Quote') %>
 
-    <%= render_icon 'insert-link.svg',
-                    id: 'insert-link',
-                    text: 'Insert Link',
-                    pos: 'top',
-                    class: 'tooltipped' %>
+    <%= embedded_svg 'insert-link.svg', id: 'insert-link', config: toolbar_config('Link') %>
 
   </div>
 

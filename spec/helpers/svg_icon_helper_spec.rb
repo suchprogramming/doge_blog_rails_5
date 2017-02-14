@@ -2,70 +2,25 @@ require 'rails_helper'
 
 RSpec.describe SvgIconHelper, :type => :helper do
 
-  def sweet_options
-    {
-      pos: 'right',
-      text: 'Happy Trees',
-      class: 'some class',
-      id: 'unique id'
-    }
-  end
+  describe '#embedded_svg' do
+    it 'returns an svg with a tooltip when valid arguments are present' do
+      expect(embedded_svg('format-bold.svg', id: 'bold-text', config: toolbar_config('Bold Text')))
+        .to include('class="tooltipped"')
 
-  def link_fixture
-    "<img
-      data-position=\"right\"
-      data-delay=\"300\"
-      data-tooltip=\"Happy Trees\"
-      class=\"some class\"
-      id=\"unique id\"
-      src=\"/images/testing\"
-      alt=\"Testing\"
-    />".gsub("\n", " ").squeeze(" ")
-  end
+      expect(embedded_svg('format-bold.svg', id: 'bold-text', config: toolbar_config('Bold Text')))
+        .to include('id="bold-text"')
 
-  def default_link_fixture
-    "<img
-      data-position=\"bottom\"
-      data-delay=\"300\"
-      data-tooltip=\"Missing Text\"
-      class=\"tooltipped\"
-      src=\"/images/testing\"
-      alt=\"Testing\"
-    />".gsub("\n", " ").squeeze(" ")
-  end
-
-  def options_fixture
-    {
-      data: {
-        position: "right",
-        delay: 300,
-        tooltip: "Happy Trees"
-      },
-      class: "some class",
-      id: "unique id"
-    }
-  end
-
-  describe '#render_icon' do
-    it 'returns an image link when valid arguments are present' do
-      expect(render_icon('testing', sweet_options)).to eq(link_fixture)
+      expect(embedded_svg('format-bold.svg', id: 'bold-text', config: toolbar_config('Bold Text')))
+        .to include('data-tooltip="Bold Text"')
     end
 
-    it 'returns default parameters when no options hash is present' do
-      expect(render_icon('testing')).to eq(default_link_fixture)
+    it 'returns a standard svg icon' do
+      expect(embedded_svg('format-bold.svg', class: 'test-class')).to include('class="test-class"')
     end
 
     it 'returns if no icon name is present' do
-      expect(render_icon('')).to eq(nil)
+      expect(embedded_svg('')).to eq(nil)
     end
   end
 
-  describe '#icon_options' do
-    it 'returns a hash of options if valid keys are present' do
-      expect(icon_options(sweet_options)).to eq(options_fixture)
-    end
-    it 'returns if no options are present' do
-      expect(icon_options(nil)).to eq(nil)
-    end
-  end
 end

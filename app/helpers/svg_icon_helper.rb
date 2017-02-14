@@ -1,35 +1,31 @@
 module SvgIconHelper
 
-  def render_icon(icon_name, options = default_options)
-    return if icon_name.blank?
+  def tooltip_options(svg, options)
+    return unless svg && options
 
-    image_tag icon_name, icon_options(options)
-  end
-
-  def icon_options(options)
-    return unless options
-
-    {
-      data: { position: options[:pos], delay: 300, tooltip: options[:text] },
-      class: options[:class],
-      id: options[:id]
-    }
-
-  end
-
-  def default_options
-    { text: 'Missing Text', class: 'tooltipped', pos: 'bottom', delay: 50 }
+    svg["class"] = 'tooltipped'
+    svg["data-tooltip"] = options.dig(:data, :tooltip)
+    svg["data-position"] = options.dig(:data, :position)
+    svg["data-delay"] = options.dig(:data, :delay)
   end
 
   def embedded_svg(filename, options = {})
+    return if filename.blank?
+
     assets = Rails.application.assets
     file = assets.find_asset(filename).source.force_encoding("UTF-8")
     doc = Nokogiri::HTML::DocumentFragment.parse file
     svg = doc.at_css "svg"
-    if options[:class].present?
-      svg["class"] = options[:class]
-    end
+
+    svg["class"] = options.dig(:class)
+    svg["id"] = options.dig(:id)
+    tooltip_options(svg, options[:config]) if options.dig(:config)
+
     raw doc
+  end
+
+  def toolbar_config(text = '')
+    { data: { position: 'top', delay: 300, tooltip: text }, class: 'tooltipped' }
   end
 
 end

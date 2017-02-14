@@ -101,11 +101,9 @@
   display: flex;
   justify-content: flex-end;
 
-  img {
-    padding: 2px;
+  svg {
     background-color: gainsboro;
     border: 1px solid #c0c0c0;
-    color: grey;
     cursor: pointer;
   }
 
