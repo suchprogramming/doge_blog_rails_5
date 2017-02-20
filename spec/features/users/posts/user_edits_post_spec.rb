@@ -30,8 +30,8 @@ RSpec.feature 'User edits a post' do
 
     visit user_post_path(user, post)
 
-    expect(page).not_to have_css('a', text: 'Edit')
-    expect(page).not_to have_css('a', text: 'Delete')
+    expect(page).not_to have_css('a', id: '#show-post-delete')
+    expect(page).not_to have_css('a', id: "edit-post-#{post.id}")
   end
 
   scenario 'with validation errors' do

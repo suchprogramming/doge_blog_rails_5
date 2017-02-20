@@ -5,6 +5,6 @@
 <% if current_any_scope && policy(@post).edit? %>
   <div class="show-post-controls">
     <%= render "show_delete_modal" %>
-    <%= link_to "Edit", edit_polymorphic_path([@post.postable, @post]), base_button %>
+    <%= link_to "Edit", edit_polymorphic_path([@post.postable, @post]), class: base_button, id: "edit-post-#{@post.id}" %>
   </div>
 <% end %>

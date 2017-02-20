@@ -1,0 +1,58 @@
+require 'rails_helper'
+
+RSpec.feature 'A user leaves a comment on a post', js: true do
+
+  let(:user_post) { create(:post_with_user) }
+
+  def user
+    user_post.postable
+  end
+
+  before(:each) do
+    login_as user, scope: :user
+
+    visit user_post_path(user, user_post)
+  end
+
+  scenario 'with success' do
+    click_on 'New Comment'
+
+    expect(page).to have_selector('#new_comment')
+
+    fill_in 'comment_text', with: 'I agree with myself!'
+    click_on 'Submit'
+
+    expect(page).to have_text('Comment created!')
+    expect(page).to have_text('I agree with myself!')
+  end
+
+  scenario 'with validation errors' do
+    click_on 'New Comment'
+
+    expect(page).to have_selector('#new_comment')
+
+    click_on 'Submit'
+
+    expect(page).to have_text("can't be blank")
+  end
+
+  scenario 'when canceling a comment addition' do
+    click_on 'New Comment'
+
+    expect(page).to have_selector('#new_comment')
+
+    find('#cancel-comment').click
+
+    expect(page).not_to have_selector('#new_comment')
+  end
+
+  scenario 'when clicking new comment multiple times' do
+    click_on 'New Comment'
+
+    wait_for_ajax
+
+    click_on 'New Comment'
+
+    expect(all('#new_comment').length).to eq(1)
+  end
+end

@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :postable, polymorphic: true
+  has_many :comments
   has_many :votes, as: :voteable
 
   validates :title, presence: true

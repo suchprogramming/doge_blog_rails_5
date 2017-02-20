@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
     .rejecting('text/plain', 'text/xml') }
 
   it { should have_many(:votes) }
+  it { should have_many(:comments) }
 
   let(:post) { create(:post_with_user) }
 

@@ -2,6 +2,9 @@ class Admin < ApplicationRecord
   include PolymorphicResourceHelper
   attr_accessor :token
 
+  has_many :comments, as: :commentable
+  has_many :invitations
+  has_many :posts, as: :postable
   has_attached_file :avatar,
                     styles: { medium: "300x300>", thumb: "100x100>" },
                     default_url: "default-avatar_:style.png"
@@ -17,9 +20,6 @@ class Admin < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  has_many :posts, as: :postable
-  has_many :invitations
 
   def admin?
     true

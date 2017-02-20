@@ -1,0 +1,11 @@
+$('.flash-container').remove()
+$('#show-comment-delete').modal('close');
+
+$('body').append("<%= j render('layouts/messages') %>")
+
+$('.flash-container').animate(
+  { bottom: '+=100px' },
+  500
+).on('click', function() {
+  $(this).fadeOut()
+});

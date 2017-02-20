@@ -1,0 +1,45 @@
+<% if @post.comments.empty? %>
+  <div class="no-comments-yet-header">
+    <h5>No comments yet!</h5>
+    <%= new_comment_link(current_any_scope, @post) %>
+  </div>
+<% else %>
+  <ul class="collection with-header">
+    <li class="collection-header">
+      <h5><%= @post.comments.size %> Comments</h5>
+      <%= new_comment_link(current_any_scope, @post) %>
+    </li>
+    <%= render partial: "comments/comment", collection: @post.comments, as: :comment %>
+  </ul>
+<% end %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $(document).on('click', '#cancel-comment', function(ev) {
+        $('#comment-form-row').remove();
+      });
+
+      $(document).on('click', '#new-comment-link', function(ev) {
+        $('html, body').animate({ scrollTop: $(document).height() }, 1500);
+      });
+
+      $(document).on('click', '.edit-comment-link', function(ev) {
+        $('html, body').animate({ scrollTop: $(document).height() }, 1500);
+      });
+
+      $(document).on('click', '.delete-comment-link', function(ev) {
+        userId = $(this).data('user-id');
+        postId = $(this).data('post-id');
+        commentId = $(this).data('comment-id');
+
+        // Capybara-webkit doesn't like template literals
+        deleteLink = "/users/" + userId + "/posts/" + postId + "/comments/" + commentId;
+
+        $("#delete-comment-link-modal").attr('href', deleteLink);
+      });
+
+    });
+  </script>
+<% end %>

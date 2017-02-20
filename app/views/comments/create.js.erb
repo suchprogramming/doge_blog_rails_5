@@ -1,0 +1,13 @@
+$('#comment-form-row').remove();
+$('.flash-container').remove();
+
+$('.comment-section').html("<%= j render('comments/comment_section') %>")
+
+$('body').append("<%= j render('layouts/messages') %>")
+
+$('.flash-container').animate(
+  { bottom: '+=100px' },
+  500
+).on('click', function() {
+  $(this).fadeOut()
+});

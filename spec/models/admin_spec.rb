@@ -9,6 +9,7 @@ RSpec.describe Admin, type: :model do
     .rejecting('text/plain', 'text/xml') }
 
   it { should have_many(:posts) }
+  it { should have_many(:comments) }
   it { should have_many(:invitations) }
 
   it 'should raise an ActiveRecord:RecordInvalid error on new_invitation context' do

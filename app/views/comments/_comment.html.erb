@@ -1,0 +1,24 @@
+<li class="collection-item comment-container">
+
+  <div class="comment-avatar-area">
+    <%= render_user_avatar(comment.commentable, :thumb) %>
+    <p><%= comment.commentable.email %></p>
+  </div>
+
+  <div class="comment-text-area">
+    <span class="comment-time"><em>Posted <%= comment.created_at %></em></span>
+    <span class="comment-counter"><em># <%= comment_counter + 1 %></em></span>
+    <p class="comment-text"><%= comment.text %></p>
+
+    <% if current_any_scope && policy(comment).create? %>
+      <span class="comment-manage">
+        <%= edit_comment_link(comment.commentable, @post, comment) %>
+      </span>
+      <span class="comment-manage">
+        <%= delete_comment_link(comment.commentable.id, @post.id, comment.id) %>
+      </span>
+    <% end %>
+
+  </div>
+
+</li>

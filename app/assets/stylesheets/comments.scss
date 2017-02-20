@@ -1,0 +1,62 @@
+.comment-section {
+
+  img {
+    width: 65px;
+  }
+
+  p {
+    font-size: 14px;
+    margin: 0px;
+  }
+
+  form {
+    margin-top: 10px;
+  }
+
+}
+
+.comment-container {
+  display: flex;
+}
+
+.comment-avatar-area {
+  text-align: center;
+  border-right: 1px solid #c0c0c0;
+  width: 20%;
+  font-size: 11px !important;
+}
+
+.comment-text-area {
+  padding: 0px 10px;
+  width: 80%;
+
+  .comment-time {
+    font-size: 12px;
+    color: grey;
+  }
+
+  .comment-counter {
+    float: right;
+    font-size: 14px;
+    color: #039be5;
+  }
+
+}
+
+.collection.with-header .collection-item {
+  padding: 10px 0px;
+}
+
+.collection.with-header .collection-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.no-comments-yet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #c0c0c0;
+}
