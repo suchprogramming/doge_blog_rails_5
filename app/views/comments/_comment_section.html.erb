@@ -40,6 +40,10 @@
         $("#delete-comment-link-modal").attr('href', deleteLink);
       });
 
+      $(document).on('change', '.flag-comment', function(ev) {
+        $(this).submit()
+      })
+
     });
   </script>
 <% end %>

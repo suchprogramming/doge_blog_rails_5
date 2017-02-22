@@ -2,6 +2,7 @@ $('.flash-container').remove()
 $('#show-comment-delete').modal('close');
 
 $('body').append("<%= j render('layouts/messages') %>")
+$('.comment-section').html("<%= j render('comments/comment_section') %>")
 
 $('.flash-container').animate(
   { bottom: '+=100px' },

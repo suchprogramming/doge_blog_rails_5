@@ -1,4 +1,4 @@
-<li class="collection-item comment-container">
+<li class="collection-item">
 
   <div class="comment-avatar-area">
     <%= render_user_avatar(comment.commentable, :thumb) %>
@@ -6,17 +6,44 @@
   </div>
 
   <div class="comment-text-area">
-    <span class="comment-time"><em>Posted <%= comment.created_at %></em></span>
-    <span class="comment-counter"><em># <%= comment_counter + 1 %></em></span>
-    <p class="comment-text"><%= comment.text %></p>
+    <div class="comment-stats">
+      <span class="comment-time"><em>Posted <%= comment.created_at %></em></span>
+      <span class="comment-counter"><em># <%= comment_counter + 1 %></em></span>
+    </div>
 
-    <% if current_any_scope && policy(comment).create? %>
-      <span class="comment-manage">
-        <%= edit_comment_link(comment.commentable, @post, comment) %>
-      </span>
-      <span class="comment-manage">
-        <%= delete_comment_link(comment.commentable.id, @post.id, comment.id) %>
-      </span>
+    <p class="comment-text"><%= filter_flagged_comment(comment) %></p>
+
+    <% if current_user && policy(comment).create? %>
+      <div class="comment-manage-area">
+          <div class="user-comment-manage-links">
+            <%= edit_comment_link(comment.commentable, @post, comment) %>
+            <%= delete_comment_link(comment.commentable.id, @post.id, comment.id) %>
+          </div>
+      </div>
+    <% end %>
+
+    <% if current_admin && current_admin.active %>
+      <div class="comment-manage-area">
+        <% if policy(comment).create? %>
+          <div class="user-comment-manage-links left">
+            <%= edit_comment_link(comment.commentable, @post, comment) %>
+            <%= delete_comment_link(comment.commentable.id, @post.id, comment.id) %>
+          </div>
+        <% end %>
+
+        <div class="admin-flag-area right">
+          <%= form_for([:administration, comment.commentable, @post, comment], flag_comment_options(comment.id)) do |f| %>
+            <div class="switch secondary-content">
+              <label id="flag-comment-check-<%= comment.id %>">
+                Activate
+                <%= f.check_box(:flagged) %>
+                <span class="lever"></span>
+                Flag
+              </label>
+            </div>
+          <% end %>
+        </div>
+      </div>
     <% end %>
 
   </div>

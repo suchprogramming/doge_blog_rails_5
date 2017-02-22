@@ -1,6 +1,6 @@
 module CommentsHelper
   def new_comment_link(user_scope = nil, post = nil)
-    return unless user_scope && post
+    return unless user_scope.try(:active) && post
 
     link_to 'New Comment',
             new_polymorphic_path([current_any_scope, post, :comment]),
@@ -38,26 +38,22 @@ module CommentsHelper
             remote: true
   end
 
-  def admin_flag_comment(user_id = nil, post_id = nil, comment_id = nil)
-    return unless user_id && post_id && comment_id
-
-    button_to 'Flag Comment',
-              administration_comments_path,
-              params: flag_comment_params(user_id, post_id, comment_id),
-              class: 'flag-comment-link',
-              id: "flag-comment-#{comment_id}",
-              remote: true,
-              method: 'patch'
-  end
-
-  def flag_comment_params(user_id = nil, post_id = nil, comment_id = nil)
-    return unless user_id && post_id && comment_id
+  def flag_comment_options(comment_id = nil)
+    return unless comment_id
 
     {
-      "comment[flagged]": true,
-      commentable_id: user_id,
-      post_id: post_id,
-      comment_id: comment_id
+      html: {
+        id: "flag-comment-#{comment_id}",
+        class: 'flag-comment'
+      },
+      remote: true
     }
+
+  end
+
+  def filter_flagged_comment(comment = nil)
+    return unless comment
+
+    comment.flagged ? 'This comment has been flagged by administration' : comment.text
   end
 end

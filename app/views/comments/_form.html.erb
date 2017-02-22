@@ -8,7 +8,7 @@
         <div class="row">
           <div class="input-field col s12">
             <%= f.label :text %>
-            <%= f.text_field :text, class: field_class(@comment, :text) %>
+            <%= f.text_area :text, class: "materialize-textarea #{field_class(@comment, :text)}" %>
             <p class="error-text"><%= show_errors(@comment, :text) %></p>
           </div>
         </div>

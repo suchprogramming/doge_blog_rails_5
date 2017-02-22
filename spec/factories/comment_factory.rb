@@ -3,5 +3,6 @@ FactoryGirl.define do
     association :commentable
     association :post
     text 'I agree!'
+    flagged false
   end
 end
