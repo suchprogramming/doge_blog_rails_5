@@ -36,7 +36,8 @@ FactoryGirl.define do
 
     after(:create) do |post|
       create(:comment, post: post, commentable: post.postable)
-      create(:comment, post: post, commentable: create(:user))
+      create(:comment, post: post, commentable: create(:user, email: 'testing1@comments.com'))
+      create(:comment, post: post, commentable: create(:admin, email: 'testing2@comments.com'))
     end
   end
 
@@ -57,6 +58,8 @@ FactoryGirl.define do
 
     after(:create) do |post|
       create(:comment, post: post, commentable: post.postable)
+      create(:comment, post: post, commentable: create(:user, email: 'testing3@comments.com'))
+      create(:comment, post: post, commentable: create(:admin, email: 'testing4@comments.com'))
     end
   end
 

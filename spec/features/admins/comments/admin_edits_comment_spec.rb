@@ -1,21 +1,21 @@
 require 'rails_helper'
 
-RSpec.feature 'A user edits a comment on a post', js: true do
+RSpec.feature 'An admin edits a comment on a post', js: true do
 
-  let(:user_post) { create(:current_user_post_comment) }
+  let(:admin_post) { create(:current_admin_post_comment) }
 
-  def user
-    user_post.postable
+  def admin
+    admin_post.postable
   end
 
   def comment
-    user_post.comments.where(commentable_id: user.id).first
+    admin_post.comments.where(commentable_id: admin.id).first
   end
 
   before(:each) do
-    login_as user, scope: :user
+    login_as admin, scope: :admin
 
-    visit user_post_path(user, user_post)
+    visit admin_post_path(admin, admin_post)
   end
 
   scenario 'with success' do
