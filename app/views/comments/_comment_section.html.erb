@@ -9,8 +9,9 @@
       <h5><%= @post.comments.size %> Comments</h5>
       <%= new_comment_link(current_any_scope, @post) %>
     </li>
-    <%= render partial: "comments/comment", collection: @post.comments, as: :comment %>
+    <%= render partial: "comments/comment", collection: paged_collection(@post.comments, @post.per_page) %>
   </ul>
+  <%= will_paginate @paged, paged_comment_options(@post) %>
 <% end %>
 
 <% content_for :javascript do %>

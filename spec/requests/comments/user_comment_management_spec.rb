@@ -15,7 +15,7 @@ RSpec.describe 'User comment management', :type => :request do
   end
 
   def user_comment
-    current_user_post.comments.first
+    current_user_post.comments.where(commentable_id: current_user.id).first
   end
 
   def current_admin
@@ -23,7 +23,7 @@ RSpec.describe 'User comment management', :type => :request do
   end
 
   def admin_comment
-    current_admin_post.comments.first
+    current_admin_post.comments.where(commentable_id: current_admin.id).first
   end
 
   context 'on the COMMENT #new route' do

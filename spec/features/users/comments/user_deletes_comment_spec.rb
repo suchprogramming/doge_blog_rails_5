@@ -9,13 +9,16 @@ RSpec.feature 'A user deletes a comment on a post', js: true do
   end
 
   def comment
-    user_post.comments.first
+    user_post.comments.where(commentable_id: user.id).first
   end
 
   before(:each) do
     login_as user, scope: :user
 
     visit user_post_path(user, user_post)
+
+    expect(user_post.comments.size).to eq(2)
+    expect(all('.delete-comment-link').size).to eq(1)
   end
 
   scenario 'with success' do

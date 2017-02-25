@@ -1,4 +1,4 @@
-<li class="collection-item">
+<li class="collection-item" id="comment-<%= comment.id %>">
 
   <div class="comment-avatar-area">
     <%= render_user_avatar(comment.commentable, :thumb) %>
@@ -8,7 +8,6 @@
   <div class="comment-text-area">
     <div class="comment-stats">
       <span class="comment-time"><em>Posted <%= comment.created_at %></em></span>
-      <span class="comment-counter"><em># <%= comment_counter + 1 %></em></span>
     </div>
 
     <p class="comment-text"><%= filter_flagged_comment(comment) %></p>
@@ -23,6 +22,7 @@
     <% end %>
 
     <% if current_admin && current_admin.active %>
+
       <div class="comment-manage-area">
         <% if policy(comment).create? %>
           <div class="user-comment-manage-links left">
@@ -32,7 +32,7 @@
         <% end %>
 
         <div class="admin-flag-area right">
-          <%= form_for([:administration, comment.commentable, @post, comment], flag_comment_options(comment.id)) do |f| %>
+          <%= form_for([:administration, comment], flag_comment_options(comment.id)) do |f| %>
             <div class="switch secondary-content">
               <label id="flag-comment-check-<%= comment.id %>">
                 Activate
@@ -41,9 +41,12 @@
                 Flag
               </label>
             </div>
+            <%= hidden_field_tag(:user_id, comment.commentable.id) %>
+            <%= hidden_field_tag(:post_id, @post.id) %>
           <% end %>
         </div>
       </div>
+
     <% end %>
 
   </div>

@@ -36,6 +36,17 @@ FactoryGirl.define do
 
     after(:create) do |post|
       create(:comment, post: post, commentable: post.postable)
+      create(:comment, post: post, commentable: create(:user))
+    end
+  end
+
+  factory :current_user_post_comment_pack, class: 'Post' do
+    association :postable, factory: :user, email: 'testingcomments@email.com'
+    title 'Testing Comments'
+    post_content 'Liquid White'
+
+    after(:create) do |post|
+      create_list(:comment, 26, post: post, commentable: post.postable)
     end
   end
 

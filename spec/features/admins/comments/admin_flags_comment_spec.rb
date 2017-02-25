@@ -10,7 +10,7 @@ RSpec.feature 'An admin flags a comment', js: true do
   end
 
   def comment
-    user_post.comments.first
+    user_post.comments.where(commentable_id: user.id).first
   end
 
   before(:each) do

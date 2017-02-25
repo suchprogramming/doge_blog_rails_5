@@ -33,11 +33,7 @@ Rails.application.routes.draw do
     get '/sign_up/:token', to: 'registrations#new'
     post '/registrations', to: 'registrations#create'
 
-    patch '/comments/users/:user_id/posts/:post_id/comments/:id',
-          to: 'comments#update', as: 'user_post_comment'
-          
-    patch '/comments/admins/:admin_id/posts/:post_id/comments/:id',
-          to: 'comments#update', as: 'admin_post_comment'
+    resources :comments, only: [:update]
 
     get '/dashboard', to: 'dashboard#index'
   end

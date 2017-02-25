@@ -12,6 +12,8 @@ RSpec.feature 'A user leaves a comment on a post', js: true do
     login_as user, scope: :user
 
     visit user_post_path(user, user_post)
+
+    expect(page).to have_selector('div', class: 'no-comments-yet-header')
   end
 
   scenario 'with success' do

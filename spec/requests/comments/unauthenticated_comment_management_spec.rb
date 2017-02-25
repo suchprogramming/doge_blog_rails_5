@@ -26,7 +26,7 @@ RSpec.describe 'Unauthenticated comment management', :type => :request do
   context 'on the COMMENT #edit route' do
     it 'returns 401 unauthorized on unauthenticated requests' do
       get edit_user_post_comment_path(User.new(id: 1), Post.new(id: 1), Comment.new(id: 1)), xhr: true
-      
+
       expect(response.status).to eq(401)
     end
   end
@@ -43,6 +43,18 @@ RSpec.describe 'Unauthenticated comment management', :type => :request do
   context 'on the COMMENT #destroy route' do
     it 'returns 401 unauthorized on unauthenticated requests' do
       delete admin_post_comment_path(User.new(id: 1), Post.new(id: 1), Comment.new(id: 1)), xhr: true
+
+      expect(response.status).to eq(401)
+    end
+  end
+
+  context 'on the ADMINISTRATION::Comment#update route' do
+    it 'returns 401 unauthorized for unauthenticated requests' do
+      patch administration_comment_path(Comment.new(id: 1)),
+            params: {
+              comment: { flagged: true },
+              user_id: User.new(id: 1), post_id: Post.new(id: 1)
+            }, xhr: true
 
       expect(response.status).to eq(401)
     end

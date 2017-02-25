@@ -9,10 +9,6 @@ RSpec.feature 'An inactive admin cannot mutate comments', js: true do
     user_post.postable
   end
 
-  def comment
-    user_post.comments.first
-  end
-
   before(:each) do
     login_as admin, scope: :admin
 

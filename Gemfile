@@ -18,6 +18,7 @@ gem 'figaro'
 gem 'aws-sdk', '~> 2'
 gem "pundit"
 gem 'redcarpet'
+gem 'will_paginate'
 
 group :development, :test do
   gem 'pry'
