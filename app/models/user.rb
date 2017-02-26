@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :posts, as: :postable
   has_many :votes
+  has_many :comments, as: :commentable
   has_attached_file :avatar,
                     styles: { medium: "300x300>", thumb: "100x100>" },
                     default_url: "default-avatar_:style.png"

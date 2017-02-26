@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_any_scope!, except: [:index, :show]
 
   def index
-    @posts = Post.where(active: true)
+    @posts = Post.where(active: true).order(created_at: 'desc')
   end
 
   def new

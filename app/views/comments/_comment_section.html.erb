@@ -1,0 +1,45 @@
+<% if @post.comments.empty? %>
+  <div class="no-comments-yet-header">
+    <h5>No comments yet!</h5>
+    <%= new_comment_link(current_any_scope, @post) %>
+  </div>
+<% else %>
+  <ul class="collection with-header">
+    <li class="collection-header">
+      <h5><%= @post.comments.size %> Comments</h5>
+      <%= new_comment_link(current_any_scope, @post) %>
+    </li>
+    <%= render partial: "comments/comment", collection: paged_collection(@post.comments, @post.per_page) %>
+  </ul>
+  <%= will_paginate @paged, paged_comment_options(@post) %>
+<% end %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $(document).on('click', '#cancel-comment', function(ev) {
+        $('#comment-form-row').remove();
+      });
+
+      $(document).on('click', '#new-comment-link', function(ev) {
+        $('html, body').animate({ scrollTop: $(document).height() }, 1000);
+      });
+
+      $(document).on('click', '.edit-comment-link', function(ev) {
+        $('html, body').animate({ scrollTop: $(document).height() }, 1000);
+      });
+
+      $(document).on('click', '.delete-comment-link', function(ev) {
+        ev.preventDefault();
+
+        $('#delete-comment-modal-link').attr('href', $(this).attr('href'))
+      })
+
+      $(document).on('change', '.flag-comment', function(ev) {
+        $(this).submit()
+      })
+
+    });
+  </script>
+<% end %>

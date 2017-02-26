@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: doge-blog-rails5_production
-  username: doge-blog-rails5
-  password: <%= ENV['DOGE-BLOG-RAILS5_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DOGE_BLOG_RAILS5_DATABASE_PASSWORD'] %>

@@ -20,7 +20,9 @@ Rails.application.routes.draw do
 
   # Admin routes for Posts
   resources :admins, only: [:show] do
-    resources :posts, except: [:index]
+    resources :posts, except: [:index] do
+      resources :comments, except: [:index]
+    end
   end
 
   # Administration routes
@@ -31,6 +33,8 @@ Rails.application.routes.draw do
     get '/sign_up/:token', to: 'registrations#new'
     post '/registrations', to: 'registrations#create'
 
+    resources :comments, only: [:update]
+
     get '/dashboard', to: 'dashboard#index'
   end
 
@@ -39,7 +43,9 @@ Rails.application.routes.draw do
 
   # User routes for Posts
   resources :users, only: [:show] do
-    resources :posts, except: [:index]
+    resources :posts, except: [:index] do
+      resources :comments, except: [:index]
+    end
   end
 
   # Markdown processing

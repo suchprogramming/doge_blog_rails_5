@@ -1,0 +1,13 @@
+$('#comment-form-row').remove();
+$('.flash-container').remove()
+
+$("#comment-<%= @comment.id %>").replaceWith("<%= j render('comments/comment', comment: @comment) %>")
+
+$('body').append("<%= j render('layouts/messages') %>")
+
+$('.flash-container').animate(
+  { bottom: '+=100px' },
+  500
+).on('click', function() {
+  $(this).fadeOut()
+});

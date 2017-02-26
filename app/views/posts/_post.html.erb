@@ -12,6 +12,7 @@
         <h5><%= link_to post.title, polymorphic_path([post.postable, post]) %></h5>
         <p>By <%= post_creator_link(current_any_scope, post) %></p>
         <p><%= post.created_at %></p>
+        <span><%= post.comments.size %> Comments</span>
       </div>
     </div>
 

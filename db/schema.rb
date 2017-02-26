@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209022237) do
+ActiveRecord::Schema.define(version: 20170214013918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,18 @@ ActiveRecord::Schema.define(version: 20170209022237) do
     t.boolean  "avatar_approved",        default: false
     t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "text"
+    t.boolean  "flagged",          default: false
+    t.string   "commentable_type"
+    t.integer  "commentable_id"
+    t.integer  "post_id"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
+    t.index ["post_id"], name: "index_comments_on_post_id", using: :btree
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -99,5 +111,6 @@ ActiveRecord::Schema.define(version: 20170209022237) do
     t.index ["voteable_type", "voteable_id"], name: "index_votes_on_voteable_type_and_voteable_id", using: :btree
   end
 
+  add_foreign_key "comments", "posts"
   add_foreign_key "votes", "users"
 end

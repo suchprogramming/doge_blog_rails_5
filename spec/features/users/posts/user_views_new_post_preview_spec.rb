@@ -16,7 +16,7 @@ RSpec.feature 'A user views a post preview while creating a post', js: true do
 
     click_on 'Preview'
 
-    expect(page).to have_selector('h2', text: 'Testing Markdown')
+    expect(page).to have_css('h2', text: 'Testing Markdown')
   end
 
   scenario 'with a blank content field' do
@@ -25,7 +25,7 @@ RSpec.feature 'A user views a post preview while creating a post', js: true do
 
     click_on 'Preview'
 
-    expect(page).to have_text('No Content Available')
+    expect(page).to have_css('div', text: 'No Content Available', id: 'preview-post-content')
   end
 
 end
