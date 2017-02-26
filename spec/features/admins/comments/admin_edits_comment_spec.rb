@@ -57,8 +57,6 @@ RSpec.feature 'An admin edits a comment on a post', js: true do
   scenario 'when clicking edit comment multiple times' do
     find("#edit-comment-#{comment.id}").click
 
-    wait_for_ajax
-
     find("#edit-comment-#{comment.id}").click
 
     expect(all("#edit-comment-#{comment.id}").length).to eq(1)

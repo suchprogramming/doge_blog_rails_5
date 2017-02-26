@@ -25,7 +25,7 @@ RSpec.feature 'A user deletes a comment on a post', js: true do
 
     expect(page).to have_text('Are you sure you want to delete this comment?')
 
-    find('#delete-comment-link-modal').click
+    find('#delete-comment-modal-link').click
 
     expect(page).to have_text('Comment removed!')
   end

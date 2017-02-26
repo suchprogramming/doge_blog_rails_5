@@ -23,23 +23,18 @@
       });
 
       $(document).on('click', '#new-comment-link', function(ev) {
-        $('html, body').animate({ scrollTop: $(document).height() }, 1500);
+        $('html, body').animate({ scrollTop: $(document).height() }, 1000);
       });
 
       $(document).on('click', '.edit-comment-link', function(ev) {
-        $('html, body').animate({ scrollTop: $(document).height() }, 1500);
+        $('html, body').animate({ scrollTop: $(document).height() }, 1000);
       });
 
       $(document).on('click', '.delete-comment-link', function(ev) {
-        userId = $(this).data('user-id');
-        postId = $(this).data('post-id');
-        commentId = $(this).data('comment-id');
+        ev.preventDefault();
 
-        // Capybara-webkit doesn't like template literals
-        deleteLink = "/users/" + userId + "/posts/" + postId + "/comments/" + commentId;
-
-        $("#delete-comment-link-modal").attr('href', deleteLink);
-      });
+        $('#delete-comment-modal-link').attr('href', $(this).attr('href'))
+      })
 
       $(document).on('change', '.flag-comment', function(ev) {
         $(this).submit()

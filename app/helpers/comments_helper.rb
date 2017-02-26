@@ -9,8 +9,8 @@ module CommentsHelper
             remote: true
   end
 
-  def edit_comment_link(user_scope = nil, post = nil, comment = nil)
-    return unless user_scope && post && comment
+  def edit_comment_link(post = nil, comment = nil)
+    return unless post && comment
 
     link_to 'Edit',
             edit_polymorphic_path([comment.commentable, post, comment]),
@@ -19,23 +19,14 @@ module CommentsHelper
             remote: true
   end
 
-  def delete_comment_link(user_id = nil, post_id = nil, comment_id = nil)
-    return unless user_id && post_id && comment_id
+  def delete_comment_link(post = nil, comment = nil)
+    return unless post && comment
 
     link_to 'Delete',
-            '#show-comment-delete',
+            polymorphic_path([comment.commentable, post, comment]),
             class: "delete-comment-link",
-            id: "delete-comment-#{comment_id}",
-            data: { user_id: user_id, post_id: post_id, comment_id: comment_id }
-  end
-
-  def delete_comment_modal_link
-    link_to 'Delete',
-            'replace-me',
-            class: 'waves-effect waves-light btn-flat red-text',
-            id: 'delete-comment-link-modal',
-            method: 'delete',
-            remote: true
+            id: "delete-comment-#{comment.id}",
+            data: { target: 'show-comment-delete' }
   end
 
   def flag_comment_options(comment_id = nil)
@@ -56,4 +47,12 @@ module CommentsHelper
 
     comment.flagged ? 'This comment has been flagged by administration' : comment.text
   end
+
+  def user_form_tag(user_scope = nil)
+    return unless user_scope
+
+    user_scope.try(:admin?) ? hidden_field_tag(:admin_id, user_scope.id) :
+                              hidden_field_tag(:user_id, user_scope.id)
+  end
+
 end

@@ -15,8 +15,8 @@
     <% if current_user && policy(comment).create? %>
       <div class="comment-manage-area">
           <div class="user-comment-manage-links">
-            <%= edit_comment_link(comment.commentable, @post, comment) %>
-            <%= delete_comment_link(comment.commentable.id, @post.id, comment.id) %>
+            <%= edit_comment_link(@post, comment) %>
+            <%= delete_comment_link(@post, comment)  %>
           </div>
       </div>
     <% end %>
@@ -26,8 +26,8 @@
       <div class="comment-manage-area">
         <% if policy(comment).create? %>
           <div class="user-comment-manage-links left">
-            <%= edit_comment_link(comment.commentable, @post, comment) %>
-            <%= delete_comment_link(comment.commentable.id, @post.id, comment.id) %>
+            <%= edit_comment_link(@post, comment) %>
+            <%= delete_comment_link(@post, comment) %>
           </div>
         <% end %>
 
@@ -41,7 +41,7 @@
                 Flag
               </label>
             </div>
-            <%= hidden_field_tag(:user_id, comment.commentable.id) %>
+            <%= user_form_tag(comment.commentable) %>
             <%= hidden_field_tag(:post_id, @post.id) %>
           <% end %>
         </div>

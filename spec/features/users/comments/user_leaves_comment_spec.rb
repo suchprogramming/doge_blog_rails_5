@@ -49,12 +49,16 @@ RSpec.feature 'A user leaves a comment on a post', js: true do
   end
 
   scenario 'when clicking new comment multiple times' do
-    click_on 'New Comment'
+    find('#new-comment-link').click
 
     wait_for_ajax
 
-    click_on 'New Comment'
+    expect(all('form#new_comment').length).to eq(1)
 
-    expect(all('#new_comment').length).to eq(1)
+    find('#new-comment-link').click
+
+    wait_for_ajax
+
+    expect(all('form#new_comment').length).to eq(1)
   end
 end

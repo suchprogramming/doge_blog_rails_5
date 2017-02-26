@@ -22,8 +22,6 @@ RSpec.feature 'An admin flags a comment', js: true do
 
     find("#flag-comment-check-#{comment.id}").click
 
-    wait_for_ajax
-
     expect(page).to have_text('Comment flagged!')
   end
 
@@ -33,8 +31,6 @@ RSpec.feature 'An admin flags a comment', js: true do
     visit user_post_path(user, user_post)
 
     find("#flag-comment-check-#{comment.id}").click
-
-    wait_for_ajax
 
     expect(page).to have_text('Comment activated!')
   end
