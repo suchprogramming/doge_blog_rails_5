@@ -2,13 +2,8 @@ $('#comment-form-row').remove();
 $('.flash-container').remove();
 $('#show-comment-delete').modal('close');
 
-$('.comment-section').html("<%= j render('comments/comment_section') %>")
+$('.comments-header h5').html("<%= @post.comments.count %> Comments")
+$('.comment-section').replaceWith("<%= j render('comments/comment_section') %>")
 
 $('body').append("<%= j render('layouts/messages') %>")
-
-$('.flash-container').animate(
-  { bottom: '+=100px' },
-  500
-).on('click', function() {
-  $(this).fadeOut()
-});
+$('.flash-container').animate({ bottom: '+=150px' }, 500).delay(2000).fadeOut(500)

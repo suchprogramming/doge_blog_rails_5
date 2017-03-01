@@ -17,7 +17,7 @@
       <div class="col s12">
         <%= sessions_new_password_link(controller_name, resource_name) %>
         <% if resource_name == :user %>
-          <div class="divider" style="margin:10px"></div>
+          <div class="divider"></div>
           <%= link_to 'No account?  Sign up!',
                       new_user_registration_path,
                       class: "waves-effect waves-teal btn-flat"%>

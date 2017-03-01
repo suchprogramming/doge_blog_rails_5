@@ -1,17 +1,10 @@
-<% if @post.comments.empty? %>
-  <div class="no-comments-yet-header">
-    <h5>No comments yet!</h5>
-    <%= new_comment_link(current_any_scope, @post) %>
+<% unless @post.comments.empty? %>
+  <div class="comment-section">
+    <div class="comments-wrapper">
+      <%= render partial: "comments/comment", collection: paged_collection(@post.comments, @post.per_page) %>
+    </div>
+    <%= will_paginate @paged, paged_comment_options(@post) %>
   </div>
-<% else %>
-  <ul class="collection with-header">
-    <li class="collection-header">
-      <h5><%= @post.comments.size %> Comments</h5>
-      <%= new_comment_link(current_any_scope, @post) %>
-    </li>
-    <%= render partial: "comments/comment", collection: paged_collection(@post.comments, @post.per_page) %>
-  </ul>
-  <%= will_paginate @paged, paged_comment_options(@post) %>
 <% end %>
 
 <% content_for :javascript do %>
@@ -37,7 +30,7 @@
       })
 
       $(document).on('change', '.flag-comment', function(ev) {
-        $(this).submit()
+        $(this).submit();
       })
 
     });

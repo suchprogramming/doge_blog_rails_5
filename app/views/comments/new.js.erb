@@ -1,3 +1,10 @@
 $('#comment-form-row').remove();
-$(".comment-section").append("<%= j render('form') %>");
+
+<% if @post.comments.empty? %>
+  $(".comments-header").after("<%= j render('form') %>");
+<% else %>
+  $(".comment-section").append("<%= j render('form') %>");
+<% end %>
+
 $('#new_comment').prepend('<h5>New Comment</h5>');
+$('#comment_text').characterCounter();

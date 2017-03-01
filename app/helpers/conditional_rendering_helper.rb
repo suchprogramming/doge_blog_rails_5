@@ -23,6 +23,14 @@ module ConditionalRenderingHelper
             class: "waves-effect waves-teal btn"
   end
 
+  # COMMENT RENDERING
+
+  def commenter_link(current_user = nil, comment = nil)
+    return comment.commentable.name unless current_user
+
+    link_to comment.commentable.name, polymorphic_path(comment.commentable)
+  end
+
   # NEW SESSION FORM RENDERING
 
   def sessions_new_password_link(controller_name = nil, resource_name = nil)
