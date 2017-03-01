@@ -9,12 +9,7 @@
 <% content_for :javascript do %>
   <script type="text/javascript">
     $(document).ready(function() {
-      $('.flash-container').animate(
-        { bottom: '+=100px' },
-        500
-      ).on('click', function() {
-        $(this).fadeOut()
-      });
+      $('.flash-container').animate({ bottom: '+=150px' }, 500).delay(2000).fadeOut(500)
     });
   </script>
 <% end %>

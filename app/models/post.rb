@@ -1,10 +1,10 @@
 class Post < ApplicationRecord
   belongs_to :postable, polymorphic: true
-  has_many :comments
-  has_many :votes, as: :voteable
+  has_many :comments, dependent: :destroy
+  has_many :votes, as: :voteable, dependent: :destroy
 
-  validates :title, presence: true
-  validates :post_content, presence: true
+  validates :title, presence: true, length: { maximum: 30 }
+  validates :post_content, presence: true, length: { maximum: 2000 }
 
   def poly_parent
     self.postable

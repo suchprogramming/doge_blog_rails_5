@@ -23,7 +23,7 @@ class Administration::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :active, :avatar_approved)
+    params.require(:user).permit(:email, :name, :active, :avatar_approved)
   end
 
 end

@@ -10,6 +10,14 @@
     </div>
   </div>
 
+  <div class="row no-bottom-margin">
+    <div class="input-field col s12">
+      <%= f.label :name, 'Username' %>
+      <%= f.text_field :name, class: field_class(@admin, :name), data: { length: 12 } %>
+      <p class="error-text"><%= show_errors(@admin, :name) %></p>
+    </div>
+  </div>
+
   <h5>Administration</h5>
 
   <div class="row">

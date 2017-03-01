@@ -8,6 +8,14 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :name, "Username" %>
+      <%= f.text_field :name, class: field_class(resource, :name), data: { length: 12 } %>
+      <p class="error-text"><%= show_errors(resource, :name) %></p>
+    </div>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

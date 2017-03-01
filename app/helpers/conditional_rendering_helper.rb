@@ -10,9 +10,9 @@ module ConditionalRenderingHelper
   end
 
   def post_creator_link(current_user = nil, post = nil)
-    return post.postable.email unless current_user
+    return post.postable.name unless current_user
 
-    link_to post.postable.email, polymorphic_path(post.postable)
+    link_to post.postable.name, polymorphic_path(post.postable)
   end
 
   def posts_new_post_link(user_scope = nil)
@@ -73,7 +73,7 @@ module ConditionalRenderingHelper
 
     capture do
       concat content_tag(:li) { link_to 'My Account', edit_user_registration_path }
-      concat content_tag(:li) { link_to "Sign Out (#{user_scope.email})", destroy_user_session_path, method: :delete }
+      concat content_tag(:li) { link_to "Sign Out (#{user_scope.name})", destroy_user_session_path, method: :delete }
     end
   end
 
@@ -83,7 +83,7 @@ module ConditionalRenderingHelper
     capture do
       concat content_tag(:li) { link_to 'Admin', administration_dashboard_path } if user_scope.active
       concat content_tag(:li) { link_to 'My Account', edit_admin_registration_path }
-      concat content_tag(:li) { link_to "Sign Out (#{user_scope.email})", destroy_admin_session_path, method: :delete }
+      concat content_tag(:li) { link_to "Sign Out (#{user_scope.name})", destroy_admin_session_path, method: :delete }
     end
 
   end

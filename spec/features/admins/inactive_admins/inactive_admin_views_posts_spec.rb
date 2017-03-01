@@ -17,7 +17,7 @@ RSpec.feature 'Inactive admin views restricted posts' do
     click_on post.title
 
     expect(page).to have_text(post.title)
-    expect(page).to have_text(user.email)
+    expect(page).to have_text(user.name)
     expect(page).not_to have_css('a', id: '#show-post-delete')
     expect(page).not_to have_css('a', id: "edit-post-#{post.id}")
   end

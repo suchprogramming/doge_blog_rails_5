@@ -8,7 +8,7 @@ RSpec.describe Post, type: :model do
   it { should have_many(:comments) }
 
   let(:post) { create(:post_with_user) }
-  let(:alternate_user) { create(:user, email: 'bob@ross.com') }
+  let(:alternate_user) { create(:user, email: 'bob@ross.com', name: 'sadie') }
 
   def user
     post.postable
@@ -54,7 +54,7 @@ RSpec.describe Post, type: :model do
 
     it 'returns 1 if a post has fewer than the given breakpoint for a second page' do
       post = Post.new(id: 1)
-      
+
       10.times {  |i| post.comments << Comment.new(post_id: 1) }
 
       expect(post.last_page).to eq(1)
