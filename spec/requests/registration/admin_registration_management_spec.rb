@@ -8,6 +8,7 @@ RSpec.describe 'Admin registration management', :type => :request do
     {
       admin: {
         email: invitation.recipient_email,
+        name: 'TurdFerguson',
         password: 123456,
         password_confirmation: 123456,
         token: invitation.token
@@ -19,6 +20,7 @@ RSpec.describe 'Admin registration management', :type => :request do
     {
       admin: {
         email: 'issue-1-WRONG!',
+        name: 'TurdFerguson',
         password: 1,
         password_confirmation: 2,
         token: 'bob-ross-let-me-in'

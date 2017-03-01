@@ -27,10 +27,10 @@ RSpec.describe ConditionalRenderingHelper, :type => :helper do
     end
 
     describe '#post_creator_link' do
-      it 'returns the post creator email if no current user is present' do
-        post = Post.new(postable: User.new(email: 'test@test.com'))
+      it 'returns the post creator name if no current user is present' do
+        post = Post.new(postable: User.new(name: 'bobross'))
 
-        expect(post_creator_link(nil, post)).to eq('test@test.com')
+        expect(post_creator_link(nil, post)).to eq('bobross')
       end
 
       it 'returns a link to the post creator profile if a current user is present' do

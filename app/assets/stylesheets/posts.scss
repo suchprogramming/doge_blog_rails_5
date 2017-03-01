@@ -1,39 +1,31 @@
 // Post index
 
+.post-index-wrapper {
+
+  .card-panel {
+    padding: 12px;
+  }
+
+}
 .post-info {
 
-  h5, h6 {
-    margin: 0px;
+  h5 {
+    margin-top: 0;
   }
 
 }
 
 // Post show page
 
-.show-post-info {
-
-  h4, h5 {
-    margin: 0;
-  }
-
-}
-
-.show-post-score {
-
-  h5 {
-    margin: 0;
-  }
-
+.post-show-divider {
+  margin-bottom: 20px !important;
 }
 
 .show-post-text {
   background: #f5f5f5;
   border-radius: 4px;
-  padding: 20px 40px;
+  padding: 10px 20px;
 
-  h1, h2, h3, h4 {
-    margin: 0px;
-  }
 
   ul {
     padding-left: 40px;
@@ -53,6 +45,10 @@
 
   }
 
+  p {
+    font-size: 1rem;
+  }
+
   pre {
     background-color: #ccc;
     border-left: 5px solid #00ccff;
@@ -61,8 +57,16 @@
 
 }
 
+.post-score {
+
+  p {
+    font-size: 20px;
+    margin: .5rem 0rem;
+  }
+
+}
+
 .show-post-controls {
-  margin-top: 1rem;
   text-align: right;
 }
 
@@ -78,11 +82,7 @@
 
 }
 
-// New post page
-
-.post-tabs {
-  margin-bottom: 40px;
-}
+// New and Edit post page
 
 .post-textarea {
   background: #f2f2f2 !important;
@@ -99,7 +99,6 @@
 
 .markdown-toolbar {
   display: flex;
-  justify-content: flex-end;
 
   svg {
     background-color: gainsboro;
@@ -110,9 +109,17 @@
 }
 
 .toolbar-text {
-  margin-left: 30px;
+  margin-left: 10px;
 }
 
 .toolbar-web {
-  margin-left: 30px;
+  margin-left: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+
+  .markdown-toolbar {
+    float: right;
+  }
+
 }

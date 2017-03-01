@@ -1,11 +1,11 @@
 <%= form_for([@post.postable, @post], html: { class: "col s12" }) do |f| %>
 
-  <h5>Post Attributes</h5>
+  <h4>Post Attributes</h4>
 
   <div class="row">
     <div class="input-field col s12">
       <%= f.label :title %>
-      <%= f.text_field :title, class: field_class(@post, :title) %>
+      <%= f.text_field :title, class: field_class(@post, :title), data: { length: 30 } %>
       <p class="error-text"><%= show_errors(@post, :title) %></p>
     </div>
   </div>
@@ -18,7 +18,7 @@
       <%= render 'markdown_toolbar' %>
     </div>
     <div class="col s12">
-      <%= f.text_area :post_content, class: "materialize-textarea post-textarea #{field_class(@post, :post_content)}" %>
+      <%= f.text_area :post_content, class: "materialize-textarea post-textarea #{field_class(@post, :post_content)}", data: { length: 2000 } %>
       <p class="error-text"><%= show_errors(@post, :post_content) %></p>
     </div>
   </div>

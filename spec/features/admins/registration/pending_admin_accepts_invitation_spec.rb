@@ -10,6 +10,7 @@ RSpec.feature 'Pending admin accepts an invite' do
     expect(page).to have_text('New Admin Creation')
 
     fill_in 'Email Address', with: invitation.recipient_email
+    fill_in 'Username', with: 'BobTom'
     fill_in 'Password', with: 'newadmin'
     fill_in 'Password confirmation', with: 'newadmin'
     click_on 'Submit'
@@ -21,10 +22,12 @@ RSpec.feature 'Pending admin accepts an invite' do
     visit administration_path(invitation.token)
 
     fill_in 'Email Address', with: invitation.recipient_email
+    fill_in 'Username', with: 'BobTomSteveMikeMary'
     fill_in 'Password', with: 'abc'
     fill_in 'Password confirmation', with: '123'
     click_on 'Submit'
 
+    expect(page).to have_text('is too long (maximum is 12 characters)')
     expect(page).to have_text('is too short (minimum is 6 characters)')
     expect(page).to have_text("doesn't match Password")
   end
@@ -34,5 +37,5 @@ RSpec.feature 'Pending admin accepts an invite' do
 
     expect(page).to have_text(default_pundit_error)
   end
-  
+
 end

@@ -1,28 +1,17 @@
 <div class="card-panel">
   <div class="row no-bottom-margin flex-valign">
 
-    <div class="col s4 l2">
+    <div class="col s3 l2">
       <div class="post-avatar center">
         <%= render_user_avatar(post.postable, :thumb) %>
       </div>
     </div>
 
-    <div class="col s4 l8">
+    <div class="col s9 l10">
       <div class="post-info">
         <h5><%= link_to post.title, polymorphic_path([post.postable, post]) %></h5>
-        <p>By <%= post_creator_link(current_any_scope, post) %></p>
-        <p><%= post.created_at %></p>
-        <span><%= post.comments.size %> Comments</span>
-      </div>
-    </div>
-
-    <div class="col s4 l2">
-      <div class="post-score center" id="score-area-<%= post.id %>">
-        <% if current_user && current_user.active? %>
-          <%= render 'vote_widget', post: post, vote_direction: current_user.voted?(post.id) %>
-        <% else %>
-          <p><%= post.score %></p>
-        <% end %>
+        <h6>By <%= post_creator_link(current_any_scope, post) %> - <%= post.created_at %></h6>
+        <h6><%= post.comments.size %> Comments</span> | <span><%= post.score %> points</h6>
       </div>
     </div>
 

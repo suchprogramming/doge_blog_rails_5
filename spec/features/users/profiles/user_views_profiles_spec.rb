@@ -11,7 +11,7 @@ RSpec.feature 'User views profiles' do
 
     visit user_path(user)
 
-    expect(page).to have_text(user.email)
+    expect(page).to have_text(user.name)
     expect(page).not_to have_css('a', text: 'Edit Profile')
   end
 
@@ -20,7 +20,7 @@ RSpec.feature 'User views profiles' do
 
     visit admin_path(admin)
 
-    expect(page).to have_text(admin.email)
+    expect(page).to have_text(admin.name)
     expect(page).not_to have_css('a', text: 'Edit Profile')
   end
 
@@ -29,7 +29,7 @@ RSpec.feature 'User views profiles' do
 
     visit admin_path(super_admin)
 
-    expect(page).to have_text(super_admin.email)
+    expect(page).to have_text(super_admin.name)
     expect(page).not_to have_css('a', text: 'Edit Profile')
   end
 

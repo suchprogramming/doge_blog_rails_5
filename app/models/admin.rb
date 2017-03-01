@@ -13,7 +13,8 @@ class Admin < ApplicationRecord
   validates_attachment_file_name :avatar, matches: [/png\Z/, /jpe?g\Z/]
   validates_attachment_size :avatar, in: 0..1.megabytes
 
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, length: { maximum: 12 }
   validate :verify_invite, on: :new_invitation
 
   # Include default devise modules. Others available are:

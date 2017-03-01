@@ -1,7 +1,9 @@
 <div class="section content-top-spacer">
   <div class="center">
     <%= render_user_avatar(@user, :medium) %>
-    <h4><%= @user.email %></h4>
+    <h4><%= @user.name %></h4>
+    <h5>Joined <%= @user.created_at.to_date %></h5>
+    <h5><%= @user.posts.count %> posts | <%= @user.comments.count %> comments</h5>
 
     <% if current_admin && policy(@user).edit? %>
       <%= link_to "Edit Profile", edit_administration_user_path(@user) %>

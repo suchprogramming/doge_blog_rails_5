@@ -11,7 +11,7 @@
       <% @posts.each do |post| %>
         <tr class="admin-table-row" id=<%= polymorphic_path([post.postable, post]) %>>
           <% build_row(post, post_table_attrs) %>
-          <td><%= post.postable.email %></td>
+          <td><%= post.postable.name %></td>
         </tr>
       <% end %>
     <% else %>

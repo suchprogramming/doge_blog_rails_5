@@ -7,7 +7,7 @@ RSpec.describe 'Admin management', :type => :request do
   let(:current_user) { create(:current_user) }
 
   def updated_params
-    { admin: { email: 'bobross@happytrees.com' } }
+    { admin: { email: 'bobross@happytrees.com', name: 'moonmoon' } }
   end
 
   context 'on the ADMIN #index route' do
@@ -115,7 +115,7 @@ RSpec.describe 'Admin management', :type => :request do
       expect(response).to redirect_to(admin_path(admin))
       follow_redirect!
 
-      expect(response.body).to include(updated_params[:admin][:email])
+      expect(response.body).to include(updated_params[:admin][:name])
     end
 
     it 'denies inactive super admin access' do

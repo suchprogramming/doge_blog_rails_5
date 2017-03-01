@@ -20,10 +20,15 @@ $(document).on("click", '.admin-table-row', function(ev) {
   location.href = this.id
 });
 
-$( document ).ajaxStart(function() {
-  $('.spinner-wrapper').css('display', 'flex')
+$(document).ajaxStart(function() {
+  $('.spinner-wrapper').css('display', 'flex');
 });
 
-$( document ).ajaxComplete(function() {
-  $('.spinner-wrapper').css('display', 'none')
+$(document).ajaxComplete(function() {
+  $('.spinner-wrapper').css('display', 'none');
+  Materialize.updateTextFields();
 });
+
+$(document).ready(function() {
+  Materialize.updateTextFields();
+})
