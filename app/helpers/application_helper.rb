@@ -12,7 +12,7 @@ module ApplicationHelper
   end
 
   def base_flat_button
-    { class: 'waves-effect waves-teal btn-flat' }
+    'waves-effect waves-teal btn-flat'
   end
 
 end

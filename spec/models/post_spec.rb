@@ -47,9 +47,9 @@ RSpec.describe Post, type: :model do
     end
   end
 
-  describe '#last_page' do
+  describe '#last_comments_page' do
     it 'returns 1 if a post has no comments' do
-      expect(Post.new.last_page).to eq(1)
+      expect(Post.new.last_comments_page).to eq(1)
     end
 
     it 'returns 1 if a post has fewer than the given breakpoint for a second page' do
@@ -57,7 +57,7 @@ RSpec.describe Post, type: :model do
 
       10.times {  |i| post.comments << Comment.new(post_id: 1) }
 
-      expect(post.last_page).to eq(1)
+      expect(post.last_comments_page).to eq(1)
     end
 
     it 'returns a rounded integer when the post breakpoint is reached' do
@@ -65,7 +65,7 @@ RSpec.describe Post, type: :model do
 
       26.times { |i| post.comments << Comment.new(post_id: 1 ) }
 
-      expect(post.last_page).to eq(2)
+      expect(post.last_comments_page).to eq(2)
     end
   end
 end
