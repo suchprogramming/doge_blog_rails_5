@@ -1,5 +1,8 @@
-<div class="section post-index-bar">
-  <%= render "index_post_header" %>
+<div class="section">
+  <div class="section-header-bar">
+    <h4>Active Posts</h4>
+    <%= posts_inactive_or_new_link(current_any_scope) %>
+  </div>
 </div>
 
 <div class="section">

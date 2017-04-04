@@ -3,41 +3,28 @@
 .search-sort {
   background: #f2f2f2;
   padding: 10px 0px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 
-  input[type="text"] {
-    background: #fff !important;
-    margin: 0px !important;
-    padding: 4px !important;
-    border: 1px solid #ccc !important;
-    height: 1.5rem !important;
+  .input-field {
+    margin-top: 0px;
   }
 
-  form {
-    display: flex;
-  }
-
-}
-
-.post-index-bar {
-  outline: 1px solid #c0c0c0;
-  padding: 0px 10px;
-  background: #f2f2f2;
-
-  h4 {
-    margin: 0px
+  input {
+    margin-bottom: 0px;
+    border: 0;
+    background-color: #fff;
   }
 
 }
 
 .post-index-controls {
-  
+
   .input-field {
     margin-top: 0px !important;
   }
 
   .select-dropdown {
-    margin-bottom: 10px !important;
+    margin-bottom: 0px !important;
   }
 
 }

@@ -1,16 +1,35 @@
 <div class="search-sort">
   <div class="container">
     <div class="row no-bottom-margin">
-      <div class="col s12">
-        <div class="main-post-search">
-          <%= form_tag("/", method: "get") do %>
-            <%= text_field_tag(:post_search, params[:post_search], placeholder: 'Enter search term') %>
-            <%= submit_tag("Search") %>
-
-            <%= hidden_field_tag :date_scope, params[:date_scope] %>
-          <% end %>
-        </div>
+      <div class="col s12 m9">
+        <%= form_tag("/", method: "get") do %>
+          <div class="input-field">
+            <%= text_field_tag(:post_search, params[:post_search], placeholder: 'Enter search term', type: 'search') %>
+            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          </div>
+          <%= hidden_field_tag :date_scope, params[:date_scope] %>
+        <% end %>
+      </div>
+      <div class="col s12 m3 post-index-controls">
+        <%= form_tag("/", method: "get") do %>
+          <div class="input-field">
+            <%= select_tag(:date_scope, options_for_select(post_date_filters, params[:date_scope]), id: 'post-filter-select') %>
+          </div>
+          <%= hidden_field_tag :post_search, params[:post_search] %>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $(document).on('change', '#post-filter-select', function(ev) {
+        $(this).closest('form').submit();
+      });
+
+    });
+  </script>
+<% end %>
