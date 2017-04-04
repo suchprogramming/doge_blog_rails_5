@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  include Filterable
+
   belongs_to :postable, polymorphic: true
   has_many :comments, dependent: :destroy
   has_many :votes, as: :voteable, dependent: :destroy
@@ -6,12 +8,15 @@ class Post < ApplicationRecord
   validates :title, presence: true, length: { maximum: 30 }
   validates :post_content, presence: true, length: { maximum: 2000 }
 
+  scope :active, -> { where(active: true) }
+  scope :date_scope, -> (start_date) { where created_at: start_date..Time.current }
+
   def poly_parent
     self.postable
   end
 
-  def self.search(term)
-    term ? where('title LIKE ?', "%#{term}%") : all
+  def self.post_search(term)
+    term ? where('title ILIKE ?', "%#{term}%") : all
   end
 
   def up_votes
@@ -26,13 +31,13 @@ class Post < ApplicationRecord
     up_votes - down_votes
   end
 
-  def last_page
+  def last_comments_page
     return 1 if self.comments.empty?
 
-    (self.comments.size.to_f / per_page).ceil
+    (self.comments.size.to_f / comments_per_page).ceil
   end
 
-  def per_page
+  def comments_per_page
     25
   end
 

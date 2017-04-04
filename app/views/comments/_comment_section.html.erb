@@ -1,7 +1,7 @@
 <% unless @post.comments.empty? %>
   <div class="comment-section">
     <div class="comments-wrapper">
-      <%= render partial: "comments/comment", collection: paged_collection(@post.comments, @post.per_page) %>
+      <%= render partial: "comments/comment", collection: paged_collection(@post.comments, @post.comments_per_page) %>
     </div>
     <%= will_paginate @paged, paged_comment_options(@post) %>
   </div>

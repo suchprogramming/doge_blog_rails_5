@@ -1,0 +1,16 @@
+<div class="search-sort">
+  <div class="container">
+    <div class="row no-bottom-margin">
+      <div class="col s12">
+        <div class="main-post-search">
+          <%= form_tag("/", method: "get") do %>
+            <%= text_field_tag(:post_search, params[:post_search], placeholder: 'Enter search term') %>
+            <%= submit_tag("Search") %>
+
+            <%= hidden_field_tag :date_scope, params[:date_scope] %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

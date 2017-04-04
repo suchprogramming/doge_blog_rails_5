@@ -17,6 +17,10 @@
   </div>
 </nav>
 
+<% if current_page?(root_path) %>
+  <%= render 'posts/main_post_search' %>
+<% end %>
+
 <% content_for :javascript do %>
   <script type="text/javascript">
     $(document).ready(function() {

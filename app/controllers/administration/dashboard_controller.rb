@@ -3,7 +3,7 @@ class Administration::DashboardController < ApplicationController
 
   def index
     authorize :dashboard, :index?
-    @posts = Post.search(params[:post_search]).limit(10).order(created_at: :desc)
+    @posts = Post.filter(params.slice(:post_search)).limit(10).order(created_at: :desc)
     @users = User.search(params[:user_search]).limit(10).order(updated_at: :desc)
   end
 end
