@@ -63,4 +63,16 @@ FactoryGirl.define do
     end
   end
 
+  factory :current_user_post_filter_search, class: 'Post' do
+    association :postable, factory: :user, email: 'searching@search.com', name: 'SearchDoge'
+    title 'Testing Search & Filter'
+    post_content 'Sage Green'
+
+    after(:create) do |post|
+      create(:post_with_user, postable: post.postable, title: 'Testing Search & Filter', post_content: 'Sage Green', created_at: 3.days.ago)
+      create(:post_with_user, postable: post.postable, title: 'Testing Search & Filter', post_content: 'Sage Green', created_at: 3.weeks.ago)
+      create(:post_with_user, postable: post.postable, title: 'Testing Search & Filter', post_content: 'Sage Green', created_at: 3.months.ago)
+    end
+  end
+
 end

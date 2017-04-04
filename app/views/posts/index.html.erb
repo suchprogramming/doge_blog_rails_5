@@ -1,9 +1,10 @@
-<div class="section content-top-spacer">
+<div class="section post-index-bar">
   <%= render "index_post_header" %>
 </div>
 
 <div class="section">
   <div class="post-index-wrapper">
-    <%= render(@posts) || "There are no posts available!" %>
+    <%= render(paged_collection(@posts, 25)) || "There are no posts available!" %>
+    <%= will_paginate @paged, paged_post_options %>
   </div>
 </div>

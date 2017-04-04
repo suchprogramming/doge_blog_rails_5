@@ -20,7 +20,7 @@ module ConditionalRenderingHelper
 
     link_to 'New Post',
             new_polymorphic_path([user_scope, :post]),
-            class: "waves-effect waves-teal btn"
+            class: "waves-effect waves-teal btn right"
   end
 
   # COMMENT RENDERING
