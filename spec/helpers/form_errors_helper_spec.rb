@@ -28,5 +28,4 @@ RSpec.describe FormErrorsHelper, :type => :helper do
       expect(show_errors(user, :email)).to eq(nil)
     end
   end
-
 end

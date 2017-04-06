@@ -1,5 +1,4 @@
 module MarkdownRenderingHelper
-
   def render_markdown(text_block = nil)
     return 'No Content Available' if text_block.blank?
 
@@ -19,5 +18,4 @@ module MarkdownRenderingHelper
   def parser_renderer
     Redcarpet::Render::HTML
   end
-
 end

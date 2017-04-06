@@ -21,9 +21,9 @@ RSpec.describe VoteHelper, :type => :helper do
         user_id: 1,
         post_id: 1
       },
-      remote: true,
       class: "waves-effect waves-teal btn-flat vote-button",
-      id: 'vote-post-up-1'
+      id: 'vote-post-up-1',
+      remote: true,
     }
   end
 

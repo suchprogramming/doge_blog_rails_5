@@ -1,5 +1,4 @@
 module PaginationHelper
-
   def paged_post_options
     {
       previous_label: embedded_svg("previous.svg"),
@@ -30,5 +29,4 @@ module PaginationHelper
 
     @paged = collection.paginate(page: params[:page], per_page: per || 25)
   end
-  
 end

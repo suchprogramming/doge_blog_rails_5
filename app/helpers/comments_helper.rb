@@ -1,9 +1,19 @@
 module CommentsHelper
+  def commenter_link(user_scope = nil, comment = nil)
+    return unless comment
+
+    if user_scope
+      link_to comment.commentable.name, polymorphic_path(comment.commentable)
+    else
+      comment.commentable.name
+    end
+  end
+
   def new_comment_link(user_scope = nil, post = nil)
     return unless user_scope.try(:active) && post
 
     link_to 'New Comment',
-            new_polymorphic_path([current_any_scope, post, :comment]),
+            new_polymorphic_path([user_scope, post, :comment]),
             class: 'waves-effect waves-teal btn',
             id: 'new-comment-link',
             remote: true
@@ -51,8 +61,10 @@ module CommentsHelper
   def user_form_tag(user_scope = nil)
     return unless user_scope
 
-    user_scope.try(:admin?) ? hidden_field_tag(:admin_id, user_scope.id) :
-                              hidden_field_tag(:user_id, user_scope.id)
+    if user_scope.try(:admin?)
+      hidden_field_tag(:admin_id, user_scope.id)
+    else
+      hidden_field_tag(:user_id, user_scope.id)
+    end
   end
-
 end

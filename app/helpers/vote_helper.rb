@@ -1,5 +1,4 @@
 module VoteHelper
-
   def vote_btn(current_user = nil, vote_direction = '', params = {})
     return unless current_user && params[:"vote[direction]"]
 
@@ -19,23 +18,24 @@ module VoteHelper
         user_id: current_user.id,
         post_id: params[:post_id]
       },
-      remote: true,
       class: base_class,
-      id: "vote-post-#{params[:"vote[direction]"]}-#{params[:post_id]}"
+      id: "vote-post-#{params[:"vote[direction]"]}-#{params[:post_id]}",
+      remote: true
     }
 
   end
 
-  def get_active_direction(vote_direction  = nil, btn_direction = nil)
+  def get_active_direction(vote_direction = nil, btn_direction = nil)
     return unless vote_direction && btn_direction
 
-    vote_direction == btn_direction ?
-                      embedded_svg("arrow-#{btn_direction}.svg", class: "active-#{btn_direction}") :
-                      embedded_svg("arrow-#{btn_direction}.svg")
+    if vote_direction == btn_direction
+      embedded_svg("arrow-#{btn_direction}.svg", class: "active-#{btn_direction}")
+    else
+      embedded_svg("arrow-#{btn_direction}.svg")
+    end
   end
 
   def base_class
     'waves-effect waves-teal btn-flat vote-button'
   end
-
 end
