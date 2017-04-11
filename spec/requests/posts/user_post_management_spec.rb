@@ -214,5 +214,4 @@ RSpec.describe 'Post management', :type => :request do
       expect(response.body).to include(default_pundit_error)
     end
   end
-
 end

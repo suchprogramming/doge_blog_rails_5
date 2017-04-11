@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PolymorphicResourceHelper, :type => :helper do
 
-  let(:post) { create(:post_with_user) }
+  let(:post) { create(:current_user_post) }
 
   describe '#polymorphic_owner?' do
     it 'returns true if the given user or admin is the owner of a polymorphic resource' do

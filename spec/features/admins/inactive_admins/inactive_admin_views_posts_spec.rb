@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Inactive admin views restricted posts' do
 
   let(:admin) { create(:admin, active: false) }
-  let!(:post) { create(:post_with_user) }
+  let!(:post) { create(:current_user_post) }
 
   def user
     post.postable
@@ -21,5 +21,4 @@ RSpec.feature 'Inactive admin views restricted posts' do
     expect(page).not_to have_css('a', id: '#show-post-delete')
     expect(page).not_to have_css('a', id: "edit-post-#{post.id}")
   end
-
 end

@@ -7,8 +7,8 @@ RSpec.describe Post, type: :model do
   it { should have_many(:votes) }
   it { should have_many(:comments) }
 
-  let(:post) { create(:post_with_user) }
-  let(:alternate_user) { create(:user, email: 'bob@ross.com', name: 'sadie') }
+  let(:post) { create(:current_user_post) }
+  let(:alternate_user) { create(:alternate_user) }
 
   def user
     post.postable

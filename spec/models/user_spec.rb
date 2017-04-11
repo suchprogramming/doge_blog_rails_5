@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:votes) }
   it { should have_many(:comments) }
 
-  let(:post) { create(:post_with_user) }
+  let(:post) { create(:current_user_post) }
 
   def user
     post.postable

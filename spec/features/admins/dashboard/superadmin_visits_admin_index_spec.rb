@@ -9,7 +9,7 @@ RSpec.feature 'Superadmin visits admin index' do
 
     visit root_path
 
-    find('ul.right').find('a', text: 'Admin').click
+    find('ul.right').find('a', exact_text: 'Admin').click
 
     expect(page).to have_text('Administration')
 
@@ -18,5 +18,4 @@ RSpec.feature 'Superadmin visits admin index' do
 
     expect(page).to have_text('Admin List')
   end
-
 end

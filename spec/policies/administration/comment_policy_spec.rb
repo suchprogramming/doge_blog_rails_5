@@ -30,5 +30,4 @@ describe Administration::CommentPolicy do
       expect(subject).not_to permit(user, user_comment)
     end
   end
-
 end

@@ -73,5 +73,4 @@ RSpec.describe 'Admin registration management', :type => :request do
       expect(response.body).to include('Invalid invitation credentials')
     end
   end
-
 end

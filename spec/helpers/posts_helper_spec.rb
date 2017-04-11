@@ -28,7 +28,7 @@ RSpec.describe PostsHelper, :type => :helper do
     it 'returns if no post object is present' do
       expect(post_creator_link).to eq(nil)
     end
-    
+
     it 'returns the post creator name if no current user is present' do
       post = Post.new(postable: User.new(name: 'bobross'))
 
@@ -36,7 +36,7 @@ RSpec.describe PostsHelper, :type => :helper do
     end
 
     it 'returns a link to the post creator profile if a current user is present' do
-      post = create(:post_with_user)
+      post = create(:current_user_post)
 
       expect(post_creator_link(post.postable, post)).to include("/users/#{post.postable.id}")
     end

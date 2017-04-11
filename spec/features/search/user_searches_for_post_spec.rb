@@ -58,5 +58,4 @@ RSpec.feature 'User searches for a post', js: true do
     expect(page).not_to have_text('Testing Search & Filter')
     expect(page).to have_text('Testing Filter & Then Search')
   end
-
 end

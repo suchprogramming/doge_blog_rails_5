@@ -105,5 +105,4 @@ RSpec.describe 'User management', :type => :request do
       expect(response).to redirect_to(new_admin_session_path)
     end
   end
-
 end

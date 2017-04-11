@@ -9,8 +9,7 @@ RSpec.feature 'Inactive admin views restricted posts index' do
 
     visit root_path
 
-    expect(page).not_to have_css('a', text: 'Admin')
+    expect(page).not_to have_css('a', exact_text: 'Admin')
     expect(page).to have_text('Your account is currently inactive')
   end
-
 end

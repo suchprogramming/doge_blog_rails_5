@@ -25,5 +25,4 @@ RSpec.feature 'Admin approves a user avatar' do
 
     expect(find('img')[:class]).not_to eq('default-user-avatar')
   end
-
 end

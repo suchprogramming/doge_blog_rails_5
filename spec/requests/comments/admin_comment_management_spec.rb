@@ -4,7 +4,7 @@ RSpec.describe 'Admin comment management', :type => :request do
 
   let(:current_user_post) { create(:current_user_post_comment) }
   let(:current_admin_post) { create(:current_admin_post_comment) }
-  let(:alternate_admin) { create(:alternate_admin, email: 'admin@comments.com') }
+  let(:alternate_admin) { create(:alternate_admin) }
 
   def comment_params
     { comment: { text: 'New Comment Testing' } }
@@ -247,5 +247,4 @@ RSpec.describe 'Admin comment management', :type => :request do
       expect(response.body).to include(default_pundit_error)
     end
   end
-
 end

@@ -32,5 +32,4 @@ RSpec.feature 'User views profiles' do
     expect(page).to have_text(super_admin.name)
     expect(page).not_to have_css('a', text: 'Edit Profile')
   end
-
 end

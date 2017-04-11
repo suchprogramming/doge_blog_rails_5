@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CommentsHelper, :type => :helper do
 
-  let(:post) { create(:post_with_user) }
+  let(:post) { create(:current_user_post) }
   let(:comment) { create(:comment, post_id: post.id, commentable: post.postable) }
 
   def user

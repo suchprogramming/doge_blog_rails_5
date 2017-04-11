@@ -1,19 +1,19 @@
 FactoryGirl.define do
   factory :admin do
-    email        'admin@dogeadmin.com'
-    name         'TurdFerguson'
+    sequence(:email) { |n| "admin#{n}@admin.com" }
+    sequence(:name) { |n| "Admin#{n}" }
     password     123456
   end
 
   factory :alternate_admin, class: 'Admin' do
-    email        'alternate_admin@dogeadmin.com'
-    name         'Mapache'
+    sequence(:email) { |n| "admin#{n}@admin.com" }
+    sequence(:name) { |n| "Admin#{n}" }
     password     123456
   end
 
   factory :super_admin, class: 'SuperAdmin' do
-    email        'superadmin@admin.com'
-    name         'Bob Ross'
+    sequence(:email) { |n| "admin#{n}@admin.com" }
+    sequence(:name) { |n| "Admin#{n}" }
     password     123456
   end
 end
