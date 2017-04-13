@@ -1,11 +1,17 @@
-<% unless @post.comments.empty? %>
+<div class="section">
   <div class="comment-section">
-    <div class="comments-wrapper">
-      <%= render partial: "comments/comment", collection: paged_collection(@post.comments, @post.comments_per_page) %>
+    <div class="comments-header">
+      <h5>Comments</h5>
+      <%= new_comment_link(current_any_scope, @post) %>
     </div>
-    <%= will_paginate @paged, paged_comment_options(@post) %>
+    <% if @post.comments.any? %>
+      <div class="comments-wrapper">
+        <%= render partial: "comments/comment", collection: paged_collection(@post.comments, @post.comments_per_page) %>
+        <%= will_paginate @paged, paged_comment_options(@post) %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
 
 <% content_for :javascript do %>
   <script type="text/javascript">
@@ -23,15 +29,9 @@
         $('html, body').animate({ scrollTop: $(document).height() }, 1000);
       });
 
-      $(document).on('click', '.delete-comment-link', function(ev) {
-        ev.preventDefault();
-
-        $('#delete-comment-modal-link').attr('href', $(this).attr('href'))
-      })
-
       $(document).on('change', '.flag-comment', function(ev) {
         $(this).submit();
-      })
+      });
 
     });
   </script>

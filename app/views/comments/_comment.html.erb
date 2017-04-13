@@ -1,60 +1,32 @@
 <div class="comment-item" id="comment-<%= comment.id %>">
-  <div class="col s12 m3 l2">
+  <div class="col s12 m3 right-border">
     <div class="comment-avatar-area">
       <div class="commenter-avatar">
         <%= render_user_avatar(comment.commentable, :thumb) %>
       </div>
       <div class="commenter-stats">
         <p><%= commenter_link(current_any_scope, comment) %></p>
-        <em><%= comment.commentable.comments.count %> comments</em>
+        <span><%= comment.commentable.comments.count %> comments</span>
       </div>
     </div>
   </div>
-
-  <div class="col s12 m9 l10">
+  <div class="col s12 m9">
     <div class="comment-text-area">
       <div class="comment-stats">
-        <span class="comment-time"><em>Posted <%= comment.created_at %></em></span>
+        <span class="comment-time"><em>Posted <%= comment.created_at.strftime('%m/%d/%Y') %></em></span>
       </div>
-
-      <p class="comment-text"><%= filter_flagged_comment(comment) %></p>
-
+      <%= render_markdown(filter_flagged_comment(comment)) %>
       <% if current_user && policy(comment).create? %>
         <div class="comment-manage-area">
-            <div class="user-comment-manage-links">
-              <%= edit_comment_link(@post, comment) %>
-              <%= delete_comment_link(@post, comment)  %>
-            </div>
-        </div>
-      <% end %>
-
-      <% if current_admin && current_admin.active %>
-        <div class="comment-manage-area">
-          <% if policy(comment).create? %>
-            <div class="user-comment-manage-links left">
-              <%= edit_comment_link(@post, comment) %>
-              <%= delete_comment_link(@post, comment) %>
-            </div>
-          <% end %>
-
-          <div class="admin-flag-area right">
-            <%= form_for([:administration, comment], flag_comment_options(comment.id)) do |f| %>
-              <div class="switch secondary-content">
-                <label id="flag-comment-check-<%= comment.id %>">
-                  Activate
-                  <%= f.check_box(:flagged) %>
-                  <span class="lever"></span>
-                  Flag
-                </label>
-              </div>
-              <%= user_form_tag(comment.commentable) %>
-              <%= hidden_field_tag(:post_id, @post.id) %>
-            <% end %>
+          <div class="user-comment-manage-links">
+            <%= edit_comment_link(@post, comment) %>
+            <%= delete_comment_link(@post, comment)  %>
           </div>
         </div>
       <% end %>
-
+      <% if current_admin && current_admin.active %>
+        <%= render 'comments/comment_admin_area', post: @post, comment: comment %>
+      <% end %>
     </div>
   </div>
-
 </div>

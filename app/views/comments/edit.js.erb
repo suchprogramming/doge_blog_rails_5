@@ -1,4 +1,4 @@
 $('#comment-form-row').remove();
-$(".comment-section").append("<%= j render('form') %>");
+$(".comments-wrapper").append("<%= j render('form') %>");
 $("#edit_comment_<%= @comment.id %>").prepend('<h5>Edit Comment</h5>');
 $('#comment_text').characterCounter();
