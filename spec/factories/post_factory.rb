@@ -57,6 +57,16 @@ FactoryGirl.define do
     end
   end
 
+  factory :current_user_post_vote, class: 'Post' do
+    association :postable, factory: :user
+    title 'Testing Votes'
+    post_content 'Vote on this!'
+
+    after(:create) do |post|
+      create(:vote, voteable: post, user_id: post.postable.id, direction: 'up')
+    end
+  end
+
   factory :current_user_post_filter_search, class: 'Post' do
     association :postable, factory: :user
     title 'Testing Search & Filter'

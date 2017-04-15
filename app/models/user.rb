@@ -26,7 +26,7 @@ class User < ApplicationRecord
   def voted?(post_id = nil)
     return unless post_id
 
-    direction = self.votes.where(user_id: id, voteable_id: post_id).first.try(:direction)
+    direction = votes.where(voteable_id: post_id).first.try(:direction)
 
     direction ? direction : ''
   end

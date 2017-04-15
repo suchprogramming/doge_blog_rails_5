@@ -63,6 +63,7 @@ RSpec.feature 'User votes on a post', js: true do
 
     expect(page).to have_text(post.title)
     expect(page).to have_selector('div', id: "score-area-#{post.id}")
+    expect(page).to have_selector('svg', class: 'disabled')
     expect(page).not_to have_selector('.vote-button')
   end
 end

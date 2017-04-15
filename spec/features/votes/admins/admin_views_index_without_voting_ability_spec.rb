@@ -15,6 +15,7 @@ RSpec.feature 'Admin views posts without ability to vote' do
     visit user_post_path(user, post)
 
     expect(page).to have_selector('div', id: "score-area-#{post.id}")
+    expect(page).to have_selector('svg', class: 'disabled')
     expect(page).not_to have_selector('.vote-button')
   end
 end
