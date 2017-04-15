@@ -69,13 +69,13 @@ FactoryGirl.define do
 
   factory :current_user_post_filter_search, class: 'Post' do
     association :postable, factory: :user
-    title 'Testing Search & Filter'
+    title 'Testing Search Filter'
     post_content 'Sage Green'
 
     after(:create) do |post|
-      create(:current_user_post, postable: post.postable, title: 'Testing Search & Filter', post_content: 'Sage Green', created_at: 3.days.ago)
-      create(:current_user_post, postable: post.postable, title: 'Testing Search & Filter', post_content: 'Sage Green', created_at: 3.weeks.ago)
-      create(:current_user_post, postable: post.postable, title: 'Testing Search & Filter', post_content: 'Sage Green', created_at: 3.months.ago)
+      create(:current_user_post, postable: post.postable, title: 'Testing Search Filter', post_content: 'Sage Green', created_at: 3.days.ago)
+      create(:current_user_post, postable: post.postable, title: 'Testing Search Filter', post_content: 'Sage Green', created_at: 3.weeks.ago)
+      create(:current_user_post, postable: post.postable, title: 'Testing Search Filter', post_content: 'Sage Green', created_at: 3.months.ago)
     end
   end
 end

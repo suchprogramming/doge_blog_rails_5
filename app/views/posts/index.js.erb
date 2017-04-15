@@ -1,0 +1,5 @@
+$('.post-index-wrapper').html('<%= j render(paged_collection(@posts, 25)) || "There are no posts available!" %>');
+$('.post-index-wrapper').append('<%= j will_paginate @paged, paged_post_options %>');
+
+$('input[name="post_search"]').val('<%= params[:post_search] %>');
+$('input[name="date_scope"]').val('<%= params[:date_scope] %>');

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row no-bottom-margin">
       <div class="col s12 m9">
-        <%= form_tag("/", method: "get") do %>
+        <%= form_tag("/", method: "get", remote: true, id: 'main-post-search') do %>
           <div class="input-field">
             <%= text_field_tag(:post_search, params[:post_search], placeholder: 'Enter search term', type: 'search') %>
             <label class="label-icon" for="search"><i class="material-icons">search</i></label>
@@ -11,7 +11,7 @@
         <% end %>
       </div>
       <div class="col s12 m3 post-index-controls">
-        <%= form_tag("/", method: "get") do %>
+        <%= form_tag("/", method: "get", remote: true, id: 'main-post-filter') do %>
           <div class="input-field">
             <%= select_tag(:date_scope, options_for_select(post_date_filters, params[:date_scope]), id: 'post-filter-select') %>
           </div>
@@ -26,8 +26,16 @@
   <script type="text/javascript">
     $(document).ready(function() {
 
-      $(document).on('change', '#post-filter-select', function(ev) {
-        $(this).closest('form').submit();
+      $('#post-filter-select').change(function(ev) { $(this).submit() });
+
+      var sendQuery = function() { $(this).submit() };
+
+      $('#post_search').on('keyup', _.debounce(sendQuery, 300));
+
+      $('#main-post-search, #main-post-filter').on('ajax:beforeSend', function(ev) {
+        $('.post-index-wrapper').hide();
+      }).on('ajax:complete', function(ev) {
+        $('.post-index-wrapper').show();
       });
 
     });
