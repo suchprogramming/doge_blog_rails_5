@@ -1,12 +1,10 @@
 <div class="section">
-  <div class="card-panel content-top-spacer">
-
-    <div class="row flex-valign">
-      <%= render "show_title_area" %>
-    </div>
-
-    <div class="divider post-show-divider"></div>
-
+  <div class="post-show-wrapper content-top-spacer">
+    <div class="card-panel">
+      <div class="row">
+        <%= render "show_title_area" %>
+      </div>
+      <div class="divider post-show-divider"></div>
       <div class="row">
         <div class="col s12">
           <div class="show-post-text">
@@ -14,34 +12,19 @@
           </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col s12">
-          <% if current_any_scope && policy(@post).edit? %>
+      <% if current_any_scope && policy(@post).edit? %>
+        <div class="row">
+          <div class="col s12">
             <div class="show-post-controls">
               <%= render "show_delete_modal" %>
               <%= link_to "Edit", edit_polymorphic_path([@post.postable, @post]), class: base_button, id: "edit-post-#{@post.id}" %>
             </div>
-          <% end %>
+          </div>
         </div>
-      </div>
-
-  </div>
-</div>
-
-<div class="section">
-  <div class="row">
-    <div class="col s12">
-
-      <div class="comments-header">
-        <h5><%= @post.comments.count %> Comments</h5>
-        <%= new_comment_link(current_any_scope, @post) %>
-      </div>
-
-      <%= render 'comments/comment_section', post: @post %>
-
-      <%= render 'comments/delete_comment_modal' %>
-
+      <% end %>
     </div>
   </div>
 </div>
+
+<%= render 'comments/comment_section', post: @post %>
+<%= render 'comments/delete_comment_modal' %>

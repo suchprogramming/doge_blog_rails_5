@@ -69,36 +69,12 @@ h1,h2,h3,h4,h5,h6 {
   word-wrap: break-word;
 }
 
-/* Dynamic sizes up to tablet ----------- */
-@media only screen and (max-width: 767px) {
+.right-border {
+  border-right: 1px solid #c0c0c0;
+}
 
-  h2 {
-    font-size: 4vmax;
-  }
-
-  h3 {
-    font-size: 3.5vmax;
-  }
-
-  h4 {
-    font-size: 3vmax;
-  }
-
-  h5 {
-    font-size: 2.3vmax;
-  }
-
-  h6 {
-    font-size: 1.6vmax;
-  }
-
-  span {
-    font-size: 1.6vmax;
-  }
-
-  .card-panel {
-    padding: 12px;
-  }
+// Mobile component sizing
+@media only screen and (max-width: 600px) {
 
   img {
     max-width: 100%;
@@ -107,9 +83,9 @@ h1,h2,h3,h4,h5,h6 {
 
   .btn {
     font-size: 12px;
-    height: 24px;
+    height: 28px;
     padding: 0rem 1rem;
-    line-height: 24px;
+    line-height: 28px;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 2px 0 rgba(0, 0, 0, 0.12), 0 1px 1px -1px rgba(0, 0, 0, 0.2)
   }
 

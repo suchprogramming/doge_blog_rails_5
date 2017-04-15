@@ -10,21 +10,9 @@
   }
 
   input {
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
     border: 0;
     background-color: #fff;
-  }
-
-}
-
-.post-index-controls {
-
-  .input-field {
-    margin-top: 0px !important;
-  }
-
-  .select-dropdown {
-    margin-bottom: 0px !important;
   }
 
 }
@@ -39,16 +27,23 @@
 
 .post-info {
 
-  h5 {
-    margin-top: 0;
+  h5, p {
+    margin: 0;
   }
 
 }
 
 // Post show page
+.post-show-wrapper {
 
-.post-show-divider {
-  margin-bottom: 20px !important;
+  .card-panel {
+    margin: 0;
+  }
+
+  .row:last-child {
+    margin-bottom: 0;
+  }
+
 }
 
 .show-post-text {
@@ -80,7 +75,7 @@
   }
 
   pre {
-    background-color: #ccc;
+    background-color: #c0c0c0;
     border-left: 5px solid #00ccff;
     padding: 10px 0px 10px 34px;
   }
@@ -88,6 +83,10 @@
 }
 
 .post-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
 
   p {
     font-size: 20px;
@@ -146,10 +145,30 @@
   margin-left: 10px;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 600px) {
 
   .markdown-toolbar {
     float: right;
+  }
+
+}
+
+@media only screen and (max-width: 600px) {
+
+  .post-score {
+    flex-direction: row;
+    margin-top: 20px;
+  }
+
+  .post-info {
+
+    h5 {
+      font-size: 1.4rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
   }
 
 }

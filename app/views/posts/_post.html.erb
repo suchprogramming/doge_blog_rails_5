@@ -1,19 +1,16 @@
 <div class="card-panel">
   <div class="row no-bottom-margin flex-valign">
-
     <div class="col s3 l2">
       <div class="post-avatar center">
         <%= render_user_avatar(post.postable, :thumb) %>
       </div>
     </div>
-
     <div class="col s9 l10">
       <div class="post-info">
         <h5><%= link_to post.title, polymorphic_path([post.postable, post]) %></h5>
-        <h6>By <%= post_creator_link(current_any_scope, post) %> - <%= post.created_at %></h6>
-        <h6><%= post.comments.size %> Comments</span> | <span><%= post.score %> points</h6>
+        <p><%= post_creator_link(current_any_scope, post) %> - <%= time_ago_in_words(post.created_at) %> ago</p>
+        <p><%= post.comments.size %> comments | <%= post.score %> points</p>
       </div>
     </div>
-
   </div>
 </div>
