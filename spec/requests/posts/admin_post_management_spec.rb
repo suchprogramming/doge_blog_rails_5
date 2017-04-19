@@ -4,7 +4,7 @@ RSpec.describe 'Admin post managment', :type => :request do
 
   let(:current_admin_post) { create(:current_admin_post) }
   let(:alternate_admin_post) { create(:alternate_admin_post) }
-  let(:user_post) { create(:post_with_user) }
+  let(:user_post) { create(:current_user_post) }
 
   def post_params
     { post: { title: 'test', post_content: 'test' } }
@@ -197,5 +197,4 @@ RSpec.describe 'Admin post managment', :type => :request do
       expect(response.body).to include(default_pundit_error)
     end
   end
-
 end

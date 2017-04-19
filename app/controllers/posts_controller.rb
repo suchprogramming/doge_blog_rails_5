@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   before_action :authenticate_any_scope!, except: [:index, :show]
 
   def index
-    @posts = Post.active.filter(params.slice(:date_scope, :post_search)).order(created_at: 'desc')
+    @posts = Post.active.filter(params.slice(:date_scope, :post_search))
+      .page(params[:page]).order(created_at: 'desc')
   end
 
   def new

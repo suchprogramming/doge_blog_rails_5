@@ -1,19 +1,15 @@
-<div class="col s3 l2 center">
-  <%= render_user_avatar(@post.postable, :thumb) %>
-</div>
-
-<div class="col s6 l8 center">
-  <h5><%= @post.title %></h5>
-  <h6>By <%= post_creator_link(current_any_scope, @post) %></h6>
-  <h6>On <%= @post.created_at %></h6>
-</div>
-
-<div class="col s3 l2 center">
-  <div class="post-score center" id="score-area-<%= @post.id %>">
-    <% if current_user && current_user.active? %>
-      <%= render 'vote_widget', post: @post, vote_direction: current_user.voted?(@post.id) %>
-    <% else %>
-      <p><%= @post.score %></p>
-    <% end %>
+<div class="col s12">
+  <div class="col s12 m3 center">
+    <%= render_user_avatar(@post.postable, :thumb) %>
+  </div>
+  <div class="col s12 m6 center">
+    <h5><%= @post.title %></h5>
+    <h6>By <%= post_creator_link(current_any_scope, @post) %></h6>
+    <h6>On <%= @post.created_at.strftime('%A, %b %d %Y') %></h6>
+  </div>
+  <div class="col s12 m3 center">
+    <div class="post-score" id="score-area-<%= @post.id %>">
+      <%= render 'vote_widget', post: @post %>
+    </div>
   </div>
 </div>

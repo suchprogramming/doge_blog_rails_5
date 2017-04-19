@@ -1,6 +1,4 @@
 module ApplicationHelper
-  include MarkdownRenderingHelper
-
   def current_superadmin(user_scope = nil)
     return unless user_scope
 
@@ -14,5 +12,4 @@ module ApplicationHelper
   def base_flat_button
     'waves-effect waves-teal btn-flat'
   end
-
 end

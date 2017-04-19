@@ -30,5 +30,4 @@ RSpec.feature 'Admin edits a user profile' do
 
     expect(page).to have_text("can't be blank")
   end
-
 end

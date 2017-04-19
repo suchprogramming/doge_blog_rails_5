@@ -54,5 +54,4 @@ RSpec.describe Invitation, type: :model do
       expect(Invitation.active_user_invites('new_admin@admin.com').count).to eq(1)
     end
   end
-
 end

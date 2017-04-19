@@ -5,6 +5,7 @@ RSpec.describe InvitationMailer, type: :mailer do
   let(:invitation) { create(:invitation) }
 
   describe '#admin_invitation' do
+
     let(:mail) { InvitationMailer.admin_invitation(invitation) }
 
     it 'renders headers properly' do
@@ -25,5 +26,4 @@ RSpec.describe InvitationMailer, type: :mailer do
       expect(ActionMailer::Base.deliveries.first).to eq(mail)
     end
   end
-
 end

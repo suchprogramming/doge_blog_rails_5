@@ -13,5 +13,4 @@ RSpec.feature 'Inactive admin views restricted user profiles' do
     expect(page).to have_text(user.name)
     expect(page).not_to have_css('a', text: 'Edit Profile')
   end
-
 end

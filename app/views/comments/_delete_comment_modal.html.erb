@@ -19,7 +19,15 @@
 <% content_for :javascript do %>
   <script type="text/javascript">
     $(document).ready(function(){
+
       $('#show-comment-delete').modal();
+
+      $(document).on('click', '.delete-comment-link', function(ev) {
+        ev.preventDefault();
+
+        $('#delete-comment-modal-link').attr('href', $(this).attr('href'));
+      });
+
     });
   </script>
 <% end %>

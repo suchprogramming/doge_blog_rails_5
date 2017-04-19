@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationHelper, :type => :helper do
-
   describe '#current_superadmin' do
     it 'returns true if the current user scope is an active SuperAdmin' do
       super_admin = SuperAdmin.new

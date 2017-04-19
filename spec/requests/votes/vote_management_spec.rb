@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Vote management', :type => :request do
 
-  let(:user_post) { create(:post_with_user) }
+  let(:user_post) { create(:current_user_post) }
   let(:admin) { create(:admin) }
   let(:super_admin) { create(:super_admin) }
 

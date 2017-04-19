@@ -1,5 +1,4 @@
 module TableBuilderHelper
-
   def build_header(attrs)
     attrs.each { |attr| concat(content_tag(:th, attr.titleize)) }
   end
@@ -62,5 +61,4 @@ module TableBuilderHelper
       'created_at'
     ]
   end
-
 end

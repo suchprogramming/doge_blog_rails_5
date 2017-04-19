@@ -1,41 +1,72 @@
 module VoteHelper
-
-  def vote_btn(current_user = nil, vote_direction = '', params = {})
-    return unless current_user && params[:"vote[direction]"]
-
-    btn_direction = params[:"vote[direction]"]
-
-    button_to votes_path, btn_config(current_user, params) do
-      get_active_direction(vote_direction, btn_direction)
+  def upvote_btn(user_scope = nil, post = nil)
+    if user_scope.blank? || post.blank?
+      log_in_to_vote('up')
+    elsif user_scope.try(:admin?) || user_scope.try(:active) == false
+      account_inactive_or_admin('up')
+    else
+      active_btn(user_scope, post, 'up')
     end
   end
 
-  def btn_config(current_user, params = {})
-    return unless current_user && params[:"vote[direction]"]
+  def downvote_btn(user_scope = nil, post = nil)
+    if user_scope.blank? || post.blank?
+      log_in_to_vote('down')
+    elsif user_scope.try(:admin?) || user_scope.try(:active) == false
+      account_inactive_or_admin('down')
+    else
+      active_btn(user_scope, post, 'down')
+    end
+  end
+
+  def active_btn(user_scope = nil, post = nil, direction = nil)
+    return unless user_scope && post && direction
+
+    button_to votes_path, vote_btn_config(user_scope, post, direction) do
+      get_active_direction(user_scope, post, direction)
+    end
+  end
+
+  def vote_btn_config(user_scope = nil, post = nil, direction = nil)
+    return unless user_scope && post && direction
 
     {
       params: {
-        "vote[direction]": params[:"vote[direction]"],
-        user_id: current_user.id,
-        post_id: params[:post_id]
+        "vote[direction]": direction,
+        user_id: user_scope.id,
+        post_id: post.id
       },
-      remote: true,
       class: base_class,
-      id: "vote-post-#{params[:"vote[direction]"]}-#{params[:post_id]}"
+      id: "vote-post-#{direction}-#{post.id}",
+      remote: true
     }
-
   end
 
-  def get_active_direction(vote_direction  = nil, btn_direction = nil)
-    return unless vote_direction && btn_direction
+  def get_active_direction(user_scope = nil, post = nil, direction = nil)
+    return unless user_scope && post && direction
 
-    vote_direction == btn_direction ?
-                      embedded_svg("arrow-#{btn_direction}.svg", class: "active-#{btn_direction}") :
-                      embedded_svg("arrow-#{btn_direction}.svg")
+    user_direction = user_scope.voted?(post)
+
+    if user_direction == direction
+      embedded_svg("arrow-#{direction}.svg", class: "active-#{direction}")
+    else
+      embedded_svg("arrow-#{direction}.svg")
+    end
+  end
+
+  def log_in_to_vote(direction = nil)
+    return unless direction
+
+    link_to embedded_svg("arrow-#{direction}.svg"), new_user_session_path, class: base_class
+  end
+
+  def account_inactive_or_admin(direction = nil)
+    return unless direction
+
+    embedded_svg("arrow-#{direction}.svg", class: 'disabled')
   end
 
   def base_class
     'waves-effect waves-teal btn-flat vote-button'
   end
-
 end

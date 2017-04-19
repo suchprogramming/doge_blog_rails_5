@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Unauthenticated post management', :type => :request do
 
-  let!(:user_post) { create(:post_with_user) }
+  let!(:user_post) { create(:current_user_post) }
 
   def user
     user_post.postable
@@ -78,5 +78,4 @@ RSpec.describe 'Unauthenticated post management', :type => :request do
       expect(response).to redirect_to(new_user_session_path)
     end
   end
-
 end

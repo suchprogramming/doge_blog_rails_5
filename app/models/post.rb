@@ -30,15 +30,4 @@ class Post < ApplicationRecord
   def score
     up_votes - down_votes
   end
-
-  def last_comments_page
-    return 1 if self.comments.empty?
-
-    (self.comments.size.to_f / comments_per_page).ceil
-  end
-
-  def comments_per_page
-    25
-  end
-
 end

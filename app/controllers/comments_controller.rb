@@ -5,17 +5,16 @@ class CommentsController < ApplicationController
 
   def new
     @post = Post.find(params[:post_id])
-    @commentable = poly_params
-    @comment = @commentable.comments.new(post_id: @post.id)
+    @comment = commentable.comments.new
     authorize @comment
   end
 
   def create
     @post = Post.find(params[:post_id])
-    @commentable = poly_params
-    @comment = @commentable.comments.new(comment_params.merge(post_id: @post.id))
+    @comment = Comment.new(comment_params)
     authorize @comment
     if @comment.save
+      params[:page] = @post.comments.page.total_pages
       flash.now[:success] = "Comment created!"
     else
       render :new
@@ -24,14 +23,12 @@ class CommentsController < ApplicationController
 
   def edit
     @post = Post.find(params[:post_id])
-    @commentable = poly_params
     @comment = Comment.find(params[:id])
     authorize @comment
   end
 
   def update
     @post = Post.find(params[:post_id])
-    @commentable = poly_params
     @comment = Comment.find(params[:id])
     authorize @comment
     if @comment.update(comment_params)
@@ -43,26 +40,24 @@ class CommentsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:post_id])
-    @commentable = poly_params
     @comment = Comment.find(params[:id])
     authorize @comment
     flash.now[:success] = 'Comment removed!' if @comment.destroy
+    params[:page] = @comment.page_num
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:text)
+    params.require(:comment).permit(:text).merge(commentable: commentable, post: @post)
   end
 
-  def poly_params
+  def commentable
     return User.find(params[:user_id]) if params[:user_id]
     return Admin.find(params[:admin_id]) if params[:admin_id]
-    {}
   end
 
   def unauthorized_comment
     flash.now[:alert] = 'You are not authorized to perform this action.' and render :error
   end
-
 end

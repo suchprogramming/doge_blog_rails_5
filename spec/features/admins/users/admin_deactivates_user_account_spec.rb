@@ -9,7 +9,7 @@ RSpec.feature 'Admin deactivates user account' do
     login_as admin, scope: :admin
 
     visit user_path(user)
-    
+
     click_on 'Edit Profile'
 
     expect(page).to have_text('Edit Profile')
@@ -21,5 +21,4 @@ RSpec.feature 'Admin deactivates user account' do
 
     expect(page).to have_text('User updated successfully!')
   end
-
 end
