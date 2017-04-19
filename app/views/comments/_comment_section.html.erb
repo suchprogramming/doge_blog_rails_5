@@ -6,8 +6,8 @@
     </div>
     <% if @post.comments.any? %>
       <div class="comments-wrapper">
-        <%= render partial: "comments/comment", collection: paged_collection(@post.comments, @post.comments_per_page) %>
-        <%= will_paginate @paged, paged_comment_options(@post) %>
+        <%= render partial: "comments/comment", collection: @paged = @post.comments.page(params[:page]) %>
+        <%= paginate @paged, paged_comment_options(@post.id) %>
       </div>
     <% end %>
   </div>

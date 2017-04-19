@@ -7,8 +7,8 @@
 
 <div class="section">
   <div class="post-index-wrapper">
-    <%= render(paged_collection(@posts, 25)) || "There are no posts available!" %>
-    <%= will_paginate @paged, paged_post_options %>
+    <%= render(@posts) || "There are no posts available!" %>
+    <%= paginate @posts, paged_post_options %>
   </div>
 </div>
 

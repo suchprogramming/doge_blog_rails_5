@@ -1,32 +1,22 @@
 module PaginationHelper
   def paged_post_options
     {
-      previous_label: embedded_svg("previous.svg"),
-      next_label: embedded_svg("next.svg"),
-      inner_window: 0,
-      outer_window: 0
+      window: 1,
+      outer_window: 1
     }
   end
 
-  def paged_comment_options(post = nil)
-    return unless post
+  def paged_comment_options(post_id = nil)
+    return unless post_id
 
     {
-      previous_label: embedded_svg("previous.svg"),
-      next_label: embedded_svg("next.svg"),
-      inner_window: 0,
-      outer_window: 0,
+      window: 0,
+      outer_window: 1,
       params: {
         controller: 'posts',
         action: 'show',
-        id: @post.id
+        id: post_id
       }
     }
-  end
-
-  def paged_collection(collection = nil, per = nil)
-    return unless collection
-
-    @paged = collection.paginate(page: params[:page], per_page: per || 25)
   end
 end
