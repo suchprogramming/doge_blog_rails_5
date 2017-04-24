@@ -1,0 +1,37 @@
+<div class="card-panel content-top-spacer">
+  <div class="row no-bottom-margin">
+    <div class="col s12 m3">
+      <%= render 'admin_menu' %>
+    </div>
+    <div class="col s12 m9">
+      <div class="admin-content-wrapper">
+        <div class="flex-between">
+          <h4>Admin Invites</h4>
+          <%= link_to 'New Invite', new_administration_invitation_path, class: base_button %>
+        </div>
+        <%= render 'search', search_type: 'invite_search', path: administration_dashboard_invitations_path %>
+        <div id='admin-invites-wrapper'>
+          <table class="highlight centered bordered">
+            <thead>
+              <tr>
+                <% build_header(invitation_table_attrs) %>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @invites.any? %>
+                <% @invites.each do |item| %>
+                  <tr>
+                    <% build_row(item, invitation_table_attrs) %>
+                  </tr>
+                <% end %>
+              <% else %>
+                <%= render 'shared/table_no_records' %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <%= paginate @invites %>
+      </div>
+    </div>
+  </div>
+</div>

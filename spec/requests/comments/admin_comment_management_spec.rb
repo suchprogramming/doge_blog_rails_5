@@ -195,10 +195,8 @@ RSpec.describe 'Admin comment management', :type => :request do
       login_as current_admin, scope: :admin
 
       patch administration_comment_path(user_comment),
-            params: {
-              comment: { flagged: '1' },
-              user_id: current_user.id, post_id: current_user_post.id
-            }, xhr: true
+            params: { comment: { flagged: '1' } }, xhr: true,
+            headers: { "HTTP_REFERER" => "http://example.com/" }
 
       expect(response).to be_success
       expect(response.body).to include('Comment flagged!')
@@ -210,10 +208,8 @@ RSpec.describe 'Admin comment management', :type => :request do
       user_comment.update(flagged: true)
 
       patch administration_comment_path(user_comment),
-            params: {
-              comment: { flagged: '0' },
-              user_id: current_user.id, post_id: current_user_post.id
-            }, xhr: true
+            params: { comment: { flagged: '0' } }, xhr: true,
+            headers: { "HTTP_REFERER" => "http://example.com/" }
 
       expect(response).to be_success
       expect(response.body).to include('Comment activated!')
@@ -223,10 +219,8 @@ RSpec.describe 'Admin comment management', :type => :request do
       login_as current_admin, scope: :admin
 
       patch administration_comment_path(user_comment),
-            params: {
-              comment: { flagged: '1' , text: 'Russia gets you again!' },
-              user_id: current_user.id, post_id: current_user_post.id
-            }, xhr: true
+            params: { comment: { flagged: '1' , text: 'Russia gets you again!' } }, xhr: true,
+            headers: { "HTTP_REFERER" => "http://example.com/" }
 
       expect(response).to be_success
       expect(user_comment.text).to eq('I agree!')
@@ -239,10 +233,8 @@ RSpec.describe 'Admin comment management', :type => :request do
       current_admin.update(active: false)
 
       patch administration_comment_path(user_comment),
-            params: {
-              comment: { flagged: '1' },
-              user_id: current_user.id, post_id: current_user_post.id
-            }, xhr: true
+            params: { comment: { flagged: '1' } }, xhr: true,
+            headers: { "HTTP_REFERER" => "http://example.com/" }
 
       expect(response.body).to include(default_pundit_error)
     end

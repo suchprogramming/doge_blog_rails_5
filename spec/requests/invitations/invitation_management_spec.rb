@@ -18,7 +18,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'grants super admin access to the invitations index' do
       login_as super_admin, scope: :admin
 
-      get superadmins_invitations_path
+      get administration_dashboard_invitations_path
 
       expect(response).to be_success
     end
@@ -28,7 +28,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
 
       super_admin.update(active: false)
 
-      get superadmins_invitations_path
+      get administration_dashboard_invitations_path
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
@@ -39,7 +39,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'denies admin access' do
       login_as admin, scope: :admin
 
-      get superadmins_invitations_path
+      get administration_dashboard_invitations_path
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
@@ -50,13 +50,13 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'denies user access' do
       login_as current_user, scope: :user
 
-      get superadmins_invitations_path
+      get administration_dashboard_invitations_path
 
       expect(response).to redirect_to(new_admin_session_path)
     end
 
     it 'redirects unauthenticated requests' do
-      get superadmins_invitations_path
+      get administration_dashboard_invitations_path
 
       expect(response).to redirect_to(new_admin_session_path)
     end
@@ -66,7 +66,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'grants a superadmin access to the new invitation route' do
       login_as super_admin, scope: :admin
 
-      get new_superadmins_invitation_path
+      get new_administration_invitation_path
 
       expect(response).to be_success
     end
@@ -76,7 +76,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
 
       super_admin.update(active: false)
 
-      get new_superadmins_invitation_path
+      get new_administration_invitation_path
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
@@ -87,7 +87,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'denies admin access' do
       login_as admin, scope: :admin
 
-      get new_superadmins_invitation_path
+      get new_administration_invitation_path
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
@@ -98,13 +98,13 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'denies user access' do
       login_as current_user, scope: :user
 
-      get new_superadmins_invitation_path
+      get new_administration_invitation_path
 
       expect(response).to redirect_to(new_admin_session_path)
     end
 
     it 'redirects unauthenticated requests' do
-      get superadmins_invitations_path
+      get new_administration_invitation_path
 
       expect(response).to redirect_to(new_admin_session_path)
     end
@@ -114,7 +114,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'allows a superadmin to create a new invitation' do
       login_as super_admin, scope: :admin
 
-      post superadmins_invitations_path, params: invite_params
+      post administration_invitations_path, params: invite_params
       follow_redirect!
 
       expect(response.body).to include('Invite created!')
@@ -125,7 +125,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
 
       super_admin.update(active: false)
 
-      post superadmins_invitations_path, params: invite_params
+      post administration_invitations_path, params: invite_params
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
@@ -136,7 +136,7 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'denies admin access' do
       login_as admin, scope: :admin
 
-      post superadmins_invitations_path, params: invite_params
+      post administration_invitations_path, params: invite_params
       follow_redirect!
 
       expect(response.body).to include(default_pundit_error)
@@ -145,13 +145,13 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     it 'denies user access' do
       login_as current_user, scope: :user
 
-      post superadmins_invitations_path, params: invite_params
+      post administration_invitations_path, params: invite_params
 
       expect(response).to redirect_to(new_admin_session_path)
     end
 
     it 'redirects unauthenticated requests' do
-      get superadmins_invitations_path
+      post administration_invitations_path
 
       expect(response).to redirect_to(new_admin_session_path)
     end

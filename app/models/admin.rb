@@ -1,4 +1,5 @@
 class Admin < ApplicationRecord
+  include Filterable
   include PolymorphicResourceHelper
   attr_accessor :token
 
@@ -26,8 +27,8 @@ class Admin < ApplicationRecord
     true
   end
 
-  def self.search(term)
-    term ? where('email LIKE ?', "%#{term}%") : all
+  def self.admin_search(term)
+    term ? where('email ILIKE ?', "%#{term}%") : all
   end
 
   private

@@ -19,7 +19,7 @@ module NavHelper
     return unless user_scope.try(:admin?)
 
     capture do
-      concat content_tag(:li) { link_to 'Admin', administration_dashboard_path } if user_scope.active
+      concat content_tag(:li) { link_to 'Admin', administration_dashboard_posts_path } if user_scope.active
       concat content_tag(:li) { link_to 'My Account', edit_admin_registration_path }
       concat content_tag(:li) { link_to "Sign Out (#{user_scope.name})", destroy_admin_session_path, method: :delete }
     end

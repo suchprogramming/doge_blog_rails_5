@@ -14,7 +14,7 @@ RSpec.describe 'Admin management', :type => :request do
     it 'grants super admin access to the admin index' do
       login_as super_admin, scope: :admin
 
-      get administration_admins_path
+      get administration_dashboard_admins_path
 
       expect(response).to be_success
     end
@@ -24,7 +24,7 @@ RSpec.describe 'Admin management', :type => :request do
 
       super_admin.update(active: false)
 
-      get administration_admins_path
+      get administration_dashboard_admins_path
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
@@ -35,7 +35,7 @@ RSpec.describe 'Admin management', :type => :request do
     it 'denies admin access' do
       login_as admin, scope: :admin
 
-      get administration_admins_path
+      get administration_dashboard_admins_path
 
       expect(response).to redirect_to(root_path)
       follow_redirect!
@@ -46,13 +46,13 @@ RSpec.describe 'Admin management', :type => :request do
     it 'denies user access' do
       login_as current_user, scope: :user
 
-      get administration_admins_path
+      get administration_dashboard_admins_path
 
       expect(response).to redirect_to(new_admin_session_path)
     end
 
     it 'redirects unauthenticated requests' do
-      get administration_admins_path
+      get administration_dashboard_admins_path
 
       expect(response).to redirect_to(new_admin_session_path)
     end

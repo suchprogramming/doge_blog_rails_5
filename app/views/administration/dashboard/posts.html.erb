@@ -1,0 +1,35 @@
+<div class="card-panel content-top-spacer">
+  <div class="row no-bottom-margin">
+    <div class="col s12 m3">
+      <%= render 'admin_menu' %>
+    </div>
+    <div class="col s12 m9">
+      <div class="admin-content-wrapper">
+        <h4 class="center">Posts</h4>
+        <%= render 'search', search_type: 'post_search', path: administration_dashboard_posts_path %>
+        <div id='admin-posts-wrapper'>
+          <table class="highlight centered bordered">
+            <thead>
+              <tr>
+                <% build_header(post_table_header) %>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @posts.any? %>
+                <% @posts.each do |post| %>
+                  <tr class="admin-table-row" id=<%= polymorphic_path([post.postable, post]) %>>
+                    <% build_row(post, post_table_attrs) %>
+                    <td><%= post.postable.name %></td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <%= render 'shared/table_no_records' %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <%= paginate @posts %>
+      </div>
+    </div>
+  </div>
+</div>

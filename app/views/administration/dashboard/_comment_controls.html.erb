@@ -1,0 +1,10 @@
+<%= form_for([:administration, comment], flag_comment_options(comment.id)) do |f| %>
+  <div class="switch secondary-content">
+    <label id="flag-comment-check-<%= comment.id %>">
+      Activate
+      <%= f.check_box(:flagged) %>
+      <span class="lever"></span>
+      Flag
+    </label>
+  </div>
+<% end %>

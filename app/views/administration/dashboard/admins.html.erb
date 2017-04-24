@@ -1,0 +1,34 @@
+<div class="card-panel content-top-spacer">
+  <div class="row no-bottom-margin">
+    <div class="col s12 m3">
+      <%= render 'admin_menu' %>
+    </div>
+    <div class="col s12 m9">
+      <div class="admin-content-wrapper">
+        <h4 class="center">Admins</h4>
+        <%= render 'search', search_type: 'admin_search', path: administration_dashboard_admins_path %>
+        <div id='superadmin-admins-wrapper'>
+          <table class="highlight centered bordered">
+            <thead>
+              <tr>
+                <% build_header(user_table_header) %>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @admins.any? %>
+                <% @admins.each do |admin| %>
+                  <tr class="admin-table-row" id=<%= edit_administration_admin_path(admin) %>>
+                    <% build_row(admin, user_table_attrs) %>
+                  </tr>
+                <% end %>
+              <% else %>
+                <%= render 'shared/table_no_records' %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <%= paginate @admins %>
+      </div>
+    </div>
+  </div>
+</div>

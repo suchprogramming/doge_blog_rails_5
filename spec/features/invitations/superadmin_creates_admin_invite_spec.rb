@@ -7,7 +7,9 @@ RSpec.feature 'Superadmin creates an admin invite' do
   before(:each) do
     login_as super_admin, scope: :admin
 
-    visit new_superadmins_invitation_path
+    visit administration_dashboard_invitations_path
+
+    click_on 'New Invite'
   end
 
   scenario 'with success' do

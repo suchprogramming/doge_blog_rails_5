@@ -11,11 +11,10 @@ RSpec.feature 'Superadmin visits admin index' do
 
     find('ul.right').find('a', exact_text: 'Admin').click
 
-    expect(page).to have_text('Administration')
+    expect(page).to have_text('Admin')
 
-    find('a', text: 'Options').click
-    find('a', text: 'Manage Admins').click
+    click_on 'Manage Admins'
 
-    expect(page).to have_text('Admin List')
+    expect(page).to have_text('Admins')
   end
 end

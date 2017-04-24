@@ -61,7 +61,7 @@ RSpec.describe 'Admin registration management', :type => :request do
     it 'allows for admin creation with valid invite credentials' do
       post administration_registrations_path, params: valid_params
 
-      expect(response).to redirect_to(administration_dashboard_path)
+      expect(response).to redirect_to(administration_dashboard_posts_path)
       follow_redirect!
 
       expect(response.body).to include('Welcome to the team!')

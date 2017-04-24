@@ -1,11 +1,6 @@
 class Administration::AdminsController < ApplicationController
   before_action :authenticate_admin!
 
-  def index
-    @admins = Admin.search(params[:admin_search]).limit(10).order(updated_at: :desc)
-    authorize @admins
-  end
-
   def edit
     @admin = Admin.find(params[:id])
     authorize @admin
@@ -26,5 +21,4 @@ class Administration::AdminsController < ApplicationController
   def admin_params
     params.require(:admin).permit(:email, :name, :active, :avatar_approved)
   end
-
 end

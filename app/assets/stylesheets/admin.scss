@@ -2,8 +2,77 @@
   cursor: pointer;
 }
 
+.admin-content-wrapper {
+  border-left: 1px solid #c0c0c0;
+  padding-left: 24px;
+}
+
 .admin-search-form {
-  background-color: #f8f8f8;
-  margin: 40px;
-  padding: 20px;
+  background: #f2f2f2;
+  padding: 8px;
+  margin-bottom: 20px;
+
+  form {
+    background: #fff;
+  }
+
+  input {
+    margin: 0;
+    border-bottom: 0;
+    padding-left: 1rem;
+  }
+
+  input:focus {
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .search-icon {
+    padding-left: 1rem;
+    line-height: 1rem;
+  }
+
+  .reset-search {
+    padding-right: 1rem;
+  }
+
+}
+
+#admin-comments-wrapper {
+
+  .collapsible {
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+  }
+
+}
+
+.admin-comment-manage {
+
+  .secondary-content {
+    float: none;
+  }
+
+}
+
+.admin-nav-menu {
+
+  a {
+    color: #293f54;
+    transition: background .3s, color .3s;
+    text-transform: uppercase;
+    display: block;
+    padding: 2px;
+
+    &:hover {
+      color: #00ccff;
+    }
+
+  }
+
+  li:not(:first-child) {
+    padding-top: 1rem;
+  }
+
 }

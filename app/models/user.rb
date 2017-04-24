@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include Filterable
   include PolymorphicResourceHelper
 
   has_many :posts, as: :postable
@@ -19,7 +20,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def self.search(term)
+  def self.user_search(term)
     term ? where('email LIKE ?', "%#{term}%") : all
   end
 

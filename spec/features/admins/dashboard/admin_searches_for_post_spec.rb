@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin searches for a post and clicks to view', js: true do
+RSpec.feature 'Admin searches for a post', js: true do
 
   let!(:post) { create(:current_user_post) }
   let(:admin) { create(:admin) }
@@ -8,16 +8,15 @@ RSpec.feature 'Admin searches for a post and clicks to view', js: true do
   before(:each) do
     login_as admin, scope: :admin
 
-    visit administration_dashboard_path
-
-    click_on 'Post Management'
+    visit administration_dashboard_posts_path
 
     expect(page).to have_text(post.title)
   end
 
-  scenario 'with success' do
-    fill_in 'post_search', with: post.title
+  scenario 'and views post with success' do
+    fill_in 'post_search', with: "#{post.title}\n"
 
+    expect(page).to have_text post.title
     expect(page).not_to have_text('No Records Found!')
 
     find("[id='#{polymorphic_path([post.postable, post])}']").click
@@ -26,9 +25,20 @@ RSpec.feature 'Admin searches for a post and clicks to view', js: true do
   end
 
   scenario 'with no records found' do
-    fill_in 'post_search', with: 'Bob Ross'
+    fill_in 'post_search', with: "Bob Ross\n"
 
     expect(page).not_to have_text(post.title)
     expect(page).to have_text('No Records Found!')
+  end
+
+  scenario 'when a search reset occurs' do
+    fill_in 'post_search', with: "wrong!\n"
+
+    expect(page).to have_text('No Records Found!')
+
+    click_on 'RESET'
+
+    expect(page).to have_text post.title
+    expect(page).not_to have_text('No Records Found!')
   end
 end

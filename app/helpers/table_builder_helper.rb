@@ -4,7 +4,13 @@ module TableBuilderHelper
   end
 
   def build_row(resource, attrs)
-    attrs.each { |attr| concat(content_tag(:td, resource[attr])) }
+    attrs.each do |attr|
+      if resource[attr].instance_of?(ActiveSupport::TimeWithZone)
+        concat(content_tag(:td, default_time(resource[attr])))
+      else
+        concat(content_tag(:td, resource[attr]))
+      end
+    end
   end
 
   def no_records_found
