@@ -26,15 +26,15 @@ RSpec.describe 'Post management', :type => :request do
       expect(response).to be_success
     end
 
-    it 'renders the deactivated resource partial for inactive posts' do
-      login_as current_user, scope: :user
-
-      current_user_post.update(active: false)
-
-      get user_post_path(current_user, current_user_post)
-
-      expect(response.body).to include('This resource has been deactivated, sorry!')
-    end
+    # it 'renders the deactivated resource partial for inactive posts' do
+    #   login_as current_user, scope: :user
+    #
+    #   current_user_post.update(active: false)
+    #
+    #   get user_post_path(current_user, current_user_post)
+    #
+    #   expect(response.body).to include('This resource has been deactivated, sorry!')
+    # end
   end
 
   context 'on the POST #new route' do
@@ -117,14 +117,14 @@ RSpec.describe 'Post management', :type => :request do
       expect(response.body).to include(default_pundit_error)
     end
 
-    it 'renders the deactivated resource partial for inactive current user posts' do
+    it 'allows the current user to edit their inactive posts' do
       login_as current_user, scope: :user
 
       current_user_post.update(active: false)
 
       get edit_user_post_path(current_user, current_user_post)
 
-      expect(response.body).to include('This resource has been deactivated, sorry!')
+      expect(response).to be_success
     end
 
     it 'prevents an inactive user from editing their posts' do

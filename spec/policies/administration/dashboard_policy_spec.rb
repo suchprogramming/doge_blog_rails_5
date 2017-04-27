@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe DashboardPolicy do
+describe Administration::DashboardPolicy do
 
-  subject { DashboardPolicy }
+  subject { Administration::DashboardPolicy }
 
-  permissions :active_admin? do
+  permissions :posts?, :comments?, :users? do
     it 'should grant access to active superadmins' do
       expect(subject).to permit(SuperAdmin.new)
     end
@@ -26,7 +26,7 @@ describe DashboardPolicy do
     end
   end
 
-  permissions :active_super_admin? do
+  permissions :admins?, :invitations? do
     it 'should grant access to active superadmins' do
       expect(subject).to permit(SuperAdmin.new)
     end

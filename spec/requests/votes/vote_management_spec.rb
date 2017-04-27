@@ -39,7 +39,7 @@ RSpec.describe 'Vote management', :type => :request do
     it 'responds with an unauthorized error when a user is inactive' do
       login_as user, scope: :user
 
-      user.update(active: 'false')
+      user.update(active: false)
 
       post votes_path, xhr: true, params: vote_params
 

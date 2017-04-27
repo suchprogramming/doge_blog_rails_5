@@ -1,26 +1,8 @@
 require 'rails_helper'
 
-describe AdminPolicy do
+describe Administration::AdminPolicy do
 
-  subject { AdminPolicy }
-
-  permissions :index? do
-    it 'grants superadmin access' do
-      expect(subject).to permit(SuperAdmin.new)
-    end
-
-    it 'denies inactive superadmin access' do
-      expect(subject).not_to permit(SuperAdmin.new(active: false))
-    end
-
-    it 'denies admin access' do
-      expect(subject).not_to permit(Admin.new)
-    end
-
-    it 'denies user access' do
-      expect(subject).not_to permit(User.new)
-    end
-  end
+  subject { Administration::AdminPolicy }
 
   permissions :edit?, :update? do
     it 'grants superadmin access to their own resource' do
@@ -48,7 +30,7 @@ describe AdminPolicy do
     end
 
     it 'denies user access' do
-      expect(subject).not_to permit(User.new, User.new)
+      expect(subject).not_to permit(User.new, Admin.new)
     end
   end
 end

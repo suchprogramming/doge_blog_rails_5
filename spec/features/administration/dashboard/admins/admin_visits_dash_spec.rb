@@ -11,10 +11,10 @@ RSpec.feature 'Admin visits dashboard' do
 
     find('ul.right').find('a', exact_text: 'Admin').click
 
-    expect(page).to have_text('Admin')
-    expect(page).to have_text('Posts')
-    expect(page).to have_text('Users')
+    expect(page).to have_css('a', text: 'Admin')
+    expect(page).to have_css('a', text: 'Posts')
+    expect(page).to have_css('a', text: 'Users')
     expect(page).not_to have_css('a', text: 'Manage Admins')
-    expect(page).not_to have_css('a', text: 'Invitations')
+    expect(page).not_to have_css('a', text: 'Admin Invites')
   end
 end

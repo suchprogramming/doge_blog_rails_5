@@ -14,54 +14,6 @@ RSpec.describe 'Superadmin invitation management', :type => :request do
     { invitation: { recipient_email: 'new_admin@admin.com'} }
   end
 
-  context 'on the INVITATION #index route' do
-    it 'grants super admin access to the invitations index' do
-      login_as super_admin, scope: :admin
-
-      get administration_dashboard_invitations_path
-
-      expect(response).to be_success
-    end
-
-    it 'denies inactive superadmin access' do
-      login_as super_admin, scope: :admin
-
-      super_admin.update(active: false)
-
-      get administration_dashboard_invitations_path
-
-      expect(response).to redirect_to(root_path)
-      follow_redirect!
-
-      expect(response.body).to include(default_pundit_error)
-    end
-
-    it 'denies admin access' do
-      login_as admin, scope: :admin
-
-      get administration_dashboard_invitations_path
-
-      expect(response).to redirect_to(root_path)
-      follow_redirect!
-
-      expect(response.body).to include(default_pundit_error)
-    end
-
-    it 'denies user access' do
-      login_as current_user, scope: :user
-
-      get administration_dashboard_invitations_path
-
-      expect(response).to redirect_to(new_admin_session_path)
-    end
-
-    it 'redirects unauthenticated requests' do
-      get administration_dashboard_invitations_path
-
-      expect(response).to redirect_to(new_admin_session_path)
-    end
-  end
-
   context 'on the INVITATION #new route' do
     it 'grants a superadmin access to the new invitation route' do
       login_as super_admin, scope: :admin

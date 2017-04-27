@@ -16,16 +16,18 @@ RSpec.feature 'Edit links for other posts are not rendered', js: true do
     admin_post.comments.reject { |c| c.commentable_id == admin.id }.first
   end
 
-  before(:each) do
+  scenario 'with success' do
     login_as admin, scope: :admin
 
     visit admin_post_path(admin, admin_post)
-  end
 
-  scenario 'with success' do
     expect(admin_post.comments.size).to eq(3)
     expect(all('.edit-comment-link').size).to eq(1)
     expect(page).to have_selector('a', id: "edit-comment-#{admin_comment.id}")
     expect(page).not_to have_selector('a', id: "edit-comment-#{alternate_comment.id}")
+
+    expect(all('.delete-comment-link').size).to eq(1)
+    expect(page).to have_selector('a', id: "delete-comment-#{admin_comment.id}")
+    expect(page).not_to have_selector('a', id: "delete-comment-#{alternate_comment.id}")
   end
 end
