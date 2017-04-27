@@ -22,6 +22,9 @@
           </div>
         </div>
       <% end %>
+      <% if current_admin && policy([:administration, @post]).update? %>
+        <%= render 'admin_post_controls' %>
+      <% end %>
     </div>
   </div>
 </div>

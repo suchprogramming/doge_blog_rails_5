@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   # Administration routes
   namespace :administration do
     resources :users, only: [:edit, :update]
+    resources :posts, only: [:update]
     resources :admins, only: [:edit, :update]
     resources :comments, only: [:update]
     resources :invitations, only: [:new, :create]

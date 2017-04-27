@@ -3,12 +3,12 @@ class Administration::AdminsController < ApplicationController
 
   def edit
     @admin = Admin.find(params[:id])
-    authorize @admin
+    authorize [:administration, @admin]
   end
 
   def update
     @admin = Admin.find(params[:id])
-    authorize @admin
+    authorize [:administration, @admin]
     if @admin.update(admin_params)
       redirect_to admin_path(@admin), success: 'Admin updated successfully!'
     else

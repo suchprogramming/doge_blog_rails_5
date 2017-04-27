@@ -11,7 +11,7 @@ class CommentPolicy
   end
 
   def create?
-    user.polymorphic_owner?(comment) && user.active
+    @user.polymorphic_owner?(@comment) && @user.active
   end
 
   def edit?
@@ -25,5 +25,4 @@ class CommentPolicy
   def destroy?
     create?
   end
-
 end

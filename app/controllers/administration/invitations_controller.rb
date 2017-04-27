@@ -3,12 +3,12 @@ class Administration::InvitationsController < ApplicationController
 
   def new
     @invitation = Invitation.new
-    authorize @invitation
+    authorize [:administration, @invitation]
   end
 
   def create
     @invitation = current_admin.invitations.new(invitation_params)
-    authorize @invitation
+    authorize [:administration, @invitation]
     if @invitation.save
       InvitationMailer.admin_invitation(@invitation).deliver_now
       redirect_to administration_dashboard_invitations_path, success: 'Invite created!'

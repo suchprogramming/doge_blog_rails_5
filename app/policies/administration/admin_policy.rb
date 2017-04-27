@@ -1,4 +1,4 @@
-class AdminPolicy
+class Administration::AdminPolicy
   attr_reader :user, :admin
 
   def initialize(user, admin)
@@ -6,20 +6,11 @@ class AdminPolicy
     @admin = admin
   end
 
-  def index?
-    user.try(:super_admin?) && user.active
-  end
-
   def edit?
-    index?
+    update?
   end
 
   def update?
-    index?
+    @user.try(:super_admin?) && @user.active?
   end
-
-  def show?
-    true
-  end
-
 end

@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new(poly_params)
+    @post = Post.new(postable: postable)
     authorize @post
   end
 
@@ -54,17 +54,11 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :post_content, :active)
+    params.require(:post).permit(:title, :post_content, :active).merge(postable: postable)
   end
 
-  def poly_params
-    if params[:user_id]
-      { postable_id: params[:user_id], postable_type: "User" }
-    elsif params[:admin_id]
-      { postable_id: params[:admin_id], postable_type: "Admin" }
-    else
-      {}
-    end
+  def postable
+    return User.find(params[:user_id]) if params[:user_id]
+    return Admin.find(params[:admin_id]) if params[:admin_id]
   end
-
 end

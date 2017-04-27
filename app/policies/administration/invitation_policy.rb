@@ -1,4 +1,4 @@
-class InvitationPolicy
+class Administration::InvitationPolicy
   attr_reader :user, :invitation
 
   def initialize(user, invitation)
@@ -6,16 +6,11 @@ class InvitationPolicy
     @invitation = invitation
   end
 
-  def index?
-    create?
-  end
-
   def new?
     create?
   end
 
   def create?
-    user.try(:super_admin?) && user.active
+    @user.try(:super_admin?) && @user.active
   end
-
 end

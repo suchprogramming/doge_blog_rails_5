@@ -7,7 +7,6 @@ class VotePolicy
   end
 
   def create?
-    user.active? && user.id == vote.user_id && %w(SuperAdmin Admin).exclude?(user.class.to_s)
+    @user.active? && @user.id == @vote.user_id && %w(SuperAdmin Admin).exclude?(@user.class.to_s)
   end
-
 end

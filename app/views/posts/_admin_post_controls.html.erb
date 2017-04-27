@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col s12">
+    <%= form_for([:administration, @post], html: { class: "col s12" }) do |f| %>
+      <div class="row">
+        <div class="col s12">
+          <h5>Admin Controls</h5>
+          <div class="switch">
+            <label>
+              Inactive
+              <%= f.check_box :active %>
+              <span class="lever"></span>
+              Active
+            </label>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

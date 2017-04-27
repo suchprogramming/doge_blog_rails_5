@@ -1,18 +1,14 @@
 class Administration::UsersController < ApplicationController
   before_action :authenticate_admin!
 
-  def index
-    @users = User.all
-  end
-
   def edit
     @user = User.find(params[:id])
-    authorize @user
+    authorize [:administration, @user]
   end
 
   def update
     @user = User.find(params[:id])
-    authorize @user
+    authorize [:administration, @user]
     if @user.update(user_params)
       redirect_to user_path(@user), success: "User updated successfully!"
     else
@@ -25,5 +21,4 @@ class Administration::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :name, :active, :avatar_approved)
   end
-
 end

@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   devise_group :any_scope, contains: [:user, :admin]
 
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Pundit::NotAuthorizedError, with: :default_pundit_action
 
   add_flash_types :success
 
@@ -15,14 +15,6 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:avatar, :name])
     devise_parameter_sanitizer.permit(:account_update, keys: [:avatar, :name])
-  end
-
-  def user_not_authorized(exception)
-    if exception.record.respond_to?(:active)
-      exception.record.active ? default_pundit_action : render_inactive
-    else
-      default_pundit_action
-    end
   end
 
   def pundit_user
@@ -36,5 +28,4 @@ class ApplicationController < ActionController::Base
   def render_inactive
     render 'shared/inactive_resource'
   end
-
 end
