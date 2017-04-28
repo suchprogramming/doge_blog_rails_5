@@ -22,7 +22,7 @@
                     <div class="admin-comment-manage flex-around">
                       <%= link_to 'View User Profile', edit_polymorphic_path([:administration, comment.commentable]) %> |
                       <%= link_to 'View Post', polymorphic_path([comment.commentable, comment.post]) %> |
-                      <%= render 'comment_controls', comment: comment %>
+                      <%= render 'administration/comments/comment_controls', comment: comment %>
                     </div>
                   </div>
                 </li>

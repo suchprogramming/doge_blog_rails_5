@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col s12">
-    <%= form_for([:administration, @post], html: { class: "col s12" }) do |f| %>
+    <%= form_for([:administration, @post], html: { class: "col s12 right-align administrate-posts" }, remote: true) do |f| %>
       <div class="row">
         <div class="col s12">
           <h5>Admin Controls</h5>
           <div class="switch">
-            <label>
+            <label id="flag-post-check-<%= @post.id %>">
               Inactive
               <%= f.check_box :active %>
               <span class="lever"></span>

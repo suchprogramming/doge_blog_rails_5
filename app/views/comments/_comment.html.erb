@@ -16,16 +16,22 @@
         <span class="comment-time"><em>Posted <%= comment.created_at.strftime('%m/%d/%Y') %></em></span>
       </div>
       <%= render_markdown(filter_flagged_comment(comment)) %>
-      <% if current_user && policy(comment).create? %>
-        <div class="comment-manage-area">
+      <% if current_any_scope && policy(comment).create? %>
+        <div class="comment-manage-area flex-between">
           <div class="user-comment-manage-links">
-            <%= edit_comment_link(@post, comment) %>
-            <%= delete_comment_link(@post, comment)  %>
+            <%= edit_comment_link(comment.post, comment) %>
+            <%= delete_comment_link(comment.post, comment)  %>
           </div>
+          <% if current_admin && policy([:administration, comment]).update? %>
+            <%= render 'administration/comments/comment_controls', comment: comment %>
+          <% end %>
         </div>
-      <% end %>
-      <% if current_admin && current_admin.active %>
-        <%= render 'comments/comment_admin_area', post: @post, comment: comment %>
+      <% else %>
+        <% if current_admin && policy([:administration, comment]).update? %>
+          <div class="comment-manage-area">
+            <%= render 'administration/comments/comment_controls', comment: comment %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

@@ -2,10 +2,10 @@ $('#comment-form-row').remove();
 $('.flash-container').remove();
 
 <% if request.referrer.include?('dashboard') %>
-  $("#flag-comment-<%= @comment.id %>").html("<%= j render('administration/dashboard/comment_controls', comment: @comment) %>");
+  $("#flag-comment-<%= @comment.id %>").html("<%= j render('administration/comments/comment_controls', comment: @comment) %>");
 <% else %>
-  $("#comment-<%= @comment.id %>").replaceWith("<%= j render('comments/comment', comment: @comment) %>")
+  $("#comment-<%= @comment.id %>").replaceWith("<%= j render('comments/comment', comment: @comment) %>");
 <% end %>
 
 $('body').append("<%= j render('layouts/messages') %>");
-$('.flash-container').animate({ bottom: '+=150px' }, 500).delay(2000).fadeOut(500)
+$('.flash-container').animate({ bottom: '+=150px' }, 500).delay(2000).fadeOut(500);
