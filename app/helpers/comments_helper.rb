@@ -33,7 +33,8 @@ module CommentsHelper
     return unless post && comment
 
     link_to 'Delete',
-            polymorphic_path([comment.commentable, post, comment]),
+            polymorphic_path([comment.commentable, post, comment],
+            page: get_record_index(post.comments, comment)),
             class: "delete-comment-link",
             id: "delete-comment-#{comment.id}",
             data: { target: 'show-comment-delete' }
