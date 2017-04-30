@@ -1,4 +1,32 @@
 // Post index
+.post-search-form {
+  background: #f2f2f2;
+
+  form {
+    background: #fff;
+  }
+
+  input {
+    margin: 0;
+    border-bottom: 0;
+    padding-left: 1rem;
+  }
+
+  input:focus {
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .search-icon {
+    padding-left: 1rem;
+    line-height: 1rem;
+  }
+
+  .reset-search {
+    padding-right: 1rem;
+  }
+
+}
 
 .search-sort {
   background: #f2f2f2;
