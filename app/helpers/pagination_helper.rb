@@ -19,4 +19,11 @@ module PaginationHelper
       }
     }
   end
+
+  def get_record_index(collection = nil, record = nil)
+    return unless collection && record
+    return 1 if collection.index(record) == 0
+
+    (collection.index(record).to_f / 25).ceil
+  end
 end

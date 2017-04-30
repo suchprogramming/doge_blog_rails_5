@@ -2,7 +2,9 @@ $('#comment-form-row').remove();
 $('.flash-container').remove();
 $('#show-comment-delete').modal('close');
 
-$('.section:last').replaceWith("<%= j render('comments/comment_section') %>")
+history.pushState({}, null, "?page=<%= params[:page] %>");
 
-$('body').append("<%= j render('layouts/messages') %>")
-$('.flash-container').animate({ bottom: '+=150px' }, 500).delay(2000).fadeOut(500)
+$('.section:last').replaceWith("<%= j render('comments/comment_section') %>");
+
+$('body').append("<%= j render('layouts/messages') %>");
+$('.flash-container').animate({ bottom: '+=150px' }, 500).delay(2000).fadeOut(500);

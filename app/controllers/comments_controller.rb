@@ -43,7 +43,6 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     authorize @comment
     flash.now[:success] = 'Comment removed!' if @comment.destroy
-    params[:page] = @comment.page_num
   end
 
   private
