@@ -2,17 +2,16 @@ require 'rails_helper'
 
 RSpec.feature 'Admin edits a post' do
 
-  let(:admin) { create(:admin) }
-  let(:post) { create(:current_user_post) }
+  let(:post) { create(:current_admin_post) }
 
-  def user
+  def admin
     post.postable
   end
 
   before(:each) do
     login_as admin, scope: :admin
 
-    visit edit_user_post_path(user, post)
+    visit edit_admin_post_path(admin, post)
   end
 
   scenario 'with success' do

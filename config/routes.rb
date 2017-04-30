@@ -6,11 +6,6 @@ Rails.application.routes.draw do
   # Site root
   root to: "posts#index"
 
-  # SuperAdmin routes
-  namespace :superadmins do
-    resources :invitations, only: [:index, :new, :create]
-  end
-
   # Devise Admin routes
   devise_for :admins, skip: [:registrations]
   as :admin do
@@ -28,14 +23,19 @@ Rails.application.routes.draw do
   # Administration routes
   namespace :administration do
     resources :users, only: [:edit, :update]
-    resources :admins, only: [:index, :edit, :update]
+    resources :posts, only: [:update]
+    resources :admins, only: [:edit, :update]
+    resources :comments, only: [:update]
+    resources :invitations, only: [:new, :create]
 
     get '/sign_up/:token', to: 'registrations#new'
     post '/registrations', to: 'registrations#create'
 
-    resources :comments, only: [:update]
-
-    get '/dashboard', to: 'dashboard#index'
+    get '/dashboard/posts', to: 'dashboard#posts'
+    get '/dashboard/users', to: 'dashboard#users'
+    get '/dashboard/comments', to: 'dashboard#comments'
+    get '/dashboard/admins', to: 'dashboard#admins'
+    get '/dashboard/invitations', to: 'dashboard#invitations'
   end
 
   # Devise user routes
@@ -53,5 +53,4 @@ Rails.application.routes.draw do
 
   # Voting
   resource :votes, only: [:create]
-
 end

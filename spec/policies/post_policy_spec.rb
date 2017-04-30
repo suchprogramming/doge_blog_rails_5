@@ -47,24 +47,24 @@ describe PostPolicy do
       expect(subject).to permit(user, user_post)
     end
 
-    it 'grants an active admin access to edit an active user post' do
-      expect(subject).to permit(admin, user_post)
+    it 'prevents an active admin from editing an active user post' do
+      expect(subject).not_to permit(admin, user_post)
     end
 
-    it 'grants an active admin access to edit an inactive user post' do
+    it 'prevents an active admin from editing an inactive user post' do
       user_post.active = false
 
-      expect(subject).to permit(admin, user_post)
+      expect(subject).not_to permit(admin, user_post)
     end
 
     it 'denies access if a user does not own a post resource' do
       expect(subject).not_to permit(user, Post.new)
     end
 
-    it 'prevents a user from mutating an inactive post' do
+    it 'allows a user to make changes to their inactive post' do
       user_post.active = false
 
-      expect(subject).not_to permit(user, user_post)
+      expect(subject).to permit(user, user_post)
     end
 
     it 'prevents an inactive user from mutating a post' do
@@ -77,26 +77,6 @@ describe PostPolicy do
       admin.active = false
 
       expect(subject).not_to permit(admin, admin_post)
-    end
-  end
-
-  permissions :show? do
-    it 'allows users to view active posts' do
-      expect(subject).to permit(user, Post.new(active: true))
-    end
-
-    it 'allows an active admin to view an inactive post' do
-      expect(subject).to permit(admin, Post.new(active: false))
-    end
-
-    it 'prevents users from viewing any inactive post' do
-      expect(subject).not_to permit(user, Post.new(active: false))
-    end
-
-    it 'prevents an inactive admin from viewing an inactive post' do
-      admin.active = false
-
-      expect(subject).not_to permit(admin, Post.new(active: false))
     end
   end
 end

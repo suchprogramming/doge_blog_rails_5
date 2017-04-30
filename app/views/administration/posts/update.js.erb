@@ -1,0 +1,6 @@
+$('.flash-container').remove();
+
+$("#edit_post_<%= @post.id %>").html("<%= j render('administration/posts/post_controls', post: @post) %>");
+
+$('body').append("<%= j render('layouts/messages') %>");
+$('.flash-container').animate({ bottom: '+=150px' }, 500).delay(2000).fadeOut(500)

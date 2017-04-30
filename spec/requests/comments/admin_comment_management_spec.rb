@@ -79,7 +79,7 @@ RSpec.describe 'Admin comment management', :type => :request do
       current_admin.update(active: false)
 
       post admin_post_comments_path(current_admin, current_admin_post),
-            params: comment_params, xhr: true
+           params: comment_params, xhr: true
 
       expect(response.body).to include(default_pundit_error)
     end
@@ -185,64 +185,6 @@ RSpec.describe 'Admin comment management', :type => :request do
       current_admin.update(active: false)
 
       delete admin_post_comment_path(current_admin, current_admin_post, admin_comment), xhr: true
-
-      expect(response.body).to include(default_pundit_error)
-    end
-  end
-
-  context 'on the ADMINISTRATION::COMMENT #update route' do
-    it 'allows an admin to flag an inappropriate comment' do
-      login_as current_admin, scope: :admin
-
-      patch administration_comment_path(user_comment),
-            params: {
-              comment: { flagged: '1' },
-              user_id: current_user.id, post_id: current_user_post.id
-            }, xhr: true
-
-      expect(response).to be_success
-      expect(response.body).to include('Comment flagged!')
-    end
-
-    it 'allows an admin to activate a previously flagged comment' do
-      login_as current_admin, scope: :admin
-
-      user_comment.update(flagged: true)
-
-      patch administration_comment_path(user_comment),
-            params: {
-              comment: { flagged: '0' },
-              user_id: current_user.id, post_id: current_user_post.id
-            }, xhr: true
-
-      expect(response).to be_success
-      expect(response.body).to include('Comment activated!')
-    end
-
-    it 'prevents params other than flagged from being updated' do
-      login_as current_admin, scope: :admin
-
-      patch administration_comment_path(user_comment),
-            params: {
-              comment: { flagged: '1' , text: 'Russia gets you again!' },
-              user_id: current_user.id, post_id: current_user_post.id
-            }, xhr: true
-
-      expect(response).to be_success
-      expect(user_comment.text).to eq('I agree!')
-      expect(response.body).to include('Comment flagged!')
-    end
-
-    it 'prevents inactive admins from flagging comments' do
-      login_as current_admin, scope: :admin
-
-      current_admin.update(active: false)
-
-      patch administration_comment_path(user_comment),
-            params: {
-              comment: { flagged: '1' },
-              user_id: current_user.id, post_id: current_user_post.id
-            }, xhr: true
 
       expect(response.body).to include(default_pundit_error)
     end

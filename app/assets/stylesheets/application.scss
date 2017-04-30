@@ -36,6 +36,18 @@ input:-webkit-autofill:active {
   flex-wrap: wrap;
 }
 
+.flex-around {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .no-bottom-margin {
   margin-bottom: 0px;
 }

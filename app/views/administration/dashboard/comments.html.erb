@@ -1,0 +1,51 @@
+<div class="card-panel content-top-spacer">
+  <div class="row no-bottom-margin">
+    <div class="col s12 m3">
+      <%= render 'admin_menu' %>
+    </div>
+    <div class="col s12 m9">
+      <div class="admin-content-wrapper">
+        <h4 class="center">Comments</h4>
+        <%= render 'search', search_type: 'comment_search', path: administration_dashboard_comments_path %>
+        <div id='admin-comments-wrapper'>
+          <% if @comments.any? %>
+            <ul class="collapsible" data-collapsible="accordion">
+              <% @comments.each do |comment| %>
+                <li id="comment-<%= comment.id %>">
+                  <div class="collapsible-header flex-around">
+                    <span>Posted by: <%= comment.commentable.name %></span>
+                    <span>Post Title: <%= comment.post.title %></span>
+                    <span>Date: <%= default_time(comment.created_at) %></span>
+                  </div>
+                  <div class="collapsible-body">
+                    <p><%= comment.text %></p>
+                    <div class="admin-comment-manage flex-around">
+                      <%= link_to 'View User Profile', edit_polymorphic_path([:administration, comment.commentable]) %> |
+                      <%= link_to 'View Post', polymorphic_path([comment.commentable, comment.post]) %> |
+                      <%= render 'administration/comments/comment_controls', comment: comment %>
+                    </div>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+            <%= paginate @comments %>
+          <% else %>
+            <p>No comments found!</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $(document).on('change', '.flag-comment', function(ev) {
+        $(this).submit();
+      });
+
+    });
+  </script>
+<% end %>

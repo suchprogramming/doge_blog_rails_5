@@ -22,9 +22,24 @@
           </div>
         </div>
       <% end %>
+      <% if current_admin && policy([:administration, @post]).update? %>
+        <%= render 'administration/posts/post_controls' %>
+      <% end %>
     </div>
   </div>
 </div>
 
 <%= render 'comments/comment_section', post: @post %>
 <%= render 'comments/delete_comment_modal' %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $(document).on('change', '.administrate-posts', function(ev) {
+        $(this).submit();
+      });
+
+    });
+  </script>
+<% end %>

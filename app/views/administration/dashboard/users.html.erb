@@ -1,0 +1,34 @@
+<div class="card-panel content-top-spacer">
+  <div class="row no-bottom-margin">
+    <div class="col s12 m3">
+      <%= render 'admin_menu' %>
+    </div>
+    <div class="col s12 m9">
+      <div class="admin-content-wrapper">
+        <h4 class="center">Users</h4>
+        <%= render 'search', search_type: 'user_search', path: administration_dashboard_users_path %>
+        <div id='admin-users-wrapper'>
+          <table class="highlight centered bordered">
+            <thead>
+              <tr>
+                <% build_header(user_table_header) %>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @users.any? %>
+                <% @users.each do |user| %>
+                  <tr class="admin-table-row" id=<%= edit_administration_user_path(user) %>>
+                    <% build_row(user, user_table_attrs) %>
+                  </tr>
+                <% end %>
+              <% else %>
+                <%= render 'shared/table_no_records' %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <%= paginate @users %>
+      </div>
+    </div>
+  </div>
+</div>

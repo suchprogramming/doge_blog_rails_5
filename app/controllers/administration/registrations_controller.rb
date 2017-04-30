@@ -9,7 +9,7 @@ class Administration::RegistrationsController < ApplicationController
     @admin = Admin.new(admin_params)
     if @admin.save(context: :new_invitation)
       sign_in(@admin)
-      redirect_to administration_dashboard_path, success: 'Welcome to the team!'
+      redirect_to administration_dashboard_posts_path, success: 'Welcome to the team!'
     else
       render :new
     end
@@ -24,5 +24,4 @@ class Administration::RegistrationsController < ApplicationController
   def admin_params
     params.require(:admin).permit(:email, :name, :password, :password_confirmation, :token)
   end
-
 end

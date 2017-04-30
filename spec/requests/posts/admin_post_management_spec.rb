@@ -49,7 +49,10 @@ RSpec.describe 'Admin post managment', :type => :request do
 
       get user_post_path(user_post_owner, user_post)
 
-      expect(response.body).to include('This resource has been deactivated, sorry!')
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
     end
   end
 
@@ -114,22 +117,36 @@ RSpec.describe 'Admin post managment', :type => :request do
   end
 
   context 'on the POST #edit route' do
-    it 'allows an admin to access the edit route for any post' do
+    it 'allows an admin to access the edit route for their posts' do
       login_as current_admin, scope: :admin
 
-      get edit_user_post_path(user_post_owner, user_post)
+      get edit_admin_post_path(current_admin, current_admin_post)
 
       expect(response).to be_success
     end
 
-    it 'allows an admin to edit an inactive post' do
+    it 'prevents an admin from accessing the edit route of a post they do not own' do
+      login_as current_admin, scope: :admin
+
+      get edit_user_post_path(user_post_owner, user_post)
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
+    end
+
+    it 'prevents and admin from editing an inactive post they do not own' do
       login_as current_admin, scope: :admin
 
       user_post.update(active: false)
 
       get edit_user_post_path(user_post_owner, user_post)
 
-      expect(response).to be_success
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'prevents an inactive admin from editing posts' do
@@ -147,15 +164,26 @@ RSpec.describe 'Admin post managment', :type => :request do
   end
 
   context 'on the POST #update route' do
-    it 'allows an admin to update any post' do
+    it 'allows an admin to update their posts' do
+      login_as current_admin, scope: :admin
+
+      patch admin_post_path(current_admin, current_admin_post), params: post_params
+
+      expect(response).to redirect_to(admin_post_path(current_admin, current_admin_post))
+      follow_redirect!
+
+      expect(response.body).to include('Post successfully updated!')
+    end
+
+    it 'prevents an admin from updating a post they do not own' do
       login_as current_admin, scope: :admin
 
       patch user_post_path(user_post_owner, user_post), params: post_params
 
-      expect(response).to redirect_to(user_post_path(user_post_owner, user_post))
+      expect(response).to redirect_to(root_path)
       follow_redirect!
 
-      expect(response.body).to include('Post successfully updated!')
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'prevents an inactive admin from updating posts' do
@@ -173,7 +201,18 @@ RSpec.describe 'Admin post managment', :type => :request do
   end
 
   context 'on the POST #delete route' do
-    it 'allows an admin to delete any post' do
+    it 'allows an admin to delete their posts' do
+      login_as current_admin, scope: :admin
+
+      delete admin_post_path(current_admin, current_admin_post)
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include('Post successfully deleted!')
+    end
+
+    it 'prevents an admin from deleting a post they do not own' do
       login_as current_admin, scope: :admin
 
       delete user_post_path(user_post_owner, user_post)
@@ -181,7 +220,7 @@ RSpec.describe 'Admin post managment', :type => :request do
       expect(response).to redirect_to(root_path)
       follow_redirect!
 
-      expect(response.body).to include('Post successfully deleted!')
+      expect(response.body).to include(default_pundit_error)
     end
 
     it 'prevents an inactive admin from deleting posts' do

@@ -1,0 +1,14 @@
+<%= form_for @invitation, url: administration_invitations_path, html: { class: 'col s12'} do |f| %>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :recipient_email, 'Recipient Address' %>
+      <%= f.text_field :recipient_email, class: field_class(@invitation, :recipient_email) %>
+      <p class="error-text"><%= show_errors(@invitation, :recipient_email) %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <%= render 'shared/submit_button', f: f %>
+    </div>
+  </div>
+<% end %>

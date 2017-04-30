@@ -1,8 +1,0 @@
-
-<% if params[:user_search] %>
-  $('#users').html('<%= escape_javascript(render("user_table")) %>');
-<% end %>
-
-<% if params[:post_search] %>
-  $('#posts').html('<%= escape_javascript(render("post_table")) %>');
-<% end %>

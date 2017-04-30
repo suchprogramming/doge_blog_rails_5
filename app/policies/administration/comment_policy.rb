@@ -7,7 +7,6 @@ class Administration::CommentPolicy
   end
 
   def update?
-    user.try(:admin?) && user.active?
+    @user.try(:admin?) && @user.active?
   end
-
 end

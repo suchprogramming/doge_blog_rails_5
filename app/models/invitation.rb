@@ -1,4 +1,6 @@
 class Invitation < ApplicationRecord
+  include Filterable
+
   has_secure_token
   belongs_to :admin
   validates :recipient_email, presence: true
@@ -16,6 +18,10 @@ class Invitation < ApplicationRecord
 
   def invite_link
     "administration/sign_up/#{token}"
+  end
+
+  def self.invite_search(term)
+    term ? where('recipient_email ILIKE ?', "%#{term}%") : all
   end
 
   private

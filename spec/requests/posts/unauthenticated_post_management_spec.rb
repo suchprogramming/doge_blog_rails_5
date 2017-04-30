@@ -29,13 +29,13 @@ RSpec.describe 'Unauthenticated post management', :type => :request do
       expect(response.body).to include(user_post.title)
     end
 
-    it 'renders the deactivated resource partial for inactive posts' do
-      user_post.update(active: false)
-
-      get user_post_path(user, user_post)
-
-      expect(response.body).to include('This resource has been deactivated, sorry!')
-    end
+    # it 'renders the deactivated resource partial for inactive posts' do
+    #   user_post.update(active: false)
+    #
+    #   get user_post_path(user, user_post)
+    #
+    #   expect(response.body).to include('This resource has been deactivated, sorry!')
+    # end
   end
 
   context 'on the POST #new route' do

@@ -1,4 +1,6 @@
 class Comment < ApplicationRecord
+  include Filterable
+
   belongs_to :commentable, polymorphic: true
   belongs_to :post
 
@@ -12,5 +14,9 @@ class Comment < ApplicationRecord
 
   def page_num
     (self.class.where("id <= ?", read_attribute(:id)).order("id asc").count.to_f / 25).ceil
+  end
+
+  def self.comment_search(term)
+    term ? where('text ILIKE ?', "%#{term}%") : all
   end
 end

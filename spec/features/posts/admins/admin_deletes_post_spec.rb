@@ -2,17 +2,16 @@ require 'rails_helper'
 
 RSpec.feature 'Admin deletes a post' do
 
-  let(:post) { create(:current_user_post) }
-  let(:admin) { create(:admin) }
+  let(:post) { create(:current_admin_post) }
 
-  def user
+  def admin
     post.postable
   end
 
   scenario 'with success' do
     login_as admin, scope: :admin
 
-    visit user_post_path(user, post)
+    visit admin_post_path(admin, post)
 
     find('a', text: 'Delete', class: 'modal-trigger').click
     find('a', text: 'Delete Post').click
