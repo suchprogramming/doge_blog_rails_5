@@ -53,4 +53,9 @@ Rails.application.routes.draw do
 
   # Voting
   resource :votes, only: [:create]
+
+  # Messaging routes
+  resources :conversations, only: [:index, :show, :create] do
+    resources :messages, only: [:new, :create]
+  end
 end

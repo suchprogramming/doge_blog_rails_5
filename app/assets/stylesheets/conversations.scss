@@ -1,0 +1,53 @@
+// Conversations index
+
+.inbox-header {
+
+  h3 {
+    margin: 0px 0px 40px 0px;
+    background: #f2f2f2;
+    padding: 10px;
+  }
+
+}
+
+.conversations-wrapper {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.conversations-item {
+  border-top: 1px solid #e0e0e0;
+  padding: .5rem;
+  background: #fff;
+
+  &:hover {
+    background: #f0f0f0;
+  }
+
+}
+
+.conversations-avatar {
+
+  img {
+    max-height: 60px;
+  }
+
+}
+
+.conversations-name {
+
+  h5 {
+    margin: 0;
+  }
+
+}
+
+.conversations-text {
+
+  p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+
+}

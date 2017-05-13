@@ -8,5 +8,7 @@
     <% if current_admin && policy([:administration, @user]).edit? %>
       <%= link_to "Edit Profile", edit_administration_user_path(@user) %>
     <% end %>
+    
+    <%= new_message_link(current_any_scope, @user) %>
   </div>
 </div>

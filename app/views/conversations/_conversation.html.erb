@@ -1,0 +1,19 @@
+<%= link_to conversation_path(conversation), id: "conv-index-#{conversation.id}" do %>
+  <div class="conversations-item">
+    <div class="row no-bottom-margin flex-valign">
+      <div class="col s3 m2">
+        <div class="conversations-avatar flex-valign-center">
+          <%= contextual_avatar(current_any_scope, conversation) %>
+        </div>
+      </div>
+      <div class="col s9 m10">
+        <div class="conversations-name">
+          <h5 class="title"><%= contextual_name(current_any_scope, conversation) %></h5>
+        </div>
+        <div class="conversations-text">
+          <p><%= conversation.messages.last.text %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
