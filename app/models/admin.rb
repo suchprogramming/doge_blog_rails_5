@@ -3,11 +3,13 @@ class Admin < ApplicationRecord
   include PolymorphicResourceHelper
   attr_accessor :token
 
+  has_many :conversations, as: :sendable
+  has_many :conversations, as: :receivable
   has_many :comments, as: :commentable
   has_many :invitations
+  has_many :messages, as: :messageable
   has_many :posts, as: :postable
-  has_attached_file :avatar,
-                    styles: { medium: "300x300>", thumb: "100x100>" },
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" },
                     default_url: "default-avatar_:style.png"
 
   validates_attachment_content_type :avatar, content_type: /\Aimage/
@@ -48,5 +50,4 @@ class Admin < ApplicationRecord
   def invalid_invite
     errors.add(:invite, 'Invalid invitation credentials')
   end
-
 end

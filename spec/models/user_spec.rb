@@ -8,8 +8,11 @@ RSpec.describe User, type: :model do
     .allowing('image/png', 'image/gif')
     .rejecting('text/plain', 'text/xml') }
 
-  it { should have_many(:votes) }
+  it { should have_many(:conversations) }
   it { should have_many(:comments) }
+  it { should have_many(:messages) }
+  it { should have_many(:posts) }
+  it { should have_many(:votes) }
 
   let(:post) { create(:current_user_post) }
 

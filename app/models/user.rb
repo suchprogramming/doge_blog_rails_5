@@ -2,11 +2,13 @@ class User < ApplicationRecord
   include Filterable
   include PolymorphicResourceHelper
 
+  has_many :conversations, as: :sendable
+  has_many :conversations, as: :receivable
+  has_many :comments, as: :commentable
+  has_many :messages, as: :messageable
   has_many :posts, as: :postable
   has_many :votes
-  has_many :comments, as: :commentable
-  has_attached_file :avatar,
-                    styles: { medium: "300x300>", thumb: "100x100>" },
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" },
                     default_url: "default-avatar_:style.png"
 
   validates_attachment_content_type :avatar, content_type: /\Aimage/

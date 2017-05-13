@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170226065648) do
+ActiveRecord::Schema.define(version: 20170503051845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,17 @@ ActiveRecord::Schema.define(version: 20170226065648) do
     t.index ["post_id"], name: "index_comments_on_post_id", using: :btree
   end
 
+  create_table "conversations", force: :cascade do |t|
+    t.string   "sendable_type"
+    t.integer  "sendable_id"
+    t.string   "receivable_type"
+    t.integer  "receivable_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["receivable_type", "receivable_id"], name: "index_conversations_on_receivable_type_and_receivable_id", using: :btree
+    t.index ["sendable_type", "sendable_id"], name: "index_conversations_on_sendable_type_and_sendable_id", using: :btree
+  end
+
   create_table "invitations", force: :cascade do |t|
     t.string   "token"
     t.string   "recipient_email"
@@ -61,6 +72,19 @@ ActiveRecord::Schema.define(version: 20170226065648) do
     t.datetime "updated_at",      null: false
     t.datetime "expires_at"
     t.index ["admin_id"], name: "index_invitations_on_admin_id", using: :btree
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "messageable_type"
+    t.integer  "messageable_id"
+    t.integer  "conversation_id"
+    t.string   "text"
+    t.boolean  "new",              default: true
+    t.boolean  "hidden",           default: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+    t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable_type_and_messageable_id", using: :btree
   end
 
   create_table "posts", force: :cascade do |t|
@@ -114,5 +138,6 @@ ActiveRecord::Schema.define(version: 20170226065648) do
   end
 
   add_foreign_key "comments", "posts"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "votes", "users"
 end
