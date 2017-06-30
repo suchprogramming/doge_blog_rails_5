@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503051845) do
+ActiveRecord::Schema.define(version: 20170622214219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +57,12 @@ ActiveRecord::Schema.define(version: 20170503051845) do
     t.integer  "sendable_id"
     t.string   "receivable_type"
     t.integer  "receivable_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "sendable_offset",   default: 0
+    t.integer  "receivable_offset", default: 0
+    t.boolean  "sendable_active",   default: true
+    t.boolean  "receivable_active", default: true
     t.index ["receivable_type", "receivable_id"], name: "index_conversations_on_receivable_type_and_receivable_id", using: :btree
     t.index ["sendable_type", "sendable_id"], name: "index_conversations_on_sendable_type_and_sendable_id", using: :btree
   end

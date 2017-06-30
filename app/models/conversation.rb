@@ -6,10 +6,16 @@ class Conversation < ApplicationRecord
   validates_uniqueness_of :sendable_id, scope: :receivable_id
 
   scope :my_conversations, -> (current_any_scope) {
-    where(sendable: current_any_scope).or(where(receivable: current_any_scope))
+    where(sendable: current_any_scope, sendable_active: true)
+    .or(where(receivable: current_any_scope, receivable_active: true))
   }
 
   scope :between, -> (sendable, receivable) {
-    where(sendable: sendable, receivable: receivable).or(where(sendable: receivable, receivable: sendable))
+    where(sendable: sendable, receivable: receivable)
+    .or(where(sendable: receivable, receivable: sendable))
   }
+
+  def message_offset
+    messages.count
+  end
 end

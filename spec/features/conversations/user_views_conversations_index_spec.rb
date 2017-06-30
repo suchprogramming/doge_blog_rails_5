@@ -4,16 +4,16 @@ RSpec.feature 'User views their conversation index' do
 
   let(:conversation) { create(:conversation) }
 
-  def first_user
+  def sender
     conversation.sendable
   end
 
-  def second_user
+  def recipient
     conversation.receivable
   end
 
   scenario 'with no messages' do
-    login_as first_user, scope: :user
+    login_as sender, scope: :user
 
     Conversation.destroy_all
 
@@ -22,39 +22,19 @@ RSpec.feature 'User views their conversation index' do
     expect(page).to have_text('No messages found!')
   end
 
-  scenario 'with success from the the first user perspective' do
-    login_as first_user, scope: :user
+  scenario 'from the the sender perspective' do
+    login_as sender, scope: :user
 
     visit conversations_path
 
-    expect(page).to have_text(second_user.name)
+    expect(page).to have_text(recipient.name)
   end
 
-  scenario 'with success from the second user perspective' do
-    login_as second_user, scope: :user
+  scenario 'from the recipient perspective' do
+    login_as recipient, scope: :user
 
     visit conversations_path
 
-    expect(page).to have_text(first_user.name)
-  end
-
-  scenario 'and clicks to view a specific conversation with success from the first user perspective' do
-    login_as first_user, scope: :user
-
-    visit conversations_path
-
-    find('a', id: "conv-index-#{conversation.id}").click
-
-    expect(page).to have_text("Conversation with #{second_user.name}")
-  end
-
-  scenario 'and clicks to view a specific conversation with success from the second user perspective' do
-    login_as second_user, scope: :user
-
-    visit conversations_path
-
-    find('a', id: "conv-index-#{conversation.id}").click
-
-    expect(page).to have_text("Conversation with #{first_user.name}")
+    expect(page).to have_text(sender.name)
   end
 end

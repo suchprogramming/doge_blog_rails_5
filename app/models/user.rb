@@ -2,6 +2,8 @@ class User < ApplicationRecord
   include Filterable
   include PolymorphicResourceHelper
 
+  attr_accessor :conversation_context
+
   has_many :conversations, as: :sendable
   has_many :conversations, as: :receivable
   has_many :comments, as: :commentable

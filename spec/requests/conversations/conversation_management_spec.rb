@@ -22,6 +22,15 @@ RSpec.describe 'Conversation management', :type => :request do
     }
   end
 
+  def deactivate_params
+    {
+      conversation: {
+        sendable_active: false,
+        sendable_offset: conversation.message_offset
+      }
+    }
+  end
+
   context 'on the CONVERSATION #index route' do
     it 'allows a user to visit their message inbox as a sender' do
       login_as sender, scope: :user
@@ -78,7 +87,9 @@ RSpec.describe 'Conversation management', :type => :request do
 
   context 'on the CONVERSATION #create route' do
     it 'allows a user to create a new conversation' do
-      login_as user, scope: :user
+      login_as sender, scope: :user
+
+      Conversation.destroy_all
 
       post conversations_path, params: conversation_params
       follow_redirect!
@@ -99,6 +110,37 @@ RSpec.describe 'Conversation management', :type => :request do
 
     it 'redirects unauthenticated requests' do
       post conversations_path, params: conversation_params
+
+      expect(response).to redirect_to(new_user_session_path)
+    end
+  end
+
+  context 'on the CONVERSATION #update route' do
+    it 'allows a user to delete(deactivate) a conversation' do
+      login_as sender, scope: :user
+
+      patch conversation_path(conversation), params: deactivate_params
+
+      expect(response).to redirect_to(conversations_path)
+      follow_redirect!
+
+      expect(response.body).to include('Inbox')
+      expect(response.body).not_to include("#{conversation.receivable.name}")
+    end
+
+    it 'prevents a receiver from deleting(deactivating) an sender conversation' do
+      login_as recipient, scope: :user
+
+      patch conversation_path(conversation), params: deactivate_params
+
+      expect(response).to redirect_to(root_path)
+      follow_redirect!
+
+      expect(response.body).to include(default_pundit_error)
+    end
+
+    it 'redirects unauthenticated requests' do
+      patch conversation_path(conversation), params: conversation_params
 
       expect(response).to redirect_to(new_user_session_path)
     end

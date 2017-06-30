@@ -44,10 +44,11 @@
 .conversations-text {
 
   p {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     margin: 0;
   }
 
+}
+
+.conversations-manage {
+  text-align: right;
 }
